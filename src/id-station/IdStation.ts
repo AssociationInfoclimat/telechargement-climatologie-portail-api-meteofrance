@@ -13,6 +13,9 @@ export class IdStation {
         this.id = id;
     }
 
+    /**
+     * @param id "DDCCCNNN" nomenclature : 8 chiffres selon DDCCCNNN = insee de la commune (DD département, CCC n° de la commune dans le département et NNN n° de la station dans la commune
+     */
     static of(id: string): IdStation {
         if (id.length !== 8) {
             throw new InvalidIdStationError(id);
