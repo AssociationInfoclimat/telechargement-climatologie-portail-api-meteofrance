@@ -16,6 +16,7 @@
         "format": "prettier --write .",
         "test:unit": "vitest --project unit",
         "test:integration": "vitest --project integration",
+        "test:ci": "vitest --run",
         "coverage": "vitest run --coverage",
         "migrate": "prisma migrate dev",
         "prepare": "husky"
