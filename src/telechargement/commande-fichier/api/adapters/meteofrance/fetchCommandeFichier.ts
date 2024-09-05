@@ -1,24 +1,17 @@
-import { get } from '@/api/api-call.js';
 import { APIResponse, TooManyRetriesError, UnexpectedResponseError } from '@/api/APIResponse.js';
+import { getMF } from '@/api/meteofrance/meteofrance-api-call.js';
 import { TokenStorage } from '@/api/meteofrance/token/TokenStorage.js';
 import { wait } from '@/lib/wait.js';
 import { CommandeData, CommandeResult } from '@/telechargement/commande-fichier/api/CommandeResult.js';
 import { z } from 'zod';
 
-export function fetchCommandeFichier<T extends CommandeData>({
-    idCommande,
-    token,
-}: {
-    idCommande: string;
-    token: string;
-}): Promise<APIResponse<CommandeResult<T>>> {
-    return get({
+export function fetchCommandeFichier<T extends CommandeData>(
+    idCommande: string
+): Promise<APIResponse<CommandeResult<T>>> {
+    return getMF({
         url: `https://public-api.meteofrance.fr/public/DPClim/v1/commande/fichier`,
         params: {
             'id-cmde': idCommande,
-        },
-        headers: {
-            Authorization: `Bearer ${token}`,
         },
     });
 }
@@ -40,15 +33,12 @@ export class CommandeFichierFetcher {
         idCommande: string,
         { retries = 3 }: { retries?: number } = {}
     ): Promise<CommandeResult<T>> {
-        const tokenStorage = TokenStorage.getSingleton();
-        const response = await fetchCommandeFichier({
-            idCommande,
-            token: await tokenStorage.getToken(),
-        });
+        const response = await fetchCommandeFichier(idCommande);
 
         if (response.code === 401) {
+            const tokenStorage = TokenStorage.getSingleton();
             await tokenStorage.updateToken();
-            return await this.fetchCommandeFichier(idCommande, { retries: retries - 1 });
+            return await this.fetchCommandeFichier(idCommande, { retries });
         }
 
         if (response.code === 502) {
