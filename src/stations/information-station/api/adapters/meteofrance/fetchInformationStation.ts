@@ -1,25 +1,16 @@
-import { get } from '@/api/api-call.js';
 import { APIResponse, TooManyRetriesError, UnexpectedResponseError } from '@/api/APIResponse.js';
+import { getMF } from '@/api/meteofrance/meteofrance-api-call.js';
 import { TokenStorage } from '@/api/meteofrance/token/TokenStorage.js';
 import { IdStation } from '@/id-station/IdStation.js';
 import { wait } from '@/lib/wait.js';
 import { InformationStationData } from '@/stations/information-station/api/InformationStationData.js';
 import { z } from 'zod';
 
-export function fetchInformationStation({
-    idStation,
-    token,
-}: {
-    idStation: IdStation;
-    token: string;
-}): Promise<APIResponse<InformationStationData>> {
-    return get({
+export function fetchInformationStation(idStation: IdStation): Promise<APIResponse<InformationStationData>> {
+    return getMF({
         url: `https://public-api.meteofrance.fr/public/DPClim/v1/information-station`,
         params: {
             'id-station': idStation.value(),
-        },
-        headers: {
-            Authorization: `Bearer ${token}`,
         },
     });
 }
@@ -29,17 +20,14 @@ export class InformationStationFetcher {
         idStation: IdStation,
         { retries = 3 }: { retries?: number } = {}
     ): Promise<InformationStationData> {
-        const tokenStorage = TokenStorage.getSingleton();
-        const response = await fetchInformationStation({
-            idStation,
-            token: await tokenStorage.getToken(),
-        });
+        const response = await fetchInformationStation(idStation);
         if (response.code !== 200 && retries === 0) {
             throw new TooManyRetriesError(response);
         }
         if (response.code === 401) {
+            const tokenStorage = TokenStorage.getSingleton();
             await tokenStorage.updateToken();
-            return await this.fetchInformationStation(idStation, { retries: retries - 1 });
+            return await this.fetchInformationStation(idStation, { retries });
         }
         if ([500, 502].includes(response.code)) {
             await wait(5 * 1000);
