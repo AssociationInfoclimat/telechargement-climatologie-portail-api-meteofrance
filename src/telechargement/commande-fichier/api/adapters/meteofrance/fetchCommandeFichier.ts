@@ -1,6 +1,5 @@
 import { APIResponse, TooManyRetriesError, UnexpectedResponseError } from '@/api/APIResponse.js';
 import { getMF } from '@/api/meteofrance/meteofrance-api-call.js';
-import { TokenStorage } from '@/api/meteofrance/token/TokenStorage.js';
 import { wait } from '@/lib/wait.js';
 import { CommandeData, CommandeResult } from '@/telechargement/commande-fichier/api/CommandeResult.js';
 import { z } from 'zod';
@@ -35,12 +34,6 @@ export class CommandeFichierFetcher {
     ): Promise<CommandeResult<T>> {
         const response = await fetchCommandeFichier(idCommande);
 
-        if (response.code === 401) {
-            const tokenStorage = TokenStorage.getSingleton();
-            await tokenStorage.updateToken();
-            return await this.fetchCommandeFichier(idCommande, { retries });
-        }
-
         if (response.code === 502) {
             if (retries === 0) {
                 throw new TooManyRetriesError(response);
@@ -48,28 +41,23 @@ export class CommandeFichierFetcher {
             await wait(5 * 1000);
             return await this.fetchCommandeFichier(idCommande, { retries: retries - 1 });
         }
-
         if (response.code === 404) {
             throw new NonExistentCommandeError(idCommande);
         }
-
         if (response.code === 410) {
             throw new AlreadyDownloadedError(idCommande);
         }
-
         if (response.code === 500) {
             return {
                 type: 'failed',
                 message: `${response.message} :\n${JSON.stringify(response.data)}`,
             };
         }
-
         if (response.code === 507) {
             return {
                 type: 'too-big',
             };
         }
-
         if (response.code === 204) {
             return {
                 type: 'pending',

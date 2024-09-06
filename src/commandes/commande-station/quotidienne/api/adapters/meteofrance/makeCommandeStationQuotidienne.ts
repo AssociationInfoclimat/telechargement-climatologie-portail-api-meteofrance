@@ -1,6 +1,5 @@
 import { APIResponse, TooManyRetriesError, UnexpectedResponseError } from '@/api/APIResponse.js';
 import { getMF } from '@/api/meteofrance/meteofrance-api-call.js';
-import { TokenStorage } from '@/api/meteofrance/token/TokenStorage.js';
 import { CommandeStationData } from '@/commandes/commande-station/api/CommandeStationData.js';
 import { PeriodeCommande } from '@/commandes/commande-station/periode-commande/PeriodeCommande.js';
 import { IdStation } from '@/id-station/IdStation.js';
@@ -43,11 +42,6 @@ export class CommandeStationQuotidienneMaker {
         });
         if (response.code !== 202 && retries === 0) {
             throw new TooManyRetriesError(response);
-        }
-        if (response.code === 401) {
-            const tokenStorage = TokenStorage.getSingleton();
-            await tokenStorage.updateToken();
-            return await this.makeCommandeStationQuotidienne({ idStation, periodeCommande }, { retries: retries });
         }
         if ([500, 502].includes(response.code)) {
             await wait(5 * 1000);

@@ -1,6 +1,5 @@
 import { APIResponse, TooManyRetriesError, UnexpectedResponseError } from '@/api/APIResponse.js';
 import { getMF } from '@/api/meteofrance/meteofrance-api-call.js';
-import { TokenStorage } from '@/api/meteofrance/token/TokenStorage.js';
 import { wait } from '@/lib/wait.js';
 import { ListeStationsData } from '@/stations/liste-stations/api/ListeStationsData.js';
 import { Departement } from '@/stations/liste-stations/departements/Departement.js';
@@ -23,11 +22,6 @@ export class ListeStationsHoraireFetcher {
         const response = await fetchListeStationsHoraire(departement);
         if (response.code !== 200 && retries === 0) {
             throw new TooManyRetriesError(response);
-        }
-        if (response.code === 401) {
-            const tokenStorage = TokenStorage.getSingleton();
-            await tokenStorage.updateToken();
-            return await this.fetchListeStationsHoraire(departement, { retries });
         }
         if ([500, 502].includes(response.code)) {
             await wait(5 * 1000);
