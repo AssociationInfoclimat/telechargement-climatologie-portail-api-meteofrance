@@ -1,10 +1,11 @@
+import { ListeStationsFetcher } from '@/stations/liste-stations/api/ListeStationsFetcher.js';
 import { Departement } from '@/stations/liste-stations/departements/Departement.js';
-import { ListeStationsHoraireFetcher } from '@/stations/liste-stations/horaire/api/adapters/meteofrance/fetchListeStationsHoraire.js';
+import { fetchListeStationsHoraire } from '@/stations/liste-stations/horaire/api/adapters/meteofrance/fetchListeStationsHoraire.js';
 import { describe, expect, it } from 'vitest';
 
 describe('ListeStationsHoraireFetcher', () => {
     it('should fetch the list of stations with horaire data', async () => {
-        const fetcher = new ListeStationsHoraireFetcher();
+        const fetcher = new ListeStationsFetcher({ listeStationsAPIFetcher: fetchListeStationsHoraire });
         const list = await fetcher.fetchListeStations(Departement.of(76));
         expect(Array.isArray(list)).toBeTruthy();
         expect(list.length).toBeGreaterThan(0);

@@ -1,10 +1,11 @@
+import { ListeStationsFetcher } from '@/stations/liste-stations/api/ListeStationsFetcher.js';
 import { Departement } from '@/stations/liste-stations/departements/Departement.js';
-import { ListeStationsQuotidienneFetcher } from '@/stations/liste-stations/quotidienne/api/adapters/meteofrance/fetchListeStationsQuotidienne.js';
+import { fetchListeStationsQuotidienne } from '@/stations/liste-stations/quotidienne/api/adapters/meteofrance/fetchListeStationsQuotidienne.js';
 import { describe, expect, it } from 'vitest';
 
 describe('ListeStationsQuotidienneFetcher', () => {
     it('should fetch the list of stations with quotidienne data', async () => {
-        const fetcher = new ListeStationsQuotidienneFetcher();
+        const fetcher = new ListeStationsFetcher({ listeStationsAPIFetcher: fetchListeStationsQuotidienne });
         const list = await fetcher.fetchListeStations(Departement.of(76));
         expect(Array.isArray(list)).toBeTruthy();
         expect(list.length).toBeGreaterThan(0);

@@ -9,7 +9,7 @@ export class ListeStationsFetcher {
     private readonly callListeStationsAPI: ListeStationsAPIFetcher;
     private retries: number;
 
-    protected constructor({
+    constructor({
         listeStationsAPIFetcher,
         retries = 3,
     }: {
