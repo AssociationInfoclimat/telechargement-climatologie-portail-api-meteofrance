@@ -13,28 +13,72 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-model Post {
-    id        Int      @id @default(autoincrement())
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-    title     String   @db.VarChar(255)
-    content   String?
-    published Boolean  @default(false)
-    author    User     @relation(fields: [authorId], references: [id])
-    authorId  Int
+model Station {
+    createdAt          DateTime            @default(now())
+    updatedAt          DateTime            @updatedAt
+    id                 String              @id @db.Char(8)
+    nom                String
+    departement        Int
+    frequence          String              @db.VarChar(15)
+    posteOuvert        Boolean
+    typePoste          Int
+    lon                Float
+    lat                Float
+    alt                Float
+    postePublic        Boolean
+    InformationStation InformationStation?
 }
 
-model Profile {
-    id     Int     @id @default(autoincrement())
-    bio    String?
-    user   User    @relation(fields: [userId], references: [id])
-    userId Int     @unique
+model InformationStation {
+    createdAt   DateTime     @default(now())
+    updatedAt   DateTime     @updatedAt
+    id          String       @id @db.Char(8)
+    nom         String
+    lieuDit     String
+    bassin      String
+    dateDebut   DateTime
+    dateFin     DateTime?
+    typesPoste  TypePoste[]
+    parametres  Parametre[]
+    producteurs Producteur[]
+    positions   Position[]
+    station     Station      @relation(fields: [id], references: [id], onDelete: Cascade)
 }
 
-model User {
-    id      Int      @id @default(autoincrement())
-    email   String   @unique
-    name    String?
-    posts   Post[]
-    profile Profile?
+model TypePoste {
+    id        Int                @id @default(autoincrement())
+    type      Int
+    dateDebut DateTime
+    dateFin   DateTime?
+    stationId String             @db.Char(8)
+    station   InformationStation @relation(fields: [stationId], references: [id], onDelete: Cascade)
+}
+
+model Parametre {
+    id        Int                @id @default(autoincrement())
+    nom       String
+    dateDebut DateTime
+    dateFin   DateTime?
+    stationId String             @db.Char(8)
+    station   InformationStation @relation(fields: [stationId], references: [id], onDelete: Cascade)
+}
+
+model Producteur {
+    id        Int                @id @default(autoincrement())
+    nom       String
+    dateDebut DateTime
+    dateFin   DateTime?
+    stationId String             @db.Char(8)
+    station   InformationStation @relation(fields: [stationId], references: [id], onDelete: Cascade)
+}
+
+model Position {
+    id        Int                @id @default(autoincrement())
+    altitude  Float
+    latitude  Float
+    longitude Float
+    dateDebut DateTime
+    dateFin   DateTime?
+    stationId String             @db.Char(8)
+    station   InformationStation @relation(fields: [stationId], references: [id], onDelete: Cascade)
 }
