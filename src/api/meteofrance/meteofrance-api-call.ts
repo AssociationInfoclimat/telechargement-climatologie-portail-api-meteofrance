@@ -2,19 +2,28 @@ import { get } from '@/api/api-call.js';
 import { APIResponse } from '@/api/APIResponse.js';
 import { TokenStorage } from '@/api/meteofrance/token/TokenStorage.js';
 
-export async function getMF<T>({
-    url,
-    params,
-}: {
-    url: string;
-    params: Record<string, string>;
-}): Promise<APIResponse<T>> {
-    const token = await TokenStorage.getSingleton().getToken();
-    return get({
+export async function getMF<T>(
+    {
+        url,
+        params,
+    }: {
+        url: string;
+        params: Record<string, string>;
+    },
+    { retries = 3 }: { retries?: number } = {}
+): Promise<APIResponse<T>> {
+    const tokenStorage = TokenStorage.getSingleton();
+    const token = await tokenStorage.getToken();
+    const response = await get<T>({
         url,
         params,
         headers: {
             Authorization: `Bearer ${token}`,
         },
     });
+    if (response.code === 401 && retries > 0) {
+        await tokenStorage.updateToken();
+        return getMF({ url, params }, { retries: retries - 1 });
+    }
+    return response;
 }
