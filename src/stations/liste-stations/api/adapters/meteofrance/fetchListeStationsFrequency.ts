@@ -29,22 +29,28 @@ export const createFetchListeStationsFrequency =
 
 export class ListeStationsFrequencyFetcher {
     private readonly callListeStationsAPI: ListeStationsFetcher;
+    private retries: number;
 
-    protected constructor({ listeStationsFetcher }: { listeStationsFetcher: ListeStationsFetcher }) {
+    protected constructor({
+        listeStationsFetcher,
+        retries = 3,
+    }: {
+        listeStationsFetcher: ListeStationsFetcher;
+        retries?: number;
+    }) {
         this.callListeStationsAPI = listeStationsFetcher;
+        this.retries = retries;
     }
 
-    protected async fetchListeStationsFrequency(
-        departement: Departement,
-        { retries = 3 }: { retries?: number } = {}
-    ): Promise<ListeStationsData> {
+    protected async fetchListeStationsFrequency(departement: Departement): Promise<ListeStationsData> {
         const response = await this.callListeStationsAPI(departement);
-        if (response.code !== 200 && retries === 0) {
+        if (response.code !== 200 && this.retries === 0) {
             throw new TooManyRetriesError(response);
         }
         if ([500, 502].includes(response.code)) {
             await wait(5 * 1000);
-            return await this.fetchListeStationsFrequency(departement, { retries: retries - 1 });
+            this.retries--;
+            return await this.fetchListeStationsFrequency(departement);
         }
         if (response.code !== 200) {
             throw new UnexpectedResponseError(response);

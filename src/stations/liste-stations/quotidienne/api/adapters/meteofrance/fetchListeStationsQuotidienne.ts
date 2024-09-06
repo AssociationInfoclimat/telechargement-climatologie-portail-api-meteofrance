@@ -9,14 +9,11 @@ import { Departement } from '@/stations/liste-stations/departements/Departement.
 export const fetchListeStationsQuotidienne = createFetchListeStationsFrequency(DataFrequency.of('quotidienne'));
 
 export class ListeStationsQuotidienneFetcher extends ListeStationsFrequencyFetcher {
-    constructor() {
-        super({ listeStationsFetcher: fetchListeStationsQuotidienne });
+    constructor({ retries = 3 }: { retries?: number } = {}) {
+        super({ listeStationsFetcher: fetchListeStationsQuotidienne, retries });
     }
 
-    async fetchListeStationsQuotidienne(
-        departement: Departement,
-        { retries = 3 }: { retries?: number } = {}
-    ): Promise<ListeStationsData> {
-        return this.fetchListeStationsFrequency(departement, { retries });
+    async fetchListeStationsQuotidienne(departement: Departement): Promise<ListeStationsData> {
+        return this.fetchListeStationsFrequency(departement);
     }
 }
