@@ -15,10 +15,13 @@
         "lint:fix": "eslint --fix .",
         "format": "prettier --write .",
         "test:unit": "vitest --project unit",
-        "test:integration": "vitest --project integration",
-        "test:ci": "vitest --run",
-        "coverage": "vitest run --coverage",
-        "migrate": "prisma migrate dev",
+        "test:integration": "dotenv -e .env.dev -- vitest --project integration --no-file-parallelism",
+        "test:all": "dotenv -e .env.dev -- vitest --run",
+        "test:ci": "vitest --run --no-file-parallelism",
+        "coverage": "dotenv -e .env.dev -- vitest run --coverage",
+        "migrate:dev": "prisma migrate dev",
+        "migrate:tests": "dotenv -e .env.dev -- prisma migrate dev",
+        "deploy:tests": "dotenv -e .env.dev -- prisma migrate deploy",
         "prepare": "husky"
     },
     "lint-staged": {
@@ -26,7 +29,7 @@
         "*.{js,ts}": [
             "eslint --fix",
             "prettier --write --ignore-unknown",
-            "vitest related --run"
+            "vitest related --run --no-file-parallelism"
         ]
     },
     "dependencies": {
@@ -39,6 +42,7 @@
     "devDependencies": {
         "@eslint/js": "^9.9.1",
         "@types/node": "^22.5.1",
+        "dotenv-cli": "^7.4.2",
         "eslint": "^9.9.1",
         "eslint-config-prettier": "^9.1.0",
         "globals": "^15.9.0",
