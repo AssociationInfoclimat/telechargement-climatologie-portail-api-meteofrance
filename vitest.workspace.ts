@@ -7,6 +7,9 @@ export default defineWorkspace([
             name: 'unit',
             include: ['**/*.spec.ts'],
             exclude: ['**/*.integration.spec.ts'],
+            sequence: {
+                concurrent: true,
+            },
         },
     },
     {
