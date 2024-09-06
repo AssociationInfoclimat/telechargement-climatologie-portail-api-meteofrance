@@ -2,7 +2,7 @@ import { fetchToken } from '@/api/meteofrance/token/fetchToken.js';
 import { readFile, writeFile } from 'node:fs/promises';
 
 export class TokenStorage {
-    public static path: string = `${import.meta.dirname}/.token`;
+    static path: string = `${import.meta.dirname}/.token`;
     private static singleton: TokenStorage = new TokenStorage();
     private token: string;
     private currentUpdate: Promise<void> | null = null;
@@ -11,15 +11,15 @@ export class TokenStorage {
         this.token = token;
     }
 
-    public static getSingleton(): TokenStorage {
+    static getSingleton(): TokenStorage {
         return TokenStorage.singleton;
     }
 
-    public static setSingleton(tokenStorage: TokenStorage): void {
+    static setSingleton(tokenStorage: TokenStorage): void {
         TokenStorage.singleton = tokenStorage;
     }
 
-    public async getToken(): Promise<string> {
+    async getToken(): Promise<string> {
         if (!this.token) {
             this.token = await this.loadFromFile();
         }
@@ -29,7 +29,7 @@ export class TokenStorage {
         return this.token;
     }
 
-    public async updateToken(): Promise<void> {
+    async updateToken(): Promise<void> {
         if (!this.currentUpdate) {
             this.currentUpdate = this._updateToken();
         }
