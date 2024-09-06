@@ -10,19 +10,19 @@ export class Env {
         this.env = env;
     }
 
-    public static fromProcessEnv(): Env {
+    static fromProcessEnv(): Env {
         return new Env(process.env);
     }
 
-    public static getSingleton(): Env {
+    static getSingleton(): Env {
         return Env.singleton;
     }
 
-    public static setSingleton(env: Env): void {
+    static setSingleton(env: Env): void {
         Env.singleton = env;
     }
 
-    public getMeteoFranceApplicationId(): string {
+    getMeteoFranceApplicationId(): string {
         const applicationId = this.env.METEOFRANCE_APPLICATION_ID;
         if (!applicationId) {
             throw new Error('METEO_FRANCE_APPLICATION_ID is not defined');
