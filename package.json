@@ -17,7 +17,7 @@
         "test:unit": "vitest --project unit",
         "test:integration": "dotenv -e .env.dev -- vitest --project integration --no-file-parallelism",
         "test:all": "dotenv -e .env.dev -- vitest --run",
-        "test:ci": "vitest --run --no-file-parallelism",
+        "test:ci": "prisma migrate deploy && vitest --run --no-file-parallelism",
         "coverage": "dotenv -e .env.dev -- vitest run --coverage",
         "migrate:dev": "prisma migrate dev",
         "migrate:tests": "dotenv -e .env.dev -- prisma migrate dev",
