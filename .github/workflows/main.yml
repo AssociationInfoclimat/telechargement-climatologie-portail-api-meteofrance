@@ -5,9 +5,9 @@ name: Node.js CI
 
 on:
   push:
-    branches: [main]
+    branches: [ main ]
   pull_request:
-    branches: [main]
+    branches: [ main ]
 
 jobs:
   build:
@@ -15,40 +15,44 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [20.x, 22.x]
+        node-version: [ 20.x, 22.x ]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - name: Setup Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node-version }}
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
 
-    - name: Setup pnpm
-      uses: pnpm/action-setup@v4.0.0
-      with:
-        version: 9
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4.0.0
+        with:
+          version: 9
 
-    - name: Install dependencies with pnpm
-      run: pnpm install
+      - name: Install dependencies with pnpm
+        run: pnpm install
 
-    - name: Lint code with ESLint
-      run: pnpm lint:fix
+      - name: Lint code with ESLint
+        run: pnpm lint:fix
 
-    - name: Format code with Prettier
-      run: pnpm format
+      - name: Format code with Prettier
+        run: pnpm format
 
-    - name: Run tests with Vitest
-      env:
+      - name: Start integration tests database with Docker
+        run: docker compose -f ./db/compose.yaml up -d
+
+      - name: Run tests with Vitest
+        env:
+          DATABASE_URL: postgresql://prisma:password@localhost:5432/tests
           METEOFRANCE_APPLICATION_ID: ${{ secrets.METEOFRANCE_APPLICATION_ID }}
-      run: pnpm test:ci
+        run: pnpm test:ci
 
-    - name: Upload test results
-      if: failure()
-      uses: actions/upload-artifact@v4
-      with:
-        name: test-results
-        path: test-results
+      - name: Upload test results
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: test-results
