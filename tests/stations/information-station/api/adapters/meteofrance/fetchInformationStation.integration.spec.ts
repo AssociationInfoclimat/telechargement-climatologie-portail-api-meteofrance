@@ -1,6 +1,6 @@
 import { IdStation } from '@/id-station/IdStation.js';
 
-import { InformationStationFetcher } from '@/stations/information-station/api/informationStationFetcher.js';
+import { InformationStationFetcher } from '@/stations/information-station/api/InformationStationFetcher.js';
 import { describe, expect, it } from 'vitest';
 
 describe('InformationStationFetcher', () => {
