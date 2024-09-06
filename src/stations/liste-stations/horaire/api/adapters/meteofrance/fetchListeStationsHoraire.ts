@@ -14,7 +14,7 @@ export class ListeStationsHoraireFetcher extends ListeStationsFetcher {
         super({ listeStationsAPIFetcher: fetchListeStationsHoraire, retries });
     }
 
-    async fetchListeStationsHoraire(departement: Departement): Promise<ListeStationsData> {
-        return this.fetchListeStations(departement);
+    async fetchListeStations(departement: Departement): Promise<ListeStationsData> {
+        return super.fetchListeStations(departement);
     }
 }

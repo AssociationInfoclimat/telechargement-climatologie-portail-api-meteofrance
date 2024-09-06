@@ -14,7 +14,7 @@ export class ListeStationsQuotidienneFetcher extends ListeStationsFetcher {
         super({ listeStationsAPIFetcher: fetchListeStationsQuotidienne, retries });
     }
 
-    async fetchListeStationsQuotidienne(departement: Departement): Promise<ListeStationsData> {
-        return this.fetchListeStations(departement);
+    async fetchListeStations(departement: Departement): Promise<ListeStationsData> {
+        return super.fetchListeStations(departement);
     }
 }

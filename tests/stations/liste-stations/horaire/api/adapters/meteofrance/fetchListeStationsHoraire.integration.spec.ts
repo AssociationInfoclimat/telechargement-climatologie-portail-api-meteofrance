@@ -5,7 +5,7 @@ import { describe, expect, it } from 'vitest';
 describe('ListeStationsHoraireFetcher', () => {
     it('should fetch the list of stations with horaire data', async () => {
         const fetcher = new ListeStationsHoraireFetcher();
-        const list = await fetcher.fetchListeStationsHoraire(Departement.of(76));
+        const list = await fetcher.fetchListeStations(Departement.of(76));
         expect(Array.isArray(list)).toBeTruthy();
         expect(list.length).toBeGreaterThan(0);
         const station = list[0];
