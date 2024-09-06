@@ -1,18 +1,19 @@
-import { APIResponse, TooManyRetriesError, UnexpectedResponseError } from '@/api/APIResponse.js';
+import { TooManyRetriesError, UnexpectedResponseError } from '@/api/APIResponse.js';
 import { getMF } from '@/api/meteofrance/meteofrance-api-call.js';
 import { IdStation } from '@/id-station/IdStation.js';
 import { wait } from '@/lib/wait.js';
+import { InformationStationAPIFetcher } from '@/stations/information-station/api/InformationStationAPIFetcher.js';
 import { InformationStationData } from '@/stations/information-station/api/InformationStationData.js';
 import { z } from 'zod';
 
-export function fetchInformationStation(idStation: IdStation): Promise<APIResponse<InformationStationData>> {
+export const fetchInformationStation: InformationStationAPIFetcher = (idStation: IdStation) => {
     return getMF({
         url: `https://public-api.meteofrance.fr/public/DPClim/v1/information-station`,
         params: {
             'id-station': idStation.value(),
         },
     });
-}
+};
 
 export class InformationStationFetcher {
     async fetchInformationStation(
