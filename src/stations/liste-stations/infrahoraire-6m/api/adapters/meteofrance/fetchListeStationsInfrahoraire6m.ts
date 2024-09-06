@@ -1,47 +1,17 @@
-import { APIResponse, TooManyRetriesError, UnexpectedResponseError } from '@/api/APIResponse.js';
-import { getMF } from '@/api/meteofrance/meteofrance-api-call.js';
-import { wait } from '@/lib/wait.js';
+import { ListeStationsFrequencyFetcher } from '@/stations/liste-stations/api/adapters/meteofrance/fetchListeStationsFrequency.js';
 import { ListeStationsData } from '@/stations/liste-stations/api/ListeStationsData.js';
+import { DataFrequency } from '@/stations/liste-stations/DataFrequency.js';
 import { Departement } from '@/stations/liste-stations/departements/Departement.js';
-import { z } from 'zod';
 
-export function fetchListeStationsInfrahoraire6m(departement: Departement): Promise<APIResponse<ListeStationsData>> {
-    return getMF({
-        url: `https://public-api.meteofrance.fr/public/DPClim/v1/liste-stations/infrahoraire-6m`,
-        params: {
-            'id-departement': departement.value().toString(),
-        },
-    });
-}
+export class ListeStationsInfrahoraire6mFetcher extends ListeStationsFrequencyFetcher {
+    constructor() {
+        super(DataFrequency.of('infrahoraire-6m'));
+    }
 
-export class ListeStationsInfrahoraire6mFetcher {
     async fetchListeStationsInfrahoraire6m(
         departement: Departement,
         { retries = 3 }: { retries?: number } = {}
     ): Promise<ListeStationsData> {
-        const response = await fetchListeStationsInfrahoraire6m(departement);
-        if (response.code !== 200 && retries === 0) {
-            throw new TooManyRetriesError(response);
-        }
-        if ([500, 502].includes(response.code)) {
-            await wait(5 * 1000);
-            return await this.fetchListeStationsInfrahoraire6m(departement, { retries: retries - 1 });
-        }
-        if (response.code !== 200) {
-            throw new UnexpectedResponseError(response);
-        }
-        const listResponseSchema = z.array(
-            z.object({
-                id: z.string(),
-                nom: z.string(),
-                posteOuvert: z.boolean(),
-                typePoste: z.number(),
-                lon: z.number(),
-                lat: z.number(),
-                alt: z.number(),
-                postePublic: z.boolean(),
-            })
-        );
-        return listResponseSchema.parse(response.data);
+        return this.fetchListeStationsFrequency(departement, { retries });
     }
 }
