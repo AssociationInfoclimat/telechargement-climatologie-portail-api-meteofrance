@@ -20,7 +20,7 @@ export class ListeStationsFetcher {
         this.retries = retries;
     }
 
-    protected async fetchListeStations(departement: Departement): Promise<ListeStationsData> {
+    async fetchListeStations(departement: Departement): Promise<ListeStationsData> {
         const response = await this.callListeStationsAPI(departement);
         if (response.code !== 200 && this.retries === 0) {
             throw new TooManyRetriesError(response);
