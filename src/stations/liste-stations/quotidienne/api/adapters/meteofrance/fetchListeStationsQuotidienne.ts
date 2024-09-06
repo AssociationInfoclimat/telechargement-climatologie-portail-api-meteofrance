@@ -1,9 +1,7 @@
-import {
-    createFetchListeStationsFrequency,
-    ListeStationsFetcher,
-} from '@/stations/liste-stations/api/adapters/meteofrance/fetchListeStationsFrequency.js';
+import { createFetchListeStationsFrequency } from '@/stations/liste-stations/api/adapters/meteofrance/fetchListeStationsFrequency.js';
 import { ListeStationsAPIFetcher } from '@/stations/liste-stations/api/ListeStationsAPIFetcher.js';
 import { ListeStationsData } from '@/stations/liste-stations/api/ListeStationsData.js';
+import { ListeStationsFetcher } from '@/stations/liste-stations/api/ListeStationsFetcher.js';
 import { DataFrequency } from '@/stations/liste-stations/DataFrequency.js';
 import { Departement } from '@/stations/liste-stations/departements/Departement.js';
 
