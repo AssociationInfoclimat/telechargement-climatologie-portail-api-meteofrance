@@ -16,7 +16,14 @@ export class IdStation {
     /**
      * @param id "DDCCCNNN" nomenclature : 8 chiffres selon DDCCCNNN = insee de la commune (DD département, CCC n° de la commune dans le département et NNN n° de la station dans la commune
      */
-    static of(id: string): IdStation {
+    static of(id: string | number): IdStation {
+        if (typeof id === 'number') {
+            id = id.toString();
+            if (id.length !== 7 && id.length !== 8) {
+                throw new InvalidIdStationError(id);
+            }
+            id = id.padStart(8, '0');
+        }
         if (id.length !== 8) {
             throw new InvalidIdStationError(id);
         }
