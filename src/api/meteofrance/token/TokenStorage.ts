@@ -45,8 +45,10 @@ export class TokenStorage {
     private async loadFromFile(): Promise<string> {
         try {
             return await readFile(TokenStorage.path, { encoding: 'utf8' });
-        } catch (e) {
-            console.error(e);
+        } catch (e: unknown) {
+            if (e instanceof Error && 'code' in e && e.code !== 'ENOENT') {
+                throw e;
+            }
             return '';
         }
     }
