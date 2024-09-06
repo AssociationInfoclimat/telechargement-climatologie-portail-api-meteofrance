@@ -16,11 +16,19 @@ export const fetchInformationStation: InformationStationAPIFetcher = (idStation:
 };
 
 export class InformationStationFetcher {
+    private readonly callInformationStationAPI: InformationStationAPIFetcher;
+
+    constructor({
+        informationStationAPIFetcher = fetchInformationStation,
+    }: { informationStationAPIFetcher?: InformationStationAPIFetcher } = {}) {
+        this.callInformationStationAPI = informationStationAPIFetcher;
+    }
+
     async fetchInformationStation(
         idStation: IdStation,
         { retries = 3 }: { retries?: number } = {}
     ): Promise<InformationStationData> {
-        const response = await fetchInformationStation(idStation);
+        const response = await this.callInformationStationAPI(idStation);
         if (response.code !== 200 && retries === 0) {
             throw new TooManyRetriesError(response);
         }
