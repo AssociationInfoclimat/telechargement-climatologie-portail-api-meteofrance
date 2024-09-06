@@ -30,8 +30,8 @@ export const createFetchListeStationsFrequency =
 export class ListeStationsFrequencyFetcher {
     private readonly callListeStationsAPI: ListeStationsFetcher;
 
-    protected constructor(frequency: DataFrequency) {
-        this.callListeStationsAPI = createFetchListeStationsFrequency(frequency);
+    protected constructor({ listeStationsFetcher }: { listeStationsFetcher: ListeStationsFetcher }) {
+        this.callListeStationsAPI = listeStationsFetcher;
     }
 
     protected async fetchListeStationsFrequency(
