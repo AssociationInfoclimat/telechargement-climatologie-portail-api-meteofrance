@@ -20,7 +20,7 @@ export class ListeStationsFetcher {
         this.retries = retries;
     }
 
-    protected async fetchListeStationsFrequency(departement: Departement): Promise<ListeStationsData> {
+    protected async fetchListeStations(departement: Departement): Promise<ListeStationsData> {
         const response = await this.callListeStationsAPI(departement);
         if (response.code !== 200 && this.retries === 0) {
             throw new TooManyRetriesError(response);
@@ -28,7 +28,7 @@ export class ListeStationsFetcher {
         if ([500, 502].includes(response.code)) {
             await wait(5 * 1000);
             this.retries--;
-            return await this.fetchListeStationsFrequency(departement);
+            return await this.fetchListeStations(departement);
         }
         if (response.code !== 200) {
             throw new UnexpectedResponseError(response);

@@ -15,6 +15,6 @@ export class ListeStationsHoraireFetcher extends ListeStationsFetcher {
     }
 
     async fetchListeStationsHoraire(departement: Departement): Promise<ListeStationsData> {
-        return this.fetchListeStationsFrequency(departement);
+        return this.fetchListeStations(departement);
     }
 }

@@ -15,6 +15,6 @@ export class ListeStationsQuotidienneFetcher extends ListeStationsFetcher {
     }
 
     async fetchListeStationsQuotidienne(departement: Departement): Promise<ListeStationsData> {
-        return this.fetchListeStationsFrequency(departement);
+        return this.fetchListeStations(departement);
     }
 }
