@@ -17,24 +17,28 @@ export const fetchInformationStation: InformationStationAPIFetcher = (idStation:
 
 export class InformationStationFetcher {
     private readonly callInformationStationAPI: InformationStationAPIFetcher;
+    private retries: number;
 
     constructor({
         informationStationAPIFetcher = fetchInformationStation,
-    }: { informationStationAPIFetcher?: InformationStationAPIFetcher } = {}) {
+        retries = 3,
+    }: {
+        informationStationAPIFetcher?: InformationStationAPIFetcher;
+        retries?: number;
+    } = {}) {
         this.callInformationStationAPI = informationStationAPIFetcher;
+        this.retries = retries;
     }
 
-    async fetchInformationStation(
-        idStation: IdStation,
-        { retries = 3 }: { retries?: number } = {}
-    ): Promise<InformationStationData> {
+    async fetchInformationStation(idStation: IdStation): Promise<InformationStationData> {
         const response = await this.callInformationStationAPI(idStation);
-        if (response.code !== 200 && retries === 0) {
+        if (response.code !== 200 && this.retries === 0) {
             throw new TooManyRetriesError(response);
         }
         if ([500, 502].includes(response.code)) {
             await wait(5 * 1000);
-            return await this.fetchInformationStation(idStation, { retries: retries - 1 });
+            this.retries--;
+            return await this.fetchInformationStation(idStation);
         }
         if (response.code !== 200) {
             throw new UnexpectedResponseError(response);
