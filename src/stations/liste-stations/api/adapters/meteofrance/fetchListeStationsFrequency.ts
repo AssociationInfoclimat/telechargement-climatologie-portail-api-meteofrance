@@ -1,8 +1,8 @@
 import { APIResponse, TooManyRetriesError, UnexpectedResponseError } from '@/api/APIResponse.js';
 import { getMF } from '@/api/meteofrance/meteofrance-api-call.js';
 import { wait } from '@/lib/wait.js';
+import { ListeStationsAPIFetcher } from '@/stations/liste-stations/api/ListeStationsAPIFetcher.js';
 import { ListeStationsData } from '@/stations/liste-stations/api/ListeStationsData.js';
-import { ListeStationsFetcher } from '@/stations/liste-stations/api/ListeStationsFetcher.js';
 import { DataFrequency } from '@/stations/liste-stations/DataFrequency.js';
 import { Departement } from '@/stations/liste-stations/departements/Departement.js';
 import { z } from 'zod';
@@ -23,19 +23,19 @@ export function fetchListeStationsFrequency({
 }
 
 export const createFetchListeStationsFrequency =
-    (frequency: DataFrequency): ListeStationsFetcher =>
+    (frequency: DataFrequency): ListeStationsAPIFetcher =>
     (departement: Departement) =>
         fetchListeStationsFrequency({ frequency, departement });
 
 export class ListeStationsFrequencyFetcher {
-    private readonly callListeStationsAPI: ListeStationsFetcher;
+    private readonly callListeStationsAPI: ListeStationsAPIFetcher;
     private retries: number;
 
     protected constructor({
         listeStationsFetcher,
         retries = 3,
     }: {
-        listeStationsFetcher: ListeStationsFetcher;
+        listeStationsFetcher: ListeStationsAPIFetcher;
         retries?: number;
     }) {
         this.callListeStationsAPI = listeStationsFetcher;
