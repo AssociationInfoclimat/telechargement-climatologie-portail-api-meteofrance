@@ -27,18 +27,18 @@ export const createFetchListeStationsFrequency =
     (departement: Departement) =>
         fetchListeStationsFrequency({ frequency, departement });
 
-export class ListeStationsFrequencyFetcher {
+export class ListeStationsFetcher {
     private readonly callListeStationsAPI: ListeStationsAPIFetcher;
     private retries: number;
 
     protected constructor({
-        listeStationsFetcher,
+        listeStationsAPIFetcher,
         retries = 3,
     }: {
-        listeStationsFetcher: ListeStationsAPIFetcher;
+        listeStationsAPIFetcher: ListeStationsAPIFetcher;
         retries?: number;
     }) {
-        this.callListeStationsAPI = listeStationsFetcher;
+        this.callListeStationsAPI = listeStationsAPIFetcher;
         this.retries = retries;
     }
 

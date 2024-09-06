@@ -1,6 +1,6 @@
 import {
     createFetchListeStationsFrequency,
-    ListeStationsFrequencyFetcher,
+    ListeStationsFetcher,
 } from '@/stations/liste-stations/api/adapters/meteofrance/fetchListeStationsFrequency.js';
 import { ListeStationsAPIFetcher } from '@/stations/liste-stations/api/ListeStationsAPIFetcher.js';
 import { ListeStationsData } from '@/stations/liste-stations/api/ListeStationsData.js';
@@ -11,9 +11,9 @@ export const fetchListeStationsQuotidienne: ListeStationsAPIFetcher = createFetc
     DataFrequency.of('quotidienne')
 );
 
-export class ListeStationsQuotidienneFetcher extends ListeStationsFrequencyFetcher {
+export class ListeStationsQuotidienneFetcher extends ListeStationsFetcher {
     constructor({ retries = 3 }: { retries?: number } = {}) {
-        super({ listeStationsFetcher: fetchListeStationsQuotidienne, retries });
+        super({ listeStationsAPIFetcher: fetchListeStationsQuotidienne, retries });
     }
 
     async fetchListeStationsQuotidienne(departement: Departement): Promise<ListeStationsData> {
