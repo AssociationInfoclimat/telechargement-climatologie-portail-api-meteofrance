@@ -2,6 +2,7 @@ import { APIResponse, TooManyRetriesError, UnexpectedResponseError } from '@/api
 import { getMF } from '@/api/meteofrance/meteofrance-api-call.js';
 import { wait } from '@/lib/wait.js';
 import { ListeStationsData } from '@/stations/liste-stations/api/ListeStationsData.js';
+import { ListeStationsFetcher } from '@/stations/liste-stations/api/ListeStationsFetcher.js';
 import { DataFrequency } from '@/stations/liste-stations/DataFrequency.js';
 import { Departement } from '@/stations/liste-stations/departements/Departement.js';
 import { z } from 'zod';
@@ -21,18 +22,23 @@ export function fetchListeStationsFrequency({
     });
 }
 
+export const createFetchListeStationsFrequency =
+    (frequency: DataFrequency): ListeStationsFetcher =>
+    (departement: Departement) =>
+        fetchListeStationsFrequency({ frequency, departement });
+
 export class ListeStationsFrequencyFetcher {
-    protected readonly frequency: DataFrequency;
+    private readonly callListeStationsAPI: ListeStationsFetcher;
 
     protected constructor(frequency: DataFrequency) {
-        this.frequency = frequency;
+        this.callListeStationsAPI = createFetchListeStationsFrequency(frequency);
     }
 
     protected async fetchListeStationsFrequency(
         departement: Departement,
         { retries = 3 }: { retries?: number } = {}
     ): Promise<ListeStationsData> {
-        const response = await fetchListeStationsFrequency({ frequency: this.frequency, departement });
+        const response = await this.callListeStationsAPI(departement);
         if (response.code !== 200 && retries === 0) {
             throw new TooManyRetriesError(response);
         }
