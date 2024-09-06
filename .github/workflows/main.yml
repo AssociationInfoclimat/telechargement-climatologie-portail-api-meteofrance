@@ -18,6 +18,16 @@ jobs:
         node-version: [ 20.x, 22.x ]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
+    services:
+      timescaledb:
+        image: timescale/timescaledb:latest-pg16
+        ports:
+          - "5432:5432"
+        env:
+          POSTGRES_USER: prisma
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: tests
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -40,9 +50,6 @@ jobs:
 
       - name: Format code with Prettier
         run: pnpm format
-
-      - name: Start integration tests database with Docker
-        run: docker compose -f ./db/compose.yaml up -d
 
       - name: Run tests with Vitest
         env:
