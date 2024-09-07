@@ -20,7 +20,8 @@ export function fetchListeStationsFrequency({
     });
 }
 
-export const createFetchListeStationsFrequency =
-    (frequency: DataFrequency): ListeStationsAPIFetcher =>
-    (departement: Departement) =>
-        fetchListeStationsFrequency({ frequency, departement });
+export function createListeStationsAPIFetcher(frequency: DataFrequency): ListeStationsAPIFetcher {
+    return function (departement: Departement) {
+        return fetchListeStationsFrequency({ frequency, departement });
+    };
+}
