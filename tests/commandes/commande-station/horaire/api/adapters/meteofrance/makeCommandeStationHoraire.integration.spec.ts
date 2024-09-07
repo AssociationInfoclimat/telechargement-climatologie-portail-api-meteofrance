@@ -1,4 +1,4 @@
-import { CommandeStationMaker } from '@/commandes/commande-station/api/adapters/meteofrance/makeCommandeStationFrequency.js';
+import { CommandeStationMaker } from '@/commandes/commande-station/api/CommandeStationMaker.js';
 import { makeCommandeStationHoraire } from '@/commandes/commande-station/horaire/api/adapters/meteofrance/makeCommandeStationHoraire.js';
 import { PeriodeCommande } from '@/commandes/commande-station/periode-commande/PeriodeCommande.js';
 import { IdStation } from '@/id-station/IdStation.js';
