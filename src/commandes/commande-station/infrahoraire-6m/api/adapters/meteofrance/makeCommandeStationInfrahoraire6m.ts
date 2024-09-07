@@ -14,7 +14,7 @@ export const makeCommandeStationInfrahoraire6m: CommandeStationAPIMaker = create
 
 export class CommandeStationInfrahoraire6mMaker extends CommandeStationFrequencyMaker {
     constructor() {
-        super(DataFrequency.of('infrahoraire-6m'));
+        super({ commandeStationApiMaker: makeCommandeStationInfrahoraire6m });
     }
 
     makeCommandeStationInfrahoraire6m(

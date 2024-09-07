@@ -39,10 +39,10 @@ export function createCommandeStationAPIMaker(frequency: DataFrequency): Command
 }
 
 export class CommandeStationFrequencyMaker {
-    protected readonly frequency: DataFrequency;
+    private readonly callCommandeStationAPI: CommandeStationAPIMaker;
 
-    protected constructor(frequency: DataFrequency) {
-        this.frequency = frequency;
+    protected constructor({ commandeStationApiMaker }: { commandeStationApiMaker: CommandeStationAPIMaker }) {
+        this.callCommandeStationAPI = commandeStationApiMaker;
     }
 
     protected async makeCommandeStationFrequency(
@@ -55,8 +55,7 @@ export class CommandeStationFrequencyMaker {
         },
         { retries = 3 }: { retries?: number } = {}
     ): Promise<IdCommande> {
-        const response = await makeCommandeStationFrequency({
-            frequency: this.frequency,
+        const response = await this.callCommandeStationAPI({
             idStation,
             periodeCommande,
         });

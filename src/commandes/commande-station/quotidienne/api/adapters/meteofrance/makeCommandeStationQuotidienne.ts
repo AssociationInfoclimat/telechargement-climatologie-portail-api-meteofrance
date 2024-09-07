@@ -14,7 +14,7 @@ export const makeCommandeStationQuotidienne: CommandeStationAPIMaker = createCom
 
 export class CommandeStationQuotidienneMaker extends CommandeStationFrequencyMaker {
     constructor() {
-        super(DataFrequency.of('quotidienne'));
+        super({ commandeStationApiMaker: makeCommandeStationQuotidienne });
     }
 
     makeCommandeStationQuotidienne(
