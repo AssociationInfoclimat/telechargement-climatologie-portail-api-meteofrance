@@ -53,7 +53,7 @@ export class CommandeStationFrequencyMaker {
         this.retries = retries;
     }
 
-    protected async makeCommandeStationFrequency({
+    async makeCommandeStation({
         idStation,
         periodeCommande,
     }: {
@@ -70,7 +70,7 @@ export class CommandeStationFrequencyMaker {
         if ([500, 502].includes(response.code)) {
             await wait(5 * 1000);
             this.retries--;
-            return await this.makeCommandeStationFrequency({ idStation, periodeCommande });
+            return await this.makeCommandeStation({ idStation, periodeCommande });
         }
         if (response.code !== 202) {
             throw new UnexpectedResponseError(response);
