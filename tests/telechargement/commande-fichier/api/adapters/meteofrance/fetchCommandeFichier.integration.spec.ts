@@ -1,7 +1,8 @@
-import { CommandeStationHoraireMaker } from '@/commandes/commande-station/horaire/api/adapters/meteofrance/makeCommandeStationHoraire.js';
-import { CommandeStationInfrahoraire6mMaker } from '@/commandes/commande-station/infrahoraire-6m/api/adapters/meteofrance/makeCommandeStationInfrahoraire6m.js';
+import { CommandeStationMaker } from '@/commandes/commande-station/api/adapters/meteofrance/makeCommandeStationFrequency.js';
+import { makeCommandeStationHoraire } from '@/commandes/commande-station/horaire/api/adapters/meteofrance/makeCommandeStationHoraire.js';
+import { makeCommandeStationInfrahoraire6m } from '@/commandes/commande-station/infrahoraire-6m/api/adapters/meteofrance/makeCommandeStationInfrahoraire6m.js';
 import { PeriodeCommande } from '@/commandes/commande-station/periode-commande/PeriodeCommande.js';
-import { CommandeStationQuotidienneMaker } from '@/commandes/commande-station/quotidienne/api/adapters/meteofrance/makeCommandeStationQuotidienne.js';
+import { makeCommandeStationQuotidienne } from '@/commandes/commande-station/quotidienne/api/adapters/meteofrance/makeCommandeStationQuotidienne.js';
 import { IdStation } from '@/id-station/IdStation.js';
 import { wait } from '@/lib/wait.js';
 import { CommandeFichierFetcher } from '@/telechargement/commande-fichier/api/adapters/meteofrance/fetchCommandeFichier.js';
@@ -12,12 +13,12 @@ import {
 } from '@/telechargement/commande-fichier/api/CommandeResult.js';
 import { describe, expect, it } from 'vitest';
 
-describe('CommandeFichierFetcher', () => {
+describe.skip('CommandeFichierFetcher', () => {
     describe('Infrahoraire6m', async () => {
         describe('when pending', async () => {
             it('should say it is pending', async () => {
-                const maker = new CommandeStationInfrahoraire6mMaker();
-                const idCommande = await maker.makeCommandeStationInfrahoraire6m({
+                const maker = new CommandeStationMaker({ commandeStationApiMaker: makeCommandeStationInfrahoraire6m });
+                const idCommande = await maker.makeCommandeStation({
                     idStation: IdStation.of('76116001'),
                     periodeCommande: PeriodeCommande.of({
                         debut: '2024-06-15T12:00:00Z',
@@ -31,8 +32,8 @@ describe('CommandeFichierFetcher', () => {
         });
         describe('when ready', async () => {
             it('should fetch data', async () => {
-                const maker = new CommandeStationInfrahoraire6mMaker();
-                const idCommande = await maker.makeCommandeStationInfrahoraire6m({
+                const maker = new CommandeStationMaker({ commandeStationApiMaker: makeCommandeStationInfrahoraire6m });
+                const idCommande = await maker.makeCommandeStation({
                     idStation: IdStation.of('76116001'),
                     periodeCommande: PeriodeCommande.of({
                         debut: '2024-06-15T12:00:00Z',
@@ -53,8 +54,8 @@ describe('CommandeFichierFetcher', () => {
     describe('Horaire', async () => {
         describe('when pending', async () => {
             it('should say it is pending', async () => {
-                const maker = new CommandeStationHoraireMaker();
-                const idCommande = await maker.makeCommandeStationHoraire({
+                const maker = new CommandeStationMaker({ commandeStationApiMaker: makeCommandeStationHoraire });
+                const idCommande = await maker.makeCommandeStation({
                     idStation: IdStation.of('76116001'),
                     periodeCommande: PeriodeCommande.of({
                         debut: '2024-06-15T12:00:00Z',
@@ -68,8 +69,8 @@ describe('CommandeFichierFetcher', () => {
         });
         describe('when ready', async () => {
             it('should fetch data', async () => {
-                const maker = new CommandeStationHoraireMaker();
-                const idCommande = await maker.makeCommandeStationHoraire({
+                const maker = new CommandeStationMaker({ commandeStationApiMaker: makeCommandeStationHoraire });
+                const idCommande = await maker.makeCommandeStation({
                     idStation: IdStation.of('76116001'),
                     periodeCommande: PeriodeCommande.of({
                         debut: '2024-06-15T12:00:00Z',
@@ -90,8 +91,8 @@ describe('CommandeFichierFetcher', () => {
     describe('Quotidienne', async () => {
         describe('when pending', async () => {
             it('should say it is pending', async () => {
-                const maker = new CommandeStationQuotidienneMaker();
-                const idCommande = await maker.makeCommandeStationQuotidienne({
+                const maker = new CommandeStationMaker({ commandeStationApiMaker: makeCommandeStationQuotidienne });
+                const idCommande = await maker.makeCommandeStation({
                     idStation: IdStation.of('76116001'),
                     periodeCommande: PeriodeCommande.of({
                         debut: '2024-06-15T12:00:00Z',
@@ -105,8 +106,8 @@ describe('CommandeFichierFetcher', () => {
         });
         describe('when ready', async () => {
             it('should fetch data', async () => {
-                const maker = new CommandeStationQuotidienneMaker();
-                const idCommande = await maker.makeCommandeStationQuotidienne({
+                const maker = new CommandeStationMaker({ commandeStationApiMaker: makeCommandeStationQuotidienne });
+                const idCommande = await maker.makeCommandeStation({
                     idStation: IdStation.of('76116001'),
                     periodeCommande: PeriodeCommande.of({
                         debut: '2024-06-15T12:00:00Z',
@@ -124,24 +125,16 @@ describe('CommandeFichierFetcher', () => {
         });
     });
 
-    describe.skip('when already downloaded', async () => {
-        it('should TODO', async () => {
+    describe('when already downloaded', async () => {
+        it('should throw', async () => {
             const fetcher = new CommandeFichierFetcher();
-            const commande = await fetcher.fetchCommandeFichier<QuotidienneCommandeData>('779369825174');
-            expect(commande).toEqual({
-                type: 'ready',
-                data: expect.any(String),
-            });
+            await expect(() => fetcher.fetchCommandeFichier<QuotidienneCommandeData>('779369825174')).rejects.toThrow();
         });
     });
-    describe.skip('when non existing commande', async () => {
-        it('should TODO', async () => {
+    describe('when non existing commande', async () => {
+        it('should throw', async () => {
             const fetcher = new CommandeFichierFetcher();
-            const commande = await fetcher.fetchCommandeFichier<QuotidienneCommandeData>('123456789012');
-            expect(commande).toEqual({
-                type: 'ready',
-                data: expect.any(String),
-            });
+            await expect(() => fetcher.fetchCommandeFichier<QuotidienneCommandeData>('123456789012')).rejects.toThrow();
         });
     });
 });

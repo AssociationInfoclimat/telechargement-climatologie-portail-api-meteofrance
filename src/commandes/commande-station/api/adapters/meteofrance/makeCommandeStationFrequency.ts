@@ -38,11 +38,11 @@ export function createCommandeStationAPIMaker(frequency: DataFrequency): Command
         });
 }
 
-export class CommandeStationFrequencyMaker {
+export class CommandeStationMaker {
     private readonly callCommandeStationAPI: CommandeStationAPIMaker;
     private retries: number;
 
-    protected constructor({
+    constructor({
         commandeStationApiMaker,
         retries = 3,
     }: {
