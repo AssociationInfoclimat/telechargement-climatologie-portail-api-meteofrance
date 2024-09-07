@@ -1,4 +1,5 @@
 import { DateCommande } from '@/commandes/commande-station/periode-commande/DateCommande.js';
+import { toSimpleISO } from '@/lib/date/toSimpleISO.js';
 
 export class InvalidPeriodeCommandeError extends Error {}
 
@@ -23,7 +24,18 @@ export class PeriodeCommande {
         return new PeriodeCommande({ debut, fin });
     }
 
+    static from(periode: { debut: Date; fin: Date }): PeriodeCommande {
+        return PeriodeCommande.of({
+            debut: toSimpleISO(periode.debut),
+            fin: toSimpleISO(periode.fin),
+        });
+    }
+
     value(): { debut: string; fin: string } {
         return { debut: this.debut.value(), fin: this.fin.value() };
+    }
+
+    toDate(): { debut: Date; fin: Date } {
+        return { debut: this.debut.toDate(), fin: this.fin.toDate() };
     }
 }
