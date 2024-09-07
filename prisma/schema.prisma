@@ -19,7 +19,7 @@ model Station {
     id                 String              @id @db.Char(8)
     nom                String
     departement        Int
-    frequence          String              @db.VarChar(15)
+    frequences String[] @db.VarChar(15)
     posteOuvert        Boolean
     typePoste          Int
     lon                Float

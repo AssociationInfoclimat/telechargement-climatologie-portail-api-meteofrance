@@ -17,7 +17,7 @@ describe('PrismaInformationsStationsRepository', () => {
                     id: '01014002',
                     nom: 'ARBENT',
                     departement: 1,
-                    frequence: 'infrahoraire-6m',
+                    frequences: ['infrahoraire-6m'],
                     posteOuvert: true,
                     typePoste: 1,
                     lon: 5.669,
