@@ -15,10 +15,10 @@
         "lint:fix": "eslint --fix .",
         "format": "prettier --write .",
         "test:unit": "vitest --project unit",
-        "test:integration": "dotenv -e .env.dev -- vitest --project integration --no-file-parallelism",
-        "test:all": "dotenv -e .env.dev -- vitest --run",
+        "test:integration": "dotenv -e .env.dev -- prisma migrate deploy && vitest --project integration --no-file-parallelism",
+        "test:all": "dotenv -e .env.dev -- prisma migrate deploy && vitest --run --no-file-parallelism",
         "test:ci": "prisma migrate deploy && vitest --run --no-file-parallelism",
-        "coverage": "dotenv -e .env.dev -- vitest run --coverage",
+        "coverage": "dotenv -e .env.dev -- prisma migrate deploy && vitest run --coverage",
         "migrate:dev": "prisma migrate dev",
         "migrate:tests": "dotenv -e .env.dev -- prisma migrate dev",
         "deploy:tests": "dotenv -e .env.dev -- prisma migrate deploy",
@@ -29,6 +29,7 @@
         "*.{js,ts}": [
             "eslint --fix",
             "prettier --write --ignore-unknown",
+            "dotenv -e .env.dev -- prisma migrate deploy",
             "vitest related --run --no-file-parallelism"
         ]
     },
