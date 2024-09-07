@@ -27,10 +27,11 @@ export function makeCommandeStationFrequency({
 }
 
 export function createCommandeStationAPIMaker(frequency: DataFrequency): CommandeStationAPIMaker {
-    return ({ idStation, periodeCommande }) =>
-        makeCommandeStationFrequency({
+    return function ({ idStation, periodeCommande }) {
+        return makeCommandeStationFrequency({
             frequency,
             idStation,
             periodeCommande,
         });
+    };
 }
