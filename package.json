@@ -15,13 +15,12 @@
         "lint:fix": "eslint --fix .",
         "format": "prettier --write .",
         "test:unit": "vitest --project unit",
-        "test:integration": "dotenv -e .env.dev -- prisma migrate deploy && vitest --project integration --no-file-parallelism",
-        "test:all": "dotenv -e .env.dev -- prisma migrate deploy && vitest --run --no-file-parallelism",
-        "test:ci": "prisma migrate deploy && vitest --run --no-file-parallelism",
-        "coverage": "dotenv -e .env.dev -- prisma migrate deploy && vitest run --coverage",
+        "test:integration": "pnpm run deploy:dev && vitest run --project integration --no-file-parallelism",
+        "test:all": "pnpm run deploy:dev && vitest run --no-file-parallelism",
+        "test:ci": "pnpm run deploy:dev && vitest run --no-file-parallelism",
+        "coverage": "pnpm run deploy:dev && vitest run --coverage",
         "migrate:dev": "prisma migrate dev",
-        "migrate:tests": "dotenv -e .env.dev -- prisma migrate dev",
-        "deploy:tests": "dotenv -e .env.dev -- prisma migrate deploy",
+        "deploy:dev": "prisma migrate deploy",
         "prepare": "husky"
     },
     "lint-staged": {
@@ -29,7 +28,7 @@
         "*.{js,ts}": [
             "eslint --fix",
             "prettier --write --ignore-unknown",
-            "dotenv -e .env.dev -- prisma migrate deploy",
+            "pnpm run deploy:dev",
             "vitest related --run --no-file-parallelism"
         ]
     },
