@@ -9,16 +9,20 @@ import { z } from 'zod';
 export class CommandeStationMaker {
     private readonly callCommandeStationAPI: CommandeStationAPIMaker;
     private retries: number;
+    private readonly waitingTimeInMs: number;
 
     constructor({
         commandeStationApiMaker,
         retries = 3,
+        waitingTimeInMs = 5 * 1000,
     }: {
         commandeStationApiMaker: CommandeStationAPIMaker;
         retries?: number;
+        waitingTimeInMs?: number;
     }) {
         this.callCommandeStationAPI = commandeStationApiMaker;
         this.retries = retries;
+        this.waitingTimeInMs = waitingTimeInMs;
     }
 
     async makeCommandeStation({
@@ -36,7 +40,7 @@ export class CommandeStationMaker {
             throw new TooManyRetriesError(response);
         }
         if ([500, 502].includes(response.code)) {
-            await wait(5 * 1000);
+            await wait(this.waitingTimeInMs);
             this.retries--;
             return await this.makeCommandeStation({ idStation, periodeCommande });
         }
