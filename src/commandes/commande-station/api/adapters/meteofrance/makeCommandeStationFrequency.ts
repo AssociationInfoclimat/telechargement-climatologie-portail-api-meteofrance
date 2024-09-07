@@ -40,31 +40,37 @@ export function createCommandeStationAPIMaker(frequency: DataFrequency): Command
 
 export class CommandeStationFrequencyMaker {
     private readonly callCommandeStationAPI: CommandeStationAPIMaker;
+    private retries: number;
 
-    protected constructor({ commandeStationApiMaker }: { commandeStationApiMaker: CommandeStationAPIMaker }) {
+    protected constructor({
+        commandeStationApiMaker,
+        retries = 3,
+    }: {
+        commandeStationApiMaker: CommandeStationAPIMaker;
+        retries?: number;
+    }) {
         this.callCommandeStationAPI = commandeStationApiMaker;
+        this.retries = retries;
     }
 
-    protected async makeCommandeStationFrequency(
-        {
-            idStation,
-            periodeCommande,
-        }: {
-            idStation: IdStation;
-            periodeCommande: PeriodeCommande;
-        },
-        { retries = 3 }: { retries?: number } = {}
-    ): Promise<IdCommande> {
+    protected async makeCommandeStationFrequency({
+        idStation,
+        periodeCommande,
+    }: {
+        idStation: IdStation;
+        periodeCommande: PeriodeCommande;
+    }): Promise<IdCommande> {
         const response = await this.callCommandeStationAPI({
             idStation,
             periodeCommande,
         });
-        if (response.code !== 202 && retries === 0) {
+        if (response.code !== 202 && this.retries === 0) {
             throw new TooManyRetriesError(response);
         }
         if ([500, 502].includes(response.code)) {
             await wait(5 * 1000);
-            return await this.makeCommandeStationFrequency({ idStation, periodeCommande }, { retries: retries - 1 });
+            this.retries--;
+            return await this.makeCommandeStationFrequency({ idStation, periodeCommande });
         }
         if (response.code !== 202) {
             throw new UnexpectedResponseError(response);

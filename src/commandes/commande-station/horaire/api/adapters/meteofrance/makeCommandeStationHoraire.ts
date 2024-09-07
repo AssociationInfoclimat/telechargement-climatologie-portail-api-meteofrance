@@ -17,16 +17,13 @@ export class CommandeStationHoraireMaker extends CommandeStationFrequencyMaker {
         super({ commandeStationApiMaker: makeCommandeStationHoraire });
     }
 
-    makeCommandeStationHoraire(
-        {
-            idStation,
-            periodeCommande,
-        }: {
-            idStation: IdStation;
-            periodeCommande: PeriodeCommande;
-        },
-        { retries = 3 }: { retries?: number } = {}
-    ): Promise<IdCommande> {
-        return this.makeCommandeStationFrequency({ idStation, periodeCommande }, { retries });
+    makeCommandeStationHoraire({
+        idStation,
+        periodeCommande,
+    }: {
+        idStation: IdStation;
+        periodeCommande: PeriodeCommande;
+    }): Promise<IdCommande> {
+        return this.makeCommandeStationFrequency({ idStation, periodeCommande });
     }
 }
