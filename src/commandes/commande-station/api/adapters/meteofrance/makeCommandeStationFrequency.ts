@@ -1,5 +1,6 @@
 import { APIResponse, TooManyRetriesError, UnexpectedResponseError } from '@/api/APIResponse.js';
 import { getMF } from '@/api/meteofrance/meteofrance-api-call.js';
+import { CommandeStationAPIMaker } from '@/commandes/commande-station/api/CommandeStationAPIMaker.js';
 import { CommandeStationData } from '@/commandes/commande-station/api/CommandeStationData.js';
 import { PeriodeCommande } from '@/commandes/commande-station/periode-commande/PeriodeCommande.js';
 import { IdStation } from '@/id-station/IdStation.js';
@@ -26,6 +27,15 @@ export function makeCommandeStationFrequency({
             'date-fin-periode': fin,
         },
     });
+}
+
+export function createCommandeStationAPIMaker(frequency: DataFrequency): CommandeStationAPIMaker {
+    return ({ idStation, periodeCommande }) =>
+        makeCommandeStationFrequency({
+            frequency,
+            idStation,
+            periodeCommande,
+        });
 }
 
 export class CommandeStationFrequencyMaker {
