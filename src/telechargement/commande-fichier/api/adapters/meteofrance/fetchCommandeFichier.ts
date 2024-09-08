@@ -31,16 +31,20 @@ export class AlreadyDownloadedError extends Error {
 export class CommandeFichierFetcher {
     private readonly callCommandeFichierAPIFetcher: CommandeFichierAPIFetcher;
     private retries: number;
+    private readonly waitingTimeInMs;
 
     constructor({
         commandeFichierAPIFetcher = fetchCommandeFichier,
         retries = 3,
+        waitingTimeInMs = 5 * 1000,
     }: {
         commandeFichierAPIFetcher?: CommandeFichierAPIFetcher;
         retries?: number;
+        waitingTimeInMs?: number;
     } = {}) {
         this.callCommandeFichierAPIFetcher = commandeFichierAPIFetcher;
         this.retries = retries;
+        this.waitingTimeInMs = waitingTimeInMs;
     }
 
     async fetchCommandeFichier<T extends CommandeData>(idCommande: string): Promise<CommandeResult<T>> {
@@ -50,7 +54,7 @@ export class CommandeFichierFetcher {
             if (this.retries === 0) {
                 throw new TooManyRetriesError(response);
             }
-            await wait(5 * 1000);
+            await wait(this.waitingTimeInMs);
             this.retries--;
             return await this.fetchCommandeFichier(idCommande);
         }
