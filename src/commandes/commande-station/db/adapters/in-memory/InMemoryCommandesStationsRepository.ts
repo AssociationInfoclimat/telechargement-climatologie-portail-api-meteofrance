@@ -1,5 +1,8 @@
 import { CommandeStation, CommandeStationDTO } from '@/commandes/commande-station/CommandeStation.js';
-import { CommandesStationsRepository } from '@/commandes/commande-station/db/CommandesStationsRepository.js';
+import {
+    CommandesStationsRepository,
+    CommandeStationStatusUpdate,
+} from '@/commandes/commande-station/db/CommandesStationsRepository.js';
 
 export class InMemoryCommandesStationsRepository implements CommandesStationsRepository {
     private readonly commandes: CommandeStation[];
@@ -14,6 +17,13 @@ export class InMemoryCommandesStationsRepository implements CommandesStationsRep
 
     async insert(commande: CommandeStation): Promise<void> {
         this.commandes.push(commande);
+    }
+
+    async updateStatus(update: CommandeStationStatusUpdate): Promise<void> {
+        const commande = this.commandes.find(commande => commande.id === update.id);
+        if (commande) {
+            commande.status = update.status;
+        }
     }
 
     selectAll(): Promise<CommandeStation[]> {

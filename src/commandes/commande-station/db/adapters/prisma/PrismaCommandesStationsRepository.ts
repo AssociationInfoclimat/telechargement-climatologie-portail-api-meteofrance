@@ -1,5 +1,8 @@
 import { CommandeStation } from '@/commandes/commande-station/CommandeStation.js';
-import { CommandesStationsRepository } from '@/commandes/commande-station/db/CommandesStationsRepository.js';
+import {
+    CommandesStationsRepository,
+    CommandeStationStatusUpdate,
+} from '@/commandes/commande-station/db/CommandesStationsRepository.js';
 import type { PrismaClient } from '@prisma/client';
 
 export class PrismaCommandesStationsRepository implements CommandesStationsRepository {
@@ -18,6 +21,17 @@ export class PrismaCommandesStationsRepository implements CommandesStationsRepos
                 dateDebPeriode: dto.dateDebPeriode,
                 dateFinPeriode: dto.dateFinPeriode,
                 idStation: dto.idStation,
+            },
+        });
+    }
+
+    async updateStatus(update: CommandeStationStatusUpdate): Promise<void> {
+        await this.prisma.commandeStation.update({
+            data: {
+                status: update.status.value(),
+            },
+            where: {
+                id: update.id,
             },
         });
     }
