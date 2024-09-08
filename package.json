@@ -21,7 +21,8 @@
         "coverage": "pnpm run deploy:dev && vitest run --coverage",
         "migrate:dev": "prisma migrate dev",
         "deploy:dev": "prisma migrate deploy",
-        "prepare": "husky"
+        "prepare": "husky",
+        "start-docker": "docker compose --file db/compose.yaml up -d"
     },
     "lint-staged": {
         "*.html": "prettier --write --ignore-unknown",
