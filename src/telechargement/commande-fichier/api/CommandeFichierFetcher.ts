@@ -2,7 +2,6 @@ import { TooManyRetriesError, UnexpectedResponseError } from '@/api/APIResponse.
 import { wait } from '@/lib/wait.js';
 import {
     AlreadyDownloadedError,
-    fetchCommandeFichier,
     NonExistentCommandeError,
 } from '@/telechargement/commande-fichier/api/adapters/meteofrance/fetchCommandeFichier.js';
 import { CommandeFichierAPIFetcher } from '@/telechargement/commande-fichier/api/CommandeFichierAPIFetcher.js';
@@ -15,14 +14,14 @@ export class CommandeFichierFetcher {
     private readonly waitingTimeInMs;
 
     constructor({
-        commandeFichierAPIFetcher = fetchCommandeFichier,
+        commandeFichierAPIFetcher,
         retries = 3,
         waitingTimeInMs = 5 * 1000,
     }: {
-        commandeFichierAPIFetcher?: CommandeFichierAPIFetcher;
+        commandeFichierAPIFetcher: CommandeFichierAPIFetcher;
         retries?: number;
         waitingTimeInMs?: number;
-    } = {}) {
+    }) {
         this.callCommandeFichierAPIFetcher = commandeFichierAPIFetcher;
         this.retries = retries;
         this.waitingTimeInMs = waitingTimeInMs;

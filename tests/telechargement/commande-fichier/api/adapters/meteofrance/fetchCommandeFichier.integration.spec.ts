@@ -5,6 +5,7 @@ import { PeriodeCommande } from '@/commandes/commande-station/periode-commande/P
 import { makeCommandeStationQuotidienne } from '@/commandes/commande-station/quotidienne/api/adapters/meteofrance/makeCommandeStationQuotidienne.js';
 import { IdStation } from '@/id-station/IdStation.js';
 import { wait } from '@/lib/wait.js';
+import { fetchCommandeFichier } from '@/telechargement/commande-fichier/api/adapters/meteofrance/fetchCommandeFichier.js';
 
 import { CommandeFichierFetcher } from '@/telechargement/commande-fichier/api/CommandeFichierFetcher.js';
 import {
@@ -26,7 +27,7 @@ describe('CommandeFichierFetcher', () => {
                         fin: '2024-06-16T17:00:00Z',
                     }),
                 });
-                const fetcher = new CommandeFichierFetcher();
+                const fetcher = new CommandeFichierFetcher({ commandeFichierAPIFetcher: fetchCommandeFichier });
                 const commande = await fetcher.fetchCommandeFichier<Infrahoraire6mCommandeData>(idCommande);
                 expect(commande).toEqual({ type: 'pending' });
             });
@@ -42,7 +43,7 @@ describe('CommandeFichierFetcher', () => {
                     }),
                 });
                 await wait(5 * 1000);
-                const fetcher = new CommandeFichierFetcher();
+                const fetcher = new CommandeFichierFetcher({ commandeFichierAPIFetcher: fetchCommandeFichier });
                 const commande = await fetcher.fetchCommandeFichier<Infrahoraire6mCommandeData>(idCommande);
                 expect(commande).toEqual({
                     type: 'ready',
@@ -60,10 +61,10 @@ describe('CommandeFichierFetcher', () => {
                     idStation: IdStation.of('76116001'),
                     periodeCommande: PeriodeCommande.of({
                         debut: '2024-06-15T12:00:00Z',
-                        fin: '2024-06-16T01:00:00Z',
+                        fin: '2024-06-16T02:00:00Z',
                     }),
                 });
-                const fetcher = new CommandeFichierFetcher();
+                const fetcher = new CommandeFichierFetcher({ commandeFichierAPIFetcher: fetchCommandeFichier });
                 const commande = await fetcher.fetchCommandeFichier<HoraireCommandeData>(idCommande);
                 expect(commande).toEqual({ type: 'pending' });
             });
@@ -79,7 +80,7 @@ describe('CommandeFichierFetcher', () => {
                     }),
                 });
                 await wait(5 * 1000);
-                const fetcher = new CommandeFichierFetcher();
+                const fetcher = new CommandeFichierFetcher({ commandeFichierAPIFetcher: fetchCommandeFichier });
                 const commande = await fetcher.fetchCommandeFichier<HoraireCommandeData>(idCommande);
                 expect(commande).toEqual({
                     type: 'ready',
@@ -100,7 +101,7 @@ describe('CommandeFichierFetcher', () => {
                         fin: '2024-07-01T12:00:00Z',
                     }),
                 });
-                const fetcher = new CommandeFichierFetcher();
+                const fetcher = new CommandeFichierFetcher({ commandeFichierAPIFetcher: fetchCommandeFichier });
                 const commande = await fetcher.fetchCommandeFichier<QuotidienneCommandeData>(idCommande);
                 expect(commande).toEqual({ type: 'pending' });
             });
@@ -116,7 +117,7 @@ describe('CommandeFichierFetcher', () => {
                     }),
                 });
                 await wait(5 * 1000);
-                const fetcher = new CommandeFichierFetcher();
+                const fetcher = new CommandeFichierFetcher({ commandeFichierAPIFetcher: fetchCommandeFichier });
                 const commande = await fetcher.fetchCommandeFichier<QuotidienneCommandeData>(idCommande);
                 expect(commande).toEqual({
                     type: 'ready',
@@ -128,13 +129,13 @@ describe('CommandeFichierFetcher', () => {
 
     describe('when already downloaded', async () => {
         it('should throw', async () => {
-            const fetcher = new CommandeFichierFetcher();
+            const fetcher = new CommandeFichierFetcher({ commandeFichierAPIFetcher: fetchCommandeFichier });
             await expect(() => fetcher.fetchCommandeFichier<QuotidienneCommandeData>('779369825174')).rejects.toThrow();
         });
     });
     describe('when non existing commande', async () => {
         it('should throw', async () => {
-            const fetcher = new CommandeFichierFetcher();
+            const fetcher = new CommandeFichierFetcher({ commandeFichierAPIFetcher: fetchCommandeFichier });
             await expect(() => fetcher.fetchCommandeFichier<QuotidienneCommandeData>('123456789012')).rejects.toThrow();
         });
     });
