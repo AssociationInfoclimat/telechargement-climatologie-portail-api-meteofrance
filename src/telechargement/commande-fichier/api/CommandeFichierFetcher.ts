@@ -1,12 +1,20 @@
 import { TooManyRetriesError, UnexpectedResponseError } from '@/api/APIResponse.js';
 import { wait } from '@/lib/wait.js';
-import {
-    AlreadyDownloadedError,
-    NonExistentCommandeError,
-} from '@/telechargement/commande-fichier/api/adapters/meteofrance/fetchCommandeFichier.js';
 import { CommandeFichierAPIFetcher } from '@/telechargement/commande-fichier/api/CommandeFichierAPIFetcher.js';
 import { CommandeData, CommandeResult } from '@/telechargement/commande-fichier/api/CommandeResult.js';
 import { z } from 'zod';
+
+export class NonExistentCommandeError extends Error {
+    constructor(commandeId: string) {
+        super(`Commande '${commandeId}' does not exist`);
+    }
+}
+
+export class AlreadyDownloadedError extends Error {
+    constructor(commandeId: string) {
+        super(`Commande '${commandeId}' has already been downloaded`);
+    }
+}
 
 export class CommandeFichierFetcher {
     private readonly callCommandeFichierAPIFetcher: CommandeFichierAPIFetcher;

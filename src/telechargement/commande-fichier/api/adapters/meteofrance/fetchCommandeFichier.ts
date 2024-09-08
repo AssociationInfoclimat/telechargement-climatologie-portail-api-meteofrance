@@ -12,15 +12,3 @@ export function fetchCommandeFichier<T extends CommandeData>(
         },
     });
 }
-
-export class NonExistentCommandeError extends Error {
-    constructor(commandeId: string) {
-        super(`Commande '${commandeId}' does not exist`);
-    }
-}
-
-export class AlreadyDownloadedError extends Error {
-    constructor(commandeId: string) {
-        super(`Commande '${commandeId}' has already been downloaded`);
-    }
-}
