@@ -1,6 +1,7 @@
 import { APIResponse, TooManyRetriesError, UnexpectedResponseError } from '@/api/APIResponse.js';
 import { getMF } from '@/api/meteofrance/meteofrance-api-call.js';
 import { wait } from '@/lib/wait.js';
+import { CommandeFichierAPIFetcher } from '@/telechargement/commande-fichier/api/CommandeFichierAPIFetcher.js';
 import { CommandeData, CommandeResult } from '@/telechargement/commande-fichier/api/CommandeResult.js';
 import { z } from 'zod';
 
@@ -28,11 +29,21 @@ export class AlreadyDownloadedError extends Error {
 }
 
 export class CommandeFichierFetcher {
+    private readonly callCommandeFichierAPIFetcher: CommandeFichierAPIFetcher;
+
+    constructor({
+        commandeFichierAPIFetcher = fetchCommandeFichier,
+    }: {
+        commandeFichierAPIFetcher?: CommandeFichierAPIFetcher;
+    } = {}) {
+        this.callCommandeFichierAPIFetcher = commandeFichierAPIFetcher;
+    }
+
     async fetchCommandeFichier<T extends CommandeData>(
         idCommande: string,
         { retries = 3 }: { retries?: number } = {}
     ): Promise<CommandeResult<T>> {
-        const response = await fetchCommandeFichier(idCommande);
+        const response = await this.callCommandeFichierAPIFetcher(idCommande);
 
         if (response.code === 502) {
             if (retries === 0) {

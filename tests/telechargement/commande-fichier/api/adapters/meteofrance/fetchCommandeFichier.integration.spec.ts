@@ -13,7 +13,7 @@ import {
 } from '@/telechargement/commande-fichier/api/CommandeResult.js';
 import { describe, expect, it } from 'vitest';
 
-describe.skip('CommandeFichierFetcher', () => {
+describe('CommandeFichierFetcher', () => {
     describe('Infrahoraire6m', async () => {
         describe('when pending', async () => {
             it('should say it is pending', async () => {
@@ -22,7 +22,7 @@ describe.skip('CommandeFichierFetcher', () => {
                     idStation: IdStation.of('76116001'),
                     periodeCommande: PeriodeCommande.of({
                         debut: '2024-06-15T12:00:00Z',
-                        fin: '2024-06-16T09:00:00Z',
+                        fin: '2024-06-16T15:00:00Z',
                     }),
                 });
                 const fetcher = new CommandeFichierFetcher();
@@ -96,7 +96,7 @@ describe.skip('CommandeFichierFetcher', () => {
                     idStation: IdStation.of('76116001'),
                     periodeCommande: PeriodeCommande.of({
                         debut: '2024-06-15T12:00:00Z',
-                        fin: '2024-06-29T12:00:00Z',
+                        fin: '2024-07-01T12:00:00Z',
                     }),
                 });
                 const fetcher = new CommandeFichierFetcher();
