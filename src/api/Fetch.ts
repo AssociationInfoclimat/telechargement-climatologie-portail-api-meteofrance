@@ -1,5 +1,5 @@
 import { APIResponse } from '@/api/APIResponse.js';
-import { createURL } from '@/api/createURL.js';
+import { createURL } from '@/lib/createURL.js';
 
 export async function getAPIResponseFromResponse<T>(response: Response): Promise<{
     code: number;

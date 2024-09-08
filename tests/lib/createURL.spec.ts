@@ -1,4 +1,4 @@
-import { createURL } from '@/api/createURL.js';
+import { createURL } from '@/lib/createURL.js';
 import { describe, expect, it } from 'vitest';
 
 describe('createURL', () => {
