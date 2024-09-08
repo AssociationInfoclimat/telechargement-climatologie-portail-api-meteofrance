@@ -1,4 +1,5 @@
 import { ListeStationsFetcher } from '@/stations/liste-stations/api/ListeStationsFetcher.js';
+import { DataFrequency } from '@/stations/liste-stations/DataFrequency.js';
 import { Departement } from '@/stations/liste-stations/departements/Departement.js';
 import { fetchListeStationsHoraire } from '@/stations/liste-stations/horaire/api/adapters/meteofrance/fetchListeStationsHoraire.js';
 import { describe, expect, it } from 'vitest';
@@ -6,7 +7,10 @@ import { describe, expect, it } from 'vitest';
 describe('ListeStationsHoraireFetcher', () => {
     it('should fetch the list of stations with horaire data', async () => {
         const fetcher = new ListeStationsFetcher({ listeStationsAPIFetcher: fetchListeStationsHoraire });
-        const list = await fetcher.fetchListeStations(Departement.of(76));
+        const list = await fetcher.fetchListeStations({
+            frequency: DataFrequency.of('horaire'),
+            departement: Departement.of(76),
+        });
         expect(Array.isArray(list)).toBeTruthy();
         expect(list.length).toBeGreaterThan(0);
         const station = list[0];

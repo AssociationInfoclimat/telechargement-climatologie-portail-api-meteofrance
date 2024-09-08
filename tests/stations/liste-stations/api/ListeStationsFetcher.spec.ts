@@ -6,6 +6,7 @@ import {
 } from '@/stations/liste-stations/api/adapters/in-memory/fetchListeStationsFrequency.js';
 import { ListeStationsData } from '@/stations/liste-stations/api/ListeStationsData.js';
 import { ListeStationsFetcher } from '@/stations/liste-stations/api/ListeStationsFetcher.js';
+import { DataFrequency } from '@/stations/liste-stations/DataFrequency.js';
 import { Departement } from '@/stations/liste-stations/departements/Departement.js';
 import { describe, expect, it } from 'vitest';
 
@@ -14,29 +15,48 @@ describe('ListeStationsFetcher', () => {
         it('should throw too many retries error', async () => {
             const fetcher = new ListeStationsFetcher({
                 listeStationsAPIFetcher: createInMemoryListeStationsAPIFetcher({
-                    76: createServerErrorAPIResponse(),
+                    quotidienne: {
+                        76: createServerErrorAPIResponse(),
+                    },
                 }),
                 waitingTimeInMs: 0,
             });
-            await expect(() => fetcher.fetchListeStations(Departement.of(76))).rejects.toThrow(TooManyRetriesError);
+            await expect(() =>
+                fetcher.fetchListeStations({
+                    frequency: DataFrequency.of('quotidienne'),
+                    departement: Departement.of(76),
+                })
+            ).rejects.toThrow(TooManyRetriesError);
         });
     });
     describe('when unknown code', () => {
-        it('should throw unexpected resposne error', async () => {
+        it('should throw unexpected response error', async () => {
             const fetcher = new ListeStationsFetcher({
                 listeStationsAPIFetcher: createInMemoryListeStationsAPIFetcher(),
             });
-            await expect(() => fetcher.fetchListeStations(Departement.of(76))).rejects.toThrow(UnexpectedResponseError);
+            await expect(() =>
+                fetcher.fetchListeStations({
+                    frequency: DataFrequency.of('quotidienne'),
+                    departement: Departement.of(76),
+                })
+            ).rejects.toThrow(UnexpectedResponseError);
         });
     });
     describe('when wrong data', () => {
         it('should throw a zod error', async () => {
             const fetcher = new ListeStationsFetcher({
                 listeStationsAPIFetcher: createInMemoryListeStationsAPIFetcher({
-                    76: createSuccessfulAPIResponse([{ key: 'value' }]),
+                    quotidienne: {
+                        76: createSuccessfulAPIResponse([{ key: 'value' }]),
+                    },
                 }),
             });
-            await expect(() => fetcher.fetchListeStations(Departement.of(76))).rejects.toThrow();
+            await expect(() =>
+                fetcher.fetchListeStations({
+                    frequency: DataFrequency.of('quotidienne'),
+                    departement: Departement.of(76),
+                })
+            ).rejects.toThrow();
         });
     });
     describe('when successful', () => {
@@ -65,10 +85,15 @@ describe('ListeStationsFetcher', () => {
             ];
             const fetcher = new ListeStationsFetcher({
                 listeStationsAPIFetcher: createInMemoryListeStationsAPIFetcher({
-                    76: createSuccessfulAPIResponse(data),
+                    quotidienne: {
+                        76: createSuccessfulAPIResponse(data),
+                    },
                 }),
             });
-            const fetched = await fetcher.fetchListeStations(Departement.of(76));
+            const fetched = await fetcher.fetchListeStations({
+                frequency: DataFrequency.of('quotidienne'),
+                departement: Departement.of(76),
+            });
             expect(fetched).toEqual(data);
         });
     });
