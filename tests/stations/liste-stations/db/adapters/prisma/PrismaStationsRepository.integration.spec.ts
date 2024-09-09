@@ -40,6 +40,7 @@ describe('PrismaStationsRepository', () => {
         ]);
         const repository = new PrismaStationsRepository(prisma);
         await repository.upsertMany(stationsToInsert);
+        await repository.upsertMany(stationsToInsert);
         const insertedStations = await repository.selectAll();
         expect(insertedStations).toEqual(stationsToInsert);
     });

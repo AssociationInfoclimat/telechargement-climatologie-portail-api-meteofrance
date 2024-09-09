@@ -32,6 +32,7 @@ describe('InMemoryStationsRepository', () => {
         ]);
         const repository = InMemoryStationsRepository.of([]);
         await repository.upsertMany(stationsToInsert);
+        await repository.upsertMany(stationsToInsert);
         const insertedStations = await repository.selectAll();
         expect(insertedStations).toEqual(stationsToInsert);
     });
