@@ -9,8 +9,14 @@ export class PrismaStationsRepository implements StationsRepository {
         this.prisma = prisma;
     }
 
-    async insert(stations: Stations): Promise<void> {
-        await this.prisma.station.createMany({ data: stations.toDTOs() });
+    async upsertMany(stations: Stations): Promise<void> {
+        await Promise.all(
+            stations
+                .toDTOs()
+                .map(station =>
+                    this.prisma.station.upsert({ where: { id: station.id }, create: station, update: station })
+                )
+        );
     }
 
     async selectAll(): Promise<Stations> {

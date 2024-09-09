@@ -3,7 +3,7 @@ import { Stations } from '@/stations/liste-stations/Station.js';
 import { describe, expect, it } from 'vitest';
 
 describe('InMemoryStationsRepository', () => {
-    it('should insert stations', async () => {
+    it('should upsert stations', async () => {
         const stationsToInsert: Stations = Stations.of([
             {
                 id: '76116001',
@@ -31,7 +31,7 @@ describe('InMemoryStationsRepository', () => {
             },
         ]);
         const repository = InMemoryStationsRepository.of([]);
-        await repository.insert(stationsToInsert);
+        await repository.upsertMany(stationsToInsert);
         const insertedStations = await repository.selectAll();
         expect(insertedStations).toEqual(stationsToInsert);
     });

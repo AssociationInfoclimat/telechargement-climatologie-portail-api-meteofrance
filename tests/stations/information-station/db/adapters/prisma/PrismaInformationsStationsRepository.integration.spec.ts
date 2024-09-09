@@ -11,7 +11,7 @@ describe('PrismaInformationsStationsRepository', () => {
         prisma = new PrismaClient();
         await prisma.station.deleteMany();
         const repository = new PrismaStationsRepository(prisma);
-        await repository.insert(
+        await repository.upsertMany(
             Stations.of([
                 {
                     id: '01014002',

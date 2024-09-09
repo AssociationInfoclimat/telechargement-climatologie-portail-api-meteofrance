@@ -12,7 +12,7 @@ export class InMemoryStationsRepository implements StationsRepository {
         return new InMemoryStationsRepository(Stations.of(dtos));
     }
 
-    async insert(stations: Stations): Promise<void> {
+    async upsertMany(stations: Stations): Promise<void> {
         this.stations.merge(stations);
     }
 

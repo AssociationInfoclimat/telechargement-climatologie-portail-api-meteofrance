@@ -11,7 +11,7 @@ describe('PrismaStationsRepository', () => {
     beforeEach(async () => {
         await prisma.station.deleteMany();
     });
-    it('should insert stations in the database', async () => {
+    it('should upsert stations in the database', async () => {
         const stationsToInsert: Stations = Stations.of([
             {
                 id: '76116001',
@@ -39,7 +39,7 @@ describe('PrismaStationsRepository', () => {
             },
         ]);
         const repository = new PrismaStationsRepository(prisma);
-        await repository.insert(stationsToInsert);
+        await repository.upsertMany(stationsToInsert);
         const insertedStations = await repository.selectAll();
         expect(insertedStations).toEqual(stationsToInsert);
     });
