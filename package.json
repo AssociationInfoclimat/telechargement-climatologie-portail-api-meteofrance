@@ -21,8 +21,10 @@
         "coverage": "pnpm run deploy:dev && vitest run --coverage",
         "migrate:dev": "prisma migrate dev",
         "deploy:dev": "prisma migrate deploy",
+        "deploy:preprod": "dotenv -e .env.preprod -- prisma migrate deploy",
         "prepare": "husky",
-        "start-docker": "docker compose --file db/compose.yaml up -d"
+        "start-docker": "docker compose --file db/compose.yaml up -d",
+        "download-listes-stations": "pnpm run deploy:preprod && dotenv -e .env.preprod -- tsx ./src/apps/downloadListesStations.ts"
     },
     "lint-staged": {
         "*.html": "prettier --write --ignore-unknown",
@@ -52,6 +54,7 @@
         "prettier": "^3.3.3",
         "prisma": "^5.19.0",
         "testcontainers": "^10.12.0",
+        "tsx": "^4.19.0",
         "typescript-eslint": "^8.3.0",
         "vitest": "^2.0.5"
     }
