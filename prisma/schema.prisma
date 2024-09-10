@@ -14,20 +14,21 @@ datasource db {
 }
 
 model Station {
-    createdAt    DateTime            @default(now())
-    updatedAt    DateTime            @updatedAt
-    id           String              @id @db.Char(8)
-    nom          String
-    departement  Int
-    frequences   String[]            @db.VarChar(15)
-    posteOuvert  Boolean
-    typePoste    Int
-    lon          Float
-    lat          Float
-    alt          Float
-    postePublic  Boolean
-    informations InformationStation?
-    commandes    CommandeStation[]
+    createdAt   DateTime          @default(now())
+    updatedAt   DateTime          @updatedAt
+    id          String            @db.Char(8)
+    nom         String
+    departement Int
+    frequence   String            @db.VarChar(15)
+    posteOuvert Boolean
+    typePoste   Int
+    lon         Float
+    lat         Float
+    alt         Float
+    postePublic Boolean
+    commandes   CommandeStation[]
+
+    @@id([id, frequence])
 }
 
 model InformationStation {
@@ -43,7 +44,6 @@ model InformationStation {
     parametres  Parametre[]
     producteurs Producteur[]
     positions   Position[]
-    station     Station      @relation(fields: [id], references: [id], onDelete: Cascade)
 }
 
 model TypePoste {
@@ -92,5 +92,6 @@ model CommandeStation {
     dateDebPeriode DateTime
     dateFinPeriode DateTime
     idStation      String   @db.Char(8)
-    station        Station  @relation(fields: [idStation], references: [id], onDelete: Cascade)
+    frequence      String   @db.VarChar(15)
+    station        Station  @relation(fields: [idStation, frequence], references: [id, frequence], onDelete: Cascade)
 }

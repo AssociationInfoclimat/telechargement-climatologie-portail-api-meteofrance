@@ -18,7 +18,7 @@ describe('PrismaCommandesStationsRepository', () => {
                     id: '01014002',
                     nom: 'ARBENT',
                     departement: 1,
-                    frequences: ['infrahoraire-6m'],
+                    frequence: 'infrahoraire-6m',
                     posteOuvert: true,
                     typePoste: 1,
                     lon: 5.669,
@@ -36,6 +36,7 @@ describe('PrismaCommandesStationsRepository', () => {
         it('should insert the station commande in the database', async () => {
             const commandeStation: CommandeStation = CommandeStation.of({
                 id: '779663620169',
+                frequence: 'infrahoraire-6m',
                 dateDebPeriode: new Date('2024-06-15T12:00:00Z'),
                 dateFinPeriode: new Date('2024-06-15T13:00:00Z'),
                 idStation: '01014002',
@@ -54,6 +55,7 @@ describe('PrismaCommandesStationsRepository', () => {
             await repository.insert(
                 CommandeStation.of({
                     id: '779663620169',
+                    frequence: 'infrahoraire-6m',
                     dateDebPeriode: new Date('2024-06-15T12:00:00Z'),
                     dateFinPeriode: new Date('2024-06-15T13:00:00Z'),
                     idStation: '01014002',
@@ -70,6 +72,7 @@ describe('PrismaCommandesStationsRepository', () => {
             expect(insertedInformationsStations).toEqual([
                 CommandeStation.of({
                     id: '779663620169',
+                    frequence: 'infrahoraire-6m',
                     dateDebPeriode: new Date('2024-06-15T12:00:00Z'),
                     dateFinPeriode: new Date('2024-06-15T13:00:00Z'),
                     idStation: '01014002',

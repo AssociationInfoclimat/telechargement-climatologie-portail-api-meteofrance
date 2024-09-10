@@ -1,7 +1,7 @@
 import { PrismaStationsRepository } from '@/stations/liste-stations/db/adapters/prisma/PrismaStationsRepository.js';
 import { Stations } from '@/stations/liste-stations/Station.js';
 import { PrismaClient } from '@prisma/client';
-import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest';
+import { afterAll, assert, beforeAll, beforeEach, describe, it } from 'vitest';
 
 describe('PrismaStationsRepository', () => {
     let prisma: PrismaClient;
@@ -17,7 +17,19 @@ describe('PrismaStationsRepository', () => {
                 id: '76116001',
                 nom: 'ROUEN-BOOS',
                 departement: 76,
-                frequences: ['infrahoraire-6m'],
+                frequence: 'infrahoraire-6m',
+                posteOuvert: true,
+                typePoste: 0,
+                lon: 1.178333,
+                lat: 49.3895,
+                alt: 156,
+                postePublic: true,
+            },
+            {
+                id: '76116001',
+                nom: 'ROUEN-BOOS',
+                departement: 76,
+                frequence: 'horaire',
                 posteOuvert: true,
                 typePoste: 0,
                 lon: 1.178333,
@@ -29,7 +41,7 @@ describe('PrismaStationsRepository', () => {
                 id: '76130001',
                 nom: 'BOUELLES',
                 departement: 76,
-                frequences: ['infrahoraire-6m'],
+                frequence: 'infrahoraire-6m',
                 posteOuvert: true,
                 typePoste: 1,
                 lon: 1.5025,
@@ -42,7 +54,7 @@ describe('PrismaStationsRepository', () => {
         await repository.upsertMany(stationsToInsert);
         await repository.upsertMany(stationsToInsert);
         const insertedStations = await repository.selectAll();
-        expect(insertedStations).toEqual(stationsToInsert);
+        assert.sameDeepMembers(insertedStations.toDTOs(), stationsToInsert.toDTOs());
     });
     afterAll(async () => {
         await prisma.$disconnect();

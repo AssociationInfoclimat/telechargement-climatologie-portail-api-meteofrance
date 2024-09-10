@@ -8,6 +8,7 @@ describe('InMemoryCommandesStationsRepository', () => {
         it('should insert informations stations', async () => {
             const commandeStation: CommandeStation = CommandeStation.of({
                 id: '779663620169',
+                frequence: 'infrahoraire-6m',
                 dateDebPeriode: new Date('2024-06-15T12:00:00Z'),
                 dateFinPeriode: new Date('2024-06-15T13:00:00Z'),
                 idStation: '76116001',
@@ -26,6 +27,7 @@ describe('InMemoryCommandesStationsRepository', () => {
             await repository.insert(
                 CommandeStation.of({
                     id: '779663620169',
+                    frequence: 'infrahoraire-6m',
                     dateDebPeriode: new Date('2024-06-15T12:00:00Z'),
                     dateFinPeriode: new Date('2024-06-15T13:00:00Z'),
                     idStation: '76116001',
@@ -42,6 +44,7 @@ describe('InMemoryCommandesStationsRepository', () => {
             expect(insertedInformationsStations).toEqual([
                 CommandeStation.of({
                     id: '779663620169',
+                    frequence: 'infrahoraire-6m',
                     dateDebPeriode: new Date('2024-06-15T12:00:00Z'),
                     dateFinPeriode: new Date('2024-06-15T13:00:00Z'),
                     idStation: '76116001',

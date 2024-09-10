@@ -16,7 +16,7 @@ export class InMemoryStationsRepository implements StationsRepository {
         const previousStations = this.stations.toDTOs();
         const newStations: StationDTO[] = [...previousStations];
         for (const station of stations.toDTOs()) {
-            const index = previousStations.findIndex(s => s.id === station.id);
+            const index = previousStations.findIndex(s => s.id === station.id && s.frequence === station.frequence);
             if (index !== -1) {
                 newStations[index] = station;
             } else {

@@ -17,6 +17,7 @@ export class PrismaCommandesStationsRepository implements CommandesStationsRepos
         await this.prisma.commandeStation.create({
             data: {
                 id: dto.id,
+                frequence: dto.frequence,
                 status: dto.status,
                 dateDebPeriode: dto.dateDebPeriode,
                 dateFinPeriode: dto.dateFinPeriode,
@@ -40,6 +41,7 @@ export class PrismaCommandesStationsRepository implements CommandesStationsRepos
         const commandes = await this.prisma.commandeStation.findMany({
             select: {
                 id: true,
+                frequence: true,
                 status: true,
                 dateDebPeriode: true,
                 dateFinPeriode: true,

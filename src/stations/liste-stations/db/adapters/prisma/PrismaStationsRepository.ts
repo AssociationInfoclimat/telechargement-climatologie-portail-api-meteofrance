@@ -11,11 +11,18 @@ export class PrismaStationsRepository implements StationsRepository {
 
     async upsertMany(stations: Stations): Promise<void> {
         await Promise.all(
-            stations
-                .toDTOs()
-                .map(station =>
-                    this.prisma.station.upsert({ where: { id: station.id }, create: station, update: station })
-                )
+            stations.toDTOs().map(station =>
+                this.prisma.station.upsert({
+                    where: {
+                        id_frequence: {
+                            id: station.id,
+                            frequence: station.frequence,
+                        },
+                    },
+                    create: station,
+                    update: station,
+                })
+            )
         );
     }
 

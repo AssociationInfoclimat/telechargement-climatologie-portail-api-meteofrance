@@ -7,7 +7,7 @@ export interface StationDTO {
     id: string;
     nom: string;
     departement: number;
-    frequences: string[];
+    frequence: string;
     posteOuvert: boolean;
     typePoste: number;
     lon: number;
@@ -20,7 +20,7 @@ export class Station {
     id: IdStation;
     nom: string;
     departement: Departement;
-    frequences: DataFrequency[];
+    frequence: DataFrequency;
     posteOuvert: boolean;
     typePoste: number;
     lon: number;
@@ -32,7 +32,7 @@ export class Station {
         id: IdStation,
         nom: string,
         departement: Departement,
-        frequences: DataFrequency[],
+        frequence: DataFrequency,
         posteOuvert: boolean,
         typePoste: number,
         lon: number,
@@ -43,7 +43,7 @@ export class Station {
         this.id = id;
         this.nom = nom;
         this.departement = departement;
-        this.frequences = frequences;
+        this.frequence = frequence;
         this.posteOuvert = posteOuvert;
         this.typePoste = typePoste;
         this.lon = lon;
@@ -57,7 +57,7 @@ export class Station {
             IdStation.of(dto.id),
             dto.nom,
             Departement.of(dto.departement),
-            dto.frequences.map(DataFrequency.of),
+            DataFrequency.of(dto.frequence),
             dto.posteOuvert,
             dto.typePoste,
             dto.lon,
@@ -72,7 +72,7 @@ export class Station {
             id: this.id.value(),
             nom: this.nom,
             departement: this.departement.value(),
-            frequences: this.frequences.map(f => f.value()),
+            frequence: this.frequence.value(),
             posteOuvert: this.posteOuvert,
             typePoste: this.typePoste,
             lon: this.lon,
