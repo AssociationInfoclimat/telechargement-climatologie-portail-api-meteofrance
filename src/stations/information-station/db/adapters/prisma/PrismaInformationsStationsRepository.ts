@@ -9,11 +9,12 @@ export class PrismaInformationsStationsRepository implements InformationsStation
         this.prisma = prisma;
     }
 
-    async insert(informationsStations: InformationsStations): Promise<void> {
+    async upsert(informationsStations: InformationsStations): Promise<void> {
         await Promise.all(
             informationsStations.toDTOs().map(async dto => {
-                await this.prisma.informationStation.create({
-                    data: {
+                await this.prisma.informationStation.upsert({
+                    where: { id: dto.id },
+                    create: {
                         id: dto.id,
                         nom: dto.nom,
                         lieuDit: dto.lieuDit,
@@ -30,6 +31,30 @@ export class PrismaInformationsStationsRepository implements InformationsStation
                             create: dto.producteurs,
                         },
                         positions: {
+                            create: dto.positions,
+                        },
+                    },
+                    update: {
+                        id: dto.id,
+                        nom: dto.nom,
+                        lieuDit: dto.lieuDit,
+                        bassin: dto.bassin,
+                        dateDebut: dto.dateDebut,
+                        dateFin: dto.dateFin,
+                        typesPoste: {
+                            deleteMany: {},
+                            create: dto.typesPoste,
+                        },
+                        parametres: {
+                            deleteMany: {},
+                            create: dto.parametres,
+                        },
+                        producteurs: {
+                            deleteMany: {},
+                            create: dto.producteurs,
+                        },
+                        positions: {
+                            deleteMany: {},
                             create: dto.positions,
                         },
                     },
@@ -78,6 +103,7 @@ export class PrismaInformationsStationsRepository implements InformationsStation
                     },
                 },
             },
+            orderBy: { id: 'asc' },
         });
         return InformationsStations.of(informationsStations);
     }

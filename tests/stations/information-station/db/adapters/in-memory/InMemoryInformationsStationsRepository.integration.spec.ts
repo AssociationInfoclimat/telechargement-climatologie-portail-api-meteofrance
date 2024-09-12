@@ -50,7 +50,8 @@ describe('InMemoryInformationsStationsRepository', () => {
             },
         ]);
         const repository = InMemoryInformationsStationsRepository.of([]);
-        await repository.insert(informationsStationsToInsert);
+        await repository.upsert(informationsStationsToInsert);
+        await repository.upsert(informationsStationsToInsert);
         const insertedInformationsStations = await repository.selectAll();
         expect(insertedInformationsStations).toEqual(informationsStationsToInsert);
     });

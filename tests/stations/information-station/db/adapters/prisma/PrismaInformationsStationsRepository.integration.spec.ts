@@ -78,7 +78,8 @@ describe('PrismaInformationsStationsRepository', () => {
             },
         ]);
         const repository = new PrismaInformationsStationsRepository(prisma);
-        await repository.insert(informationsStationsToInsert);
+        await repository.upsert(informationsStationsToInsert);
+        await repository.upsert(informationsStationsToInsert);
         const insertedInformationsStations = await repository.selectAll();
         expect(insertedInformationsStations).toEqual(informationsStationsToInsert);
     });
