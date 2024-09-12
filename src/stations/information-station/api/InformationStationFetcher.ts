@@ -42,7 +42,10 @@ export class InformationStationFetcher {
             z.object({
                 id: z.number(),
                 nom: z.string(),
-                lieuDit: z.string(),
+                lieuDit: z
+                    .string()
+                    .nullish()
+                    .transform(value => value ?? null),
                 bassin: z.string(),
                 dateDebut: z.string(),
                 dateFin: z.string(),

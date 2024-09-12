@@ -3,7 +3,7 @@ import { IdStation } from '@/id-station/IdStation.js';
 export interface InformationStationDTO {
     id: string;
     nom: string;
-    lieuDit: string;
+    lieuDit: string | null;
     bassin: string;
     dateDebut: Date;
     dateFin: Date | null;
@@ -34,7 +34,7 @@ export interface InformationStationDTO {
 export class InformationStation {
     id: IdStation;
     nom: string;
-    lieuDit: string;
+    lieuDit: string | null;
     bassin: string;
     dateDebut: Date;
     dateFin: Date | null;
@@ -61,18 +61,29 @@ export class InformationStation {
         dateFin: Date | null;
     }[];
 
-    private constructor(
-        id: IdStation,
-        nom: string,
-        lieuDit: string,
-        bassin: string,
-        dateDebut: Date,
-        dateFin: Date | null,
-        typesPoste: { type: number; dateDebut: Date; dateFin: Date | null }[],
-        parametres: { nom: string; dateDebut: Date; dateFin: Date | null }[],
-        producteurs: { nom: string; dateDebut: Date; dateFin: Date | null }[],
-        positions: { altitude: number; latitude: number; longitude: number; dateDebut: Date; dateFin: Date | null }[]
-    ) {
+    private constructor({
+        id,
+        nom,
+        lieuDit,
+        bassin,
+        dateDebut,
+        dateFin,
+        typesPoste,
+        parametres,
+        producteurs,
+        positions,
+    }: {
+        id: IdStation;
+        nom: string;
+        lieuDit: string | null;
+        bassin: string;
+        dateDebut: Date;
+        dateFin: Date | null;
+        typesPoste: { type: number; dateDebut: Date; dateFin: Date | null }[];
+        parametres: { nom: string; dateDebut: Date; dateFin: Date | null }[];
+        producteurs: { nom: string; dateDebut: Date; dateFin: Date | null }[];
+        positions: { altitude: number; latitude: number; longitude: number; dateDebut: Date; dateFin: Date | null }[];
+    }) {
         this.id = id;
         this.nom = nom;
         this.lieuDit = lieuDit;
@@ -86,18 +97,18 @@ export class InformationStation {
     }
 
     static of(dto: InformationStationDTO): InformationStation {
-        return new InformationStation(
-            IdStation.of(dto.id),
-            dto.nom,
-            dto.lieuDit,
-            dto.bassin,
-            dto.dateDebut,
-            dto.dateFin,
-            dto.typesPoste,
-            dto.parametres,
-            dto.producteurs,
-            dto.positions
-        );
+        return new InformationStation({
+            id: IdStation.of(dto.id),
+            nom: dto.nom,
+            lieuDit: dto.lieuDit,
+            bassin: dto.bassin,
+            dateDebut: dto.dateDebut,
+            dateFin: dto.dateFin,
+            typesPoste: dto.typesPoste,
+            parametres: dto.parametres,
+            producteurs: dto.producteurs,
+            positions: dto.positions,
+        });
     }
 
     toDTO(): InformationStationDTO {

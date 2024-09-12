@@ -1,7 +1,7 @@
 export interface InformationStationDataElement {
     id: number;
     nom: string;
-    lieuDit: string;
+    lieuDit: string | null;
     bassin: string;
     dateDebut: string;
     dateFin: string;
