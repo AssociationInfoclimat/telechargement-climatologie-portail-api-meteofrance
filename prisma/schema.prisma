@@ -36,7 +36,7 @@ model InformationStation {
     updatedAt   DateTime     @updatedAt
     id          String       @id @db.Char(8)
     nom         String
-    lieuDit     String
+    lieuDit String?
     bassin      String
     dateDebut   DateTime
     dateFin     DateTime?
