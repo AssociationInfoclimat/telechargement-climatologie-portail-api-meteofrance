@@ -1,7 +1,7 @@
 import { IdStation } from '@/id-station/IdStation.js';
 import { StationsRepository } from '@/stations/liste-stations/db/StationsRepository.js';
 import { Stations } from '@/stations/liste-stations/Station.js';
-import type { PrismaClient } from '@prisma/client';
+import { Prisma, PrismaClient } from '@prisma/client';
 
 export class PrismaStationsRepository implements StationsRepository {
     private prisma: PrismaClient;
@@ -40,6 +40,17 @@ export class PrismaStationsRepository implements StationsRepository {
             distinct: ['id'],
             orderBy: { id: 'asc' },
         });
+        return records.map(record => IdStation.of(record.id));
+    }
+
+    async selectIdsWithNoInformations(): Promise<IdStation[]> {
+        const records = await this.prisma.$queryRaw<{ id: string }[]>(Prisma.sql`
+            SELECT DISTINCT s.id
+            FROM "Station" as s
+                     LEFT JOIN "InformationStation" as i
+                               ON s.id = i.id
+            WHERE i.id IS NULL
+        `);
         return records.map(record => IdStation.of(record.id));
     }
 }

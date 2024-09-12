@@ -7,4 +7,6 @@ export interface StationsRepository {
     selectAll(): Promise<Stations>;
 
     selectAllIds(): Promise<IdStation[]>;
+
+    selectIdsWithNoInformations(): Promise<IdStation[]>;
 }
