@@ -31,7 +31,7 @@ export function convertAPIDataToDTO(data: InformationStationData): InformationSt
             latitude: position.latitude,
             longitude: position.longitude,
             dateDebut: utcFrom(position.dateDebut),
-            dateFin: datum.dateFin ? utcFrom(position.dateFin) : null,
+            dateFin: position.dateFin ? utcFrom(position.dateFin) : null,
         })),
     }));
 }
