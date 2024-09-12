@@ -18,7 +18,7 @@ export class AlreadyDownloadedError extends Error {
 
 export class CommandeFichierFetcher {
     private readonly callCommandeFichierAPIFetcher: CommandeFichierAPIFetcher;
-    private retries: number;
+    private readonly retries: number;
     private readonly waitingTimeInMs;
 
     constructor({
@@ -39,12 +39,16 @@ export class CommandeFichierFetcher {
         const response = await this.callCommandeFichierAPIFetcher(idCommande);
 
         if (response.code === 502) {
-            if (this.retries === 0) {
+            if (this.retries <= 0) {
                 throw new TooManyRetriesError(response);
             }
             await wait(this.waitingTimeInMs);
-            this.retries--;
-            return await this.fetchCommandeFichier(idCommande);
+            const fetcher = new CommandeFichierFetcher({
+                commandeFichierAPIFetcher: this.callCommandeFichierAPIFetcher,
+                retries: this.retries - 1,
+                waitingTimeInMs: this.waitingTimeInMs,
+            });
+            return await fetcher.fetchCommandeFichier(idCommande);
         }
         if (response.code === 404) {
             throw new NonExistentCommandeError(idCommande);

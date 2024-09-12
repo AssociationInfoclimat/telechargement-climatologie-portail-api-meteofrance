@@ -8,7 +8,7 @@ import { z } from 'zod';
 
 export class ListeStationsFetcher {
     private readonly callListeStationsAPI: ListeStationsAPIFetcher;
-    private retries: number;
+    private readonly retries: number;
     private readonly waitingTimeInMs: number;
 
     constructor({
@@ -33,13 +33,17 @@ export class ListeStationsFetcher {
         departement: Departement;
     }): Promise<ListeStationsData> {
         const response = await this.callListeStationsAPI({ frequency, departement });
-        if (response.code !== 200 && this.retries === 0) {
+        if (response.code !== 200 && this.retries <= 0) {
             throw new TooManyRetriesError(response);
         }
         if ([500, 502].includes(response.code)) {
             await wait(this.waitingTimeInMs);
-            this.retries--;
-            return await this.fetchListeStations({ frequency, departement });
+            const fetcher = new ListeStationsFetcher({
+                listeStationsAPIFetcher: this.callListeStationsAPI,
+                retries: this.retries - 1,
+                waitingTimeInMs: this.waitingTimeInMs,
+            });
+            return await fetcher.fetchListeStations({ frequency, departement });
         }
         if (response.code !== 200) {
             throw new UnexpectedResponseError(response);

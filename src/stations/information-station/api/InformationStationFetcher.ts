@@ -8,7 +8,7 @@ import { z } from 'zod';
 
 export class InformationStationFetcher {
     private readonly callInformationStationAPI: InformationStationAPIFetcher;
-    private retries: number;
+    private readonly retries: number;
     private readonly waitingTimeInMs: number;
 
     constructor({
@@ -27,13 +27,17 @@ export class InformationStationFetcher {
 
     async fetchInformationStation(idStation: IdStation): Promise<InformationStationData> {
         const response = await this.callInformationStationAPI(idStation);
-        if (response.code !== 200 && this.retries === 0) {
+        if (response.code !== 200 && this.retries <= 0) {
             throw new TooManyRetriesError(response);
         }
         if ([500, 502].includes(response.code)) {
             await wait(this.waitingTimeInMs);
-            this.retries--;
-            return await this.fetchInformationStation(idStation);
+            const fetcher = new InformationStationFetcher({
+                informationStationAPIFetcher: this.callInformationStationAPI,
+                retries: this.retries - 1,
+                waitingTimeInMs: this.waitingTimeInMs,
+            });
+            return await fetcher.fetchInformationStation(idStation);
         }
         if (response.code !== 200) {
             throw new UnexpectedResponseError(response);

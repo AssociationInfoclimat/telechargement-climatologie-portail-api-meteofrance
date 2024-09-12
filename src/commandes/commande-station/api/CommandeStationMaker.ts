@@ -8,7 +8,7 @@ import { z } from 'zod';
 
 export class CommandeStationMaker {
     private readonly callCommandeStationAPI: CommandeStationAPIMaker;
-    private retries: number;
+    private readonly retries: number;
     private readonly waitingTimeInMs: number;
 
     constructor({
@@ -36,13 +36,17 @@ export class CommandeStationMaker {
             idStation,
             periodeCommande,
         });
-        if (response.code !== 202 && this.retries === 0) {
+        if (response.code !== 202 && this.retries <= 0) {
             throw new TooManyRetriesError(response);
         }
         if ([500, 502].includes(response.code)) {
             await wait(this.waitingTimeInMs);
-            this.retries--;
-            return await this.makeCommandeStation({ idStation, periodeCommande });
+            const maker = new CommandeStationMaker({
+                commandeStationApiMaker: this.callCommandeStationAPI,
+                retries: this.retries - 1,
+                waitingTimeInMs: this.waitingTimeInMs,
+            });
+            return await maker.makeCommandeStation({ idStation, periodeCommande });
         }
         if (response.code !== 202) {
             throw new UnexpectedResponseError(response);
