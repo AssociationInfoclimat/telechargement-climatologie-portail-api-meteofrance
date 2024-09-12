@@ -1,3 +1,4 @@
+import { LoggerSingleton } from '@/lib/logger/LoggerSingleton.js';
 import { wait } from '@/lib/wait.js';
 import { ListeStationsAPIFetcher } from '@/stations/liste-stations/api/ListeStationsAPIFetcher.js';
 import { ListeStationsFetcher } from '@/stations/liste-stations/api/ListeStationsFetcher.js';
@@ -59,7 +60,9 @@ export async function downloadListesStations({
     const departements = getDepartements();
     for (const frequency of frequencies) {
         for (const departement of departements) {
-            console.log(`Downloading '${frequency.value()}' stations for departement '${departement.value()}'...`);
+            LoggerSingleton.getSingleton().info({
+                message: `Downloading '${frequency.value()}' stations for departement '${departement.value()}'...`,
+            });
             await downloadListeStations({
                 listeStationsFetcher,
                 frequency,
