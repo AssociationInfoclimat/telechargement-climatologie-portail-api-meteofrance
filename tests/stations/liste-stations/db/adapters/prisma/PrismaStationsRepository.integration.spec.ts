@@ -1,3 +1,4 @@
+import { IdStation } from '@/id-station/IdStation.js';
 import { PrismaStationsRepository } from '@/stations/liste-stations/db/adapters/prisma/PrismaStationsRepository.js';
 import { Stations } from '@/stations/liste-stations/Station.js';
 import { PrismaClient } from '@prisma/client';
@@ -53,8 +54,12 @@ describe('PrismaStationsRepository', () => {
         const repository = new PrismaStationsRepository(prisma);
         await repository.upsertMany(stationsToInsert);
         await repository.upsertMany(stationsToInsert);
+
         const insertedStations = await repository.selectAll();
         assert.sameDeepMembers(insertedStations.toDTOs(), stationsToInsert.toDTOs());
+
+        const ids = await repository.selectAllIds();
+        assert.sameDeepMembers(ids, [IdStation.of('76116001'), IdStation.of('76130001')]);
     });
     afterAll(async () => {
         await prisma.$disconnect();

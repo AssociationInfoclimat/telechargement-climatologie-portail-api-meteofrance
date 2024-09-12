@@ -1,3 +1,4 @@
+import { IdStation } from '@/id-station/IdStation.js';
 import { StationsRepository } from '@/stations/liste-stations/db/StationsRepository.js';
 import { Stations } from '@/stations/liste-stations/Station.js';
 import type { PrismaClient } from '@prisma/client';
@@ -27,7 +28,18 @@ export class PrismaStationsRepository implements StationsRepository {
     }
 
     async selectAll(): Promise<Stations> {
-        const stations = await this.prisma.station.findMany();
+        const stations = await this.prisma.station.findMany({
+            orderBy: [{ id: 'asc' }, { frequence: 'asc' }],
+        });
         return Stations.of(stations);
+    }
+
+    async selectAllIds(): Promise<IdStation[]> {
+        const records = await this.prisma.station.findMany({
+            select: { id: true },
+            distinct: ['id'],
+            orderBy: { id: 'asc' },
+        });
+        return records.map(record => IdStation.of(record.id));
     }
 }

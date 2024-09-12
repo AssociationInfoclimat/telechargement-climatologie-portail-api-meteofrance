@@ -1,3 +1,4 @@
+import { IdStation } from '@/id-station/IdStation.js';
 import { StationsRepository } from '@/stations/liste-stations/db/StationsRepository.js';
 import { StationDTO, Stations } from '@/stations/liste-stations/Station.js';
 
@@ -28,5 +29,10 @@ export class InMemoryStationsRepository implements StationsRepository {
 
     selectAll(): Promise<Stations> {
         return Promise.resolve(this.stations);
+    }
+
+    async selectAllIds(): Promise<IdStation[]> {
+        const stations = await this.selectAll();
+        return stations.get().map(station => station.id);
     }
 }
