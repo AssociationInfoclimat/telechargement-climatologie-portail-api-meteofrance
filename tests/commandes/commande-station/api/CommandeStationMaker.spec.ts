@@ -3,7 +3,7 @@ import {
     createInMemoryCommandeStationAPIMaker,
     createServerErrorAPIResponse,
     createSuccessfulAPIResponse,
-} from '@/commandes/commande-station/api/adapters/in-memory/makeCommandeStationFrequency.js';
+} from '@/commandes/commande-station/api/adapters/in-memory/makeCommandeStation.js';
 import { CommandeStationData } from '@/commandes/commande-station/api/CommandeStationData.js';
 import { CommandeStationMaker } from '@/commandes/commande-station/api/CommandeStationMaker.js';
 import { PeriodeCommande } from '@/commandes/commande-station/periode-commande/PeriodeCommande.js';

@@ -6,7 +6,7 @@ import { PeriodeCommande } from '@/commandes/commande-station/periode-commande/P
 import { IdStation } from '@/id-station/IdStation.js';
 import { DataFrequency } from '@/stations/liste-stations/DataFrequency.js';
 
-export function makeCommandeStationFrequency({
+export function makeCommandeStation({
     frequence,
     idStation,
     periodeCommande,
@@ -28,6 +28,6 @@ export function makeCommandeStationFrequency({
 
 export function createCommandeStationAPIMaker(): CommandeStationAPIMaker {
     return function ({ frequence, idStation, periodeCommande }) {
-        return makeCommandeStationFrequency({ frequence, idStation, periodeCommande });
+        return makeCommandeStation({ frequence, idStation, periodeCommande });
     };
 }
