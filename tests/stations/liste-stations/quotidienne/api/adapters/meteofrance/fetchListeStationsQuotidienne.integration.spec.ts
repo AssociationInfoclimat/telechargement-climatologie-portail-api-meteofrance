@@ -8,7 +8,7 @@ describe('ListeStationsQuotidienneFetcher', () => {
     it('should fetch the list of stations with quotidienne data', async () => {
         const fetcher = new ListeStationsFetcher({ listeStationsAPIFetcher: fetchListeStationsQuotidienne });
         const list = await fetcher.fetchListeStations({
-            frequency: DataFrequency.of('quotidienne'),
+            frequence: DataFrequency.of('quotidienne'),
             departement: Departement.of(76),
         });
         expect(Array.isArray(list)).toBeTruthy();

@@ -3,9 +3,9 @@ import { DataFrequency } from '@/stations/liste-stations/DataFrequency.js';
 import { Departement } from '@/stations/liste-stations/departements/Departement.js';
 
 export type ListeStationsAPIFetcher = ({
-    frequency,
+    frequence,
     departement,
 }: {
-    frequency: DataFrequency;
+    frequence: DataFrequency;
     departement: Departement;
-}) => Promise<APIResponse<unknown>>;
+}) => Promise<APIResponse>;

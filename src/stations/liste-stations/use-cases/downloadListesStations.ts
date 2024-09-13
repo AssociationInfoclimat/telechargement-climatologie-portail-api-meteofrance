@@ -9,24 +9,24 @@ import { getDepartements } from '@/stations/liste-stations/departements/getDepar
 import { Stations } from '@/stations/liste-stations/Station.js';
 
 export async function downloadListeStations({
-    frequency,
+    frequence,
     departement,
     listeStationsFetcher,
     stationsRepository,
 }: {
-    frequency: DataFrequency;
+    frequence: DataFrequency;
     departement: Departement;
     listeStationsFetcher: ListeStationsFetcher;
     stationsRepository: StationsRepository;
 }): Promise<void> {
-    const stations = await listeStationsFetcher.fetchListeStations({ frequency, departement });
+    const stations = await listeStationsFetcher.fetchListeStations({ frequence, departement });
     await stationsRepository.upsertMany(
         Stations.of(
             stations.map(station => ({
                 id: station.id,
                 nom: station.nom,
                 departement: departement.value(),
-                frequence: frequency.value(),
+                frequence: frequence.value(),
                 posteOuvert: station.posteOuvert,
                 typePoste: station.typePoste,
                 lon: station.lon,
@@ -58,14 +58,14 @@ export async function downloadListesStations({
         DataFrequency.of('quotidienne'),
     ];
     const departements = getDepartements();
-    for (const frequency of frequencies) {
+    for (const frequence of frequencies) {
         for (const departement of departements) {
             LoggerSingleton.getSingleton().info({
-                message: `Downloading '${frequency.value()}' stations for departement '${departement.value()}'...`,
+                message: `Downloading '${frequence.value()}' stations for departement '${departement.value()}'...`,
             });
             await downloadListeStations({
                 listeStationsFetcher,
-                frequency,
+                frequence,
                 departement,
                 stationsRepository,
             });

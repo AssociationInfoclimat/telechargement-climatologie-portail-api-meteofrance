@@ -41,7 +41,7 @@ describe('downloadListesStations', () => {
                 },
             ];
             await downloadListeStations({
-                frequency: DataFrequency.of('horaire'),
+                frequence: DataFrequency.of('horaire'),
                 departement: Departement.of(76),
                 listeStationsFetcher: new ListeStationsFetcher({
                     listeStationsAPIFetcher: createInMemoryListeStationsAPIFetcher({

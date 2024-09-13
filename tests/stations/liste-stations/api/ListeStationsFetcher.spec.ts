@@ -23,7 +23,7 @@ describe('ListeStationsFetcher', () => {
             });
             await expect(() =>
                 fetcher.fetchListeStations({
-                    frequency: DataFrequency.of('quotidienne'),
+                    frequence: DataFrequency.of('quotidienne'),
                     departement: Departement.of(76),
                 })
             ).rejects.toThrow(TooManyRetriesError);
@@ -36,7 +36,7 @@ describe('ListeStationsFetcher', () => {
             });
             await expect(() =>
                 fetcher.fetchListeStations({
-                    frequency: DataFrequency.of('quotidienne'),
+                    frequence: DataFrequency.of('quotidienne'),
                     departement: Departement.of(76),
                 })
             ).rejects.toThrow(UnexpectedResponseError);
@@ -53,7 +53,7 @@ describe('ListeStationsFetcher', () => {
             });
             await expect(() =>
                 fetcher.fetchListeStations({
-                    frequency: DataFrequency.of('quotidienne'),
+                    frequence: DataFrequency.of('quotidienne'),
                     departement: Departement.of(76),
                 })
             ).rejects.toThrow();
@@ -91,7 +91,7 @@ describe('ListeStationsFetcher', () => {
                 }),
             });
             const fetched = await fetcher.fetchListeStations({
-                frequency: DataFrequency.of('quotidienne'),
+                frequence: DataFrequency.of('quotidienne'),
                 departement: Departement.of(76),
             });
             expect(fetched).toEqual(data);

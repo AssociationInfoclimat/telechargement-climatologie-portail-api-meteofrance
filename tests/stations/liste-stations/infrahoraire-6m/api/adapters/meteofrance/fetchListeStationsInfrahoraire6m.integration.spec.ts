@@ -8,7 +8,7 @@ describe('ListeStationsInfrahoraire6mFetcher', () => {
     it('should fetch the list of stations with infrahoraire 6 minutes data', async () => {
         const fetcher = new ListeStationsFetcher({ listeStationsAPIFetcher: fetchListeStationsInfrahoraire6m });
         const list = await fetcher.fetchListeStations({
-            frequency: DataFrequency.of('infrahoraire-6m'),
+            frequence: DataFrequency.of('infrahoraire-6m'),
             departement: Departement.of(76),
         });
         expect(Array.isArray(list)).toBeTruthy();

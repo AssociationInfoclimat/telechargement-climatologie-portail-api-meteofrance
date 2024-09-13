@@ -4,18 +4,18 @@ import { DataFrequency } from '@/stations/liste-stations/DataFrequency.js';
 import { Departement } from '@/stations/liste-stations/departements/Departement.js';
 
 export function createInMemoryListeStationsAPIFetcher(
-    db: Record<string, Record<number, APIResponse<unknown>>> = {},
+    db: Record<string, Record<number, APIResponse>> = {},
     {
         onMissingDepartementsResponse,
         onMissingDepartementResponse,
     }: {
-        onMissingDepartementsResponse?: APIResponse<unknown>;
-        onMissingDepartementResponse?: APIResponse<unknown>;
+        onMissingDepartementsResponse?: APIResponse;
+        onMissingDepartementResponse?: APIResponse;
     } = {}
 ): ListeStationsAPIFetcher {
     const map = new Map(
-        Object.entries(db).map(([frequency, stationsPerDepartement]) => [
-            DataFrequency.of(frequency).value(),
+        Object.entries(db).map(([frequence, stationsPerDepartement]) => [
+            DataFrequency.of(frequence).value(),
             new Map(
                 Object.entries(stationsPerDepartement).map(([departement, stations]) => [
                     Departement.of(+departement).value(),
@@ -24,12 +24,12 @@ export function createInMemoryListeStationsAPIFetcher(
             ),
         ])
     );
-    return function ({ frequency, departement }: { frequency: DataFrequency; departement: Departement }) {
-        const departements = map.get(frequency.value());
+    return function ({ frequence, departement }: { frequence: DataFrequency; departement: Departement }) {
+        const departements = map.get(frequence.value());
         if (!departements) {
             const response =
                 onMissingDepartementsResponse ??
-                createRequestErrorAPIResponse(`Frequency '${frequency.value()}' not found`);
+                createRequestErrorAPIResponse(`Frequency '${frequence.value()}' not found`);
             return Promise.resolve(response);
         }
         const missingDepartementResponse =
@@ -46,7 +46,7 @@ export function createSuccessfulAPIResponse<T>(data: T): APIResponse<T> {
     };
 }
 
-export function createRequestErrorAPIResponse(message: string = ''): APIResponse<unknown> {
+export function createRequestErrorAPIResponse(message: string = ''): APIResponse {
     return {
         code: 400,
         message,
@@ -54,7 +54,7 @@ export function createRequestErrorAPIResponse(message: string = ''): APIResponse
     };
 }
 
-export function createDepartementNotFoundErrorAPIResponse(departement: Departement): APIResponse<unknown> {
+export function createDepartementNotFoundErrorAPIResponse(departement: Departement): APIResponse {
     return {
         code: 404,
         message: `Departement '${departement.value()}' not found`,
@@ -70,7 +70,7 @@ export function createServerErrorAPIResponse({
     code?: 500 | 502;
     message?: string;
     data?: unknown;
-} = {}): APIResponse<unknown> {
+} = {}): APIResponse {
     return {
         code,
         message,

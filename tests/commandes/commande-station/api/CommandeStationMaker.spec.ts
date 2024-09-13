@@ -8,6 +8,7 @@ import { CommandeStationData } from '@/commandes/commande-station/api/CommandeSt
 import { CommandeStationMaker } from '@/commandes/commande-station/api/CommandeStationMaker.js';
 import { PeriodeCommande } from '@/commandes/commande-station/periode-commande/PeriodeCommande.js';
 import { IdStation } from '@/id-station/IdStation.js';
+import { DataFrequency } from '@/stations/liste-stations/DataFrequency.js';
 import { describe, expect, it } from 'vitest';
 
 describe('CommandeStationMaker', () => {
@@ -15,12 +16,15 @@ describe('CommandeStationMaker', () => {
         it('should throw too many retries error', async () => {
             const maker = new CommandeStationMaker({
                 commandeStationApiMaker: createInMemoryCommandeStationAPIMaker({
-                    '76116001': createServerErrorAPIResponse(),
+                    quotidienne: {
+                        '76116001': createServerErrorAPIResponse(),
+                    },
                 }),
                 waitingTimeInMs: 0,
             });
             await expect(() =>
                 maker.makeCommandeStation({
+                    frequence: DataFrequency.of('quotidienne'),
                     idStation: IdStation.of('76116001'),
                     periodeCommande: PeriodeCommande.of({ debut: '2000-06-15T12:00:00Z', fin: '2000-06-15T12:00:00Z' }),
                 })
@@ -34,6 +38,7 @@ describe('CommandeStationMaker', () => {
             });
             await expect(() =>
                 maker.makeCommandeStation({
+                    frequence: DataFrequency.of('quotidienne'),
                     idStation: IdStation.of('76116001'),
                     periodeCommande: PeriodeCommande.of({ debut: '2000-06-15T12:00:00Z', fin: '2000-06-15T12:00:00Z' }),
                 })
@@ -44,11 +49,14 @@ describe('CommandeStationMaker', () => {
         it('should throw a zod error', async () => {
             const maker = new CommandeStationMaker({
                 commandeStationApiMaker: createInMemoryCommandeStationAPIMaker({
-                    '76116001': createSuccessfulAPIResponse([{ key: 'value' }]),
+                    quotidienne: {
+                        '76116001': createSuccessfulAPIResponse([{ key: 'value' }]),
+                    },
                 }),
             });
             await expect(() =>
                 maker.makeCommandeStation({
+                    frequence: DataFrequency.of('quotidienne'),
                     idStation: IdStation.of('76116001'),
                     periodeCommande: PeriodeCommande.of({ debut: '2000-06-15T12:00:00Z', fin: '2000-06-15T12:00:00Z' }),
                 })
@@ -63,10 +71,13 @@ describe('CommandeStationMaker', () => {
             };
             const maker = new CommandeStationMaker({
                 commandeStationApiMaker: createInMemoryCommandeStationAPIMaker({
-                    '76116001': createSuccessfulAPIResponse(data),
+                    quotidienne: {
+                        '76116001': createSuccessfulAPIResponse(data),
+                    },
                 }),
             });
             const fetched = await maker.makeCommandeStation({
+                frequence: DataFrequency.of('quotidienne'),
                 idStation: IdStation.of('76116001'),
                 periodeCommande: PeriodeCommande.of({ debut: '2000-06-15T12:00:00Z', fin: '2000-06-15T12:00:00Z' }),
             });

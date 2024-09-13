@@ -5,6 +5,7 @@ import { PeriodeCommande } from '@/commandes/commande-station/periode-commande/P
 import { makeCommandeStationQuotidienne } from '@/commandes/commande-station/quotidienne/api/adapters/meteofrance/makeCommandeStationQuotidienne.js';
 import { IdStation } from '@/id-station/IdStation.js';
 import { wait } from '@/lib/wait.js';
+import { DataFrequency } from '@/stations/liste-stations/DataFrequency.js';
 import { fetchCommandeFichier } from '@/telechargement/commande-fichier/api/adapters/meteofrance/fetchCommandeFichier.js';
 
 import { CommandeFichierFetcher } from '@/telechargement/commande-fichier/api/CommandeFichierFetcher.js';
@@ -21,10 +22,11 @@ describe('CommandeFichierFetcher', () => {
             it('should say it is pending', async () => {
                 const maker = new CommandeStationMaker({ commandeStationApiMaker: makeCommandeStationInfrahoraire6m });
                 const idCommande = await maker.makeCommandeStation({
+                    frequence: DataFrequency.of('infrahoraire-6m'),
                     idStation: IdStation.of('76116001'),
                     periodeCommande: PeriodeCommande.of({
                         debut: '2024-06-15T12:00:00Z',
-                        fin: '2024-06-17T05:00:00Z',
+                        fin: '2024-06-17T12:00:00Z',
                     }),
                 });
                 const fetcher = new CommandeFichierFetcher({ commandeFichierAPIFetcher: fetchCommandeFichier });
@@ -36,6 +38,7 @@ describe('CommandeFichierFetcher', () => {
             it('should fetch data', async () => {
                 const maker = new CommandeStationMaker({ commandeStationApiMaker: makeCommandeStationInfrahoraire6m });
                 const idCommande = await maker.makeCommandeStation({
+                    frequence: DataFrequency.of('infrahoraire-6m'),
                     idStation: IdStation.of('76116001'),
                     periodeCommande: PeriodeCommande.of({
                         debut: '2024-06-15T12:00:00Z',
@@ -58,10 +61,11 @@ describe('CommandeFichierFetcher', () => {
             it('should say it is pending', async () => {
                 const maker = new CommandeStationMaker({ commandeStationApiMaker: makeCommandeStationHoraire });
                 const idCommande = await maker.makeCommandeStation({
+                    frequence: DataFrequency.of('horaire'),
                     idStation: IdStation.of('76116001'),
                     periodeCommande: PeriodeCommande.of({
                         debut: '2024-06-15T12:00:00Z',
-                        fin: '2024-06-16T10:00:00Z',
+                        fin: '2024-06-16T11:00:00Z',
                     }),
                 });
                 const fetcher = new CommandeFichierFetcher({ commandeFichierAPIFetcher: fetchCommandeFichier });
@@ -73,6 +77,7 @@ describe('CommandeFichierFetcher', () => {
             it('should fetch data', async () => {
                 const maker = new CommandeStationMaker({ commandeStationApiMaker: makeCommandeStationHoraire });
                 const idCommande = await maker.makeCommandeStation({
+                    frequence: DataFrequency.of('horaire'),
                     idStation: IdStation.of('76116001'),
                     periodeCommande: PeriodeCommande.of({
                         debut: '2024-06-15T12:00:00Z',
@@ -95,6 +100,7 @@ describe('CommandeFichierFetcher', () => {
             it('should say it is pending', async () => {
                 const maker = new CommandeStationMaker({ commandeStationApiMaker: makeCommandeStationQuotidienne });
                 const idCommande = await maker.makeCommandeStation({
+                    frequence: DataFrequency.of('quotidienne'),
                     idStation: IdStation.of('76116001'),
                     periodeCommande: PeriodeCommande.of({
                         debut: '2024-06-15T12:00:00Z',
@@ -110,6 +116,7 @@ describe('CommandeFichierFetcher', () => {
             it('should fetch data', async () => {
                 const maker = new CommandeStationMaker({ commandeStationApiMaker: makeCommandeStationQuotidienne });
                 const idCommande = await maker.makeCommandeStation({
+                    frequence: DataFrequency.of('quotidienne'),
                     idStation: IdStation.of('76116001'),
                     periodeCommande: PeriodeCommande.of({
                         debut: '2024-06-15T12:00:00Z',

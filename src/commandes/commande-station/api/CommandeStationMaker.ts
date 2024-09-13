@@ -4,6 +4,7 @@ import { PeriodeCommande } from '@/commandes/commande-station/periode-commande/P
 import { IdStation } from '@/id-station/IdStation.js';
 import { IdCommande } from '@/IdCommande.js';
 import { wait } from '@/lib/wait.js';
+import { DataFrequency } from '@/stations/liste-stations/DataFrequency.js';
 import { z } from 'zod';
 
 export class CommandeStationMaker {
@@ -26,13 +27,16 @@ export class CommandeStationMaker {
     }
 
     async makeCommandeStation({
+        frequence,
         idStation,
         periodeCommande,
     }: {
+        frequence: DataFrequency;
         idStation: IdStation;
         periodeCommande: PeriodeCommande;
     }): Promise<IdCommande> {
         const response = await this.callCommandeStationAPI({
+            frequence,
             idStation,
             periodeCommande,
         });
@@ -46,7 +50,7 @@ export class CommandeStationMaker {
                 retries: response.code === 502 ? this.retries : this.retries - 1,
                 waitingTimeInMs: this.waitingTimeInMs,
             });
-            return await maker.makeCommandeStation({ idStation, periodeCommande });
+            return await maker.makeCommandeStation({ frequence, idStation, periodeCommande });
         }
         if (response.code !== 202) {
             throw new UnexpectedResponseError(response);

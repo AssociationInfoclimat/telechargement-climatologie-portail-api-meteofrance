@@ -26,13 +26,13 @@ export class ListeStationsFetcher {
     }
 
     async fetchListeStations({
-        frequency,
+        frequence,
         departement,
     }: {
-        frequency: DataFrequency;
+        frequence: DataFrequency;
         departement: Departement;
     }): Promise<ListeStationsData> {
-        const response = await this.callListeStationsAPI({ frequency, departement });
+        const response = await this.callListeStationsAPI({ frequence, departement });
         if (response.code !== 200 && this.retries <= 0) {
             throw new TooManyRetriesError(response);
         }
@@ -43,7 +43,7 @@ export class ListeStationsFetcher {
                 retries: response.code === 502 ? this.retries : this.retries - 1,
                 waitingTimeInMs: this.waitingTimeInMs,
             });
-            return await fetcher.fetchListeStations({ frequency, departement });
+            return await fetcher.fetchListeStations({ frequence, departement });
         }
         if (response.code !== 200) {
             throw new UnexpectedResponseError(response);

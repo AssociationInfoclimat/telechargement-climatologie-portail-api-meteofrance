@@ -15,7 +15,7 @@ describe('downloadListesStations', () => {
     it('should download the list of stations horaire for the departement', async () => {
         const repository = new PrismaStationsRepository(prisma);
         await downloadListeStations({
-            frequency: DataFrequency.of('horaire'),
+            frequence: DataFrequency.of('horaire'),
             departement: Departement.of(76),
             listeStationsFetcher: new ListeStationsFetcher({
                 listeStationsAPIFetcher: createListeStationsAPIFetcher(),

@@ -8,7 +8,7 @@ describe('ListeStationsHoraireFetcher', () => {
     it('should fetch the list of stations with horaire data', async () => {
         const fetcher = new ListeStationsFetcher({ listeStationsAPIFetcher: fetchListeStationsHoraire });
         const list = await fetcher.fetchListeStations({
-            frequency: DataFrequency.of('horaire'),
+            frequence: DataFrequency.of('horaire'),
             departement: Departement.of(76),
         });
         expect(Array.isArray(list)).toBeTruthy();

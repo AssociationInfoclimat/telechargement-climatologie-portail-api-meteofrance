@@ -6,14 +6,14 @@ import { DataFrequency } from '@/stations/liste-stations/DataFrequency.js';
 import { Departement } from '@/stations/liste-stations/departements/Departement.js';
 
 export function fetchListeStationsFrequency({
-    frequency,
+    frequence,
     departement,
 }: {
-    frequency: DataFrequency;
+    frequence: DataFrequency;
     departement: Departement;
 }): Promise<APIResponse<ListeStationsData>> {
     return getMF({
-        url: `https://public-api.meteofrance.fr/public/DPClim/v1/liste-stations/${frequency.value()}`,
+        url: `https://public-api.meteofrance.fr/public/DPClim/v1/liste-stations/${frequence.value()}`,
         params: {
             'id-departement': departement.value().toString(),
         },

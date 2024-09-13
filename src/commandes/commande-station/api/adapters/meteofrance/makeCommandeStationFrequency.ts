@@ -7,17 +7,17 @@ import { IdStation } from '@/id-station/IdStation.js';
 import { DataFrequency } from '@/stations/liste-stations/DataFrequency.js';
 
 export function makeCommandeStationFrequency({
-    frequency,
+    frequence,
     idStation,
     periodeCommande,
 }: {
-    frequency: DataFrequency;
+    frequence: DataFrequency;
     idStation: IdStation;
     periodeCommande: PeriodeCommande;
 }): Promise<APIResponse<CommandeStationData>> {
     const { debut, fin } = periodeCommande.value();
     return getMF({
-        url: `https://public-api.meteofrance.fr/public/DPClim/v1/commande-station/${frequency.value()}`,
+        url: `https://public-api.meteofrance.fr/public/DPClim/v1/commande-station/${frequence.value()}`,
         params: {
             'id-station': idStation.value(),
             'date-deb-periode': debut,
@@ -26,12 +26,8 @@ export function makeCommandeStationFrequency({
     });
 }
 
-export function createCommandeStationAPIMaker(frequency: DataFrequency): CommandeStationAPIMaker {
-    return function ({ idStation, periodeCommande }) {
-        return makeCommandeStationFrequency({
-            frequency,
-            idStation,
-            periodeCommande,
-        });
+export function createCommandeStationAPIMaker(): CommandeStationAPIMaker {
+    return function ({ frequence, idStation, periodeCommande }) {
+        return makeCommandeStationFrequency({ frequence, idStation, periodeCommande });
     };
 }
