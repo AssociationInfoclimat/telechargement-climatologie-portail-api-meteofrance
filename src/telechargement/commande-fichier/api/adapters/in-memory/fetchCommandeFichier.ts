@@ -3,7 +3,7 @@ import { IdCommande } from '@/IdCommande.js';
 import { CommandeFichierAPIFetcher } from '@/telechargement/commande-fichier/api/CommandeFichierAPIFetcher.js';
 
 export function createInMemoryCommandeFichierAPIFetcher(
-    db: Record<string, APIResponse<unknown>> = {}
+    db: Record<string, APIResponse> = {}
 ): CommandeFichierAPIFetcher {
     const map = new Map(Object.entries(db));
     return function (idCommande: IdCommande) {
@@ -25,7 +25,7 @@ export function createPendingAPIResponse({
 }: {
     message?: string;
     data?: unknown;
-} = {}): APIResponse<unknown> {
+} = {}): APIResponse {
     return {
         code: 204,
         message,
@@ -33,7 +33,7 @@ export function createPendingAPIResponse({
     };
 }
 
-export function createNotFoundErrorAPIResponse(idCommande: IdCommande): APIResponse<unknown> {
+export function createNotFoundErrorAPIResponse(idCommande: IdCommande): APIResponse {
     return {
         code: 404,
         message: `Commande '${idCommande}' not found`,
@@ -47,7 +47,7 @@ export function createAlreadyDownloadedAPIResponse({
 }: {
     message?: string;
     data?: unknown;
-} = {}): APIResponse<unknown> {
+} = {}): APIResponse {
     return {
         code: 410,
         message,
@@ -61,7 +61,7 @@ export function createFailedAPIResponse({
 }: {
     message?: string;
     data?: unknown;
-} = {}): APIResponse<unknown> {
+} = {}): APIResponse {
     return {
         code: 500,
         message,
@@ -75,7 +75,7 @@ export function createServerErrorAPIResponse({
 }: {
     message?: string;
     data?: unknown;
-} = {}): APIResponse<unknown> {
+} = {}): APIResponse {
     return {
         code: 502,
         message,
@@ -89,7 +89,7 @@ export function createTooBigAPIResponse({
 }: {
     message?: string;
     data?: unknown;
-} = {}): APIResponse<unknown> {
+} = {}): APIResponse {
     return {
         code: 507,
         message,

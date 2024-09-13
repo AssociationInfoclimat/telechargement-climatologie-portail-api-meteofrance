@@ -19,7 +19,7 @@ export function createSuccessfulAPIResponse<T>(data: T): APIResponse<T> {
     };
 }
 
-export function createNotFoundErrorAPIResponse(idStation: IdStation): APIResponse<unknown> {
+export function createNotFoundErrorAPIResponse(idStation: IdStation): APIResponse {
     return {
         code: 404,
         message: `Station '${idStation.value()}' not found`,
@@ -35,7 +35,7 @@ export function createServerErrorAPIResponse({
     code?: 500 | 502;
     message?: string;
     data?: unknown;
-} = {}): APIResponse<unknown> {
+} = {}): APIResponse {
     return {
         code,
         message,
