@@ -1,0 +1,15 @@
+NUM_POSTE    : numéro Météo-France du poste sur 8 chiffres
+NOM_USUEL    : nom usuel du poste
+LAT          : latitude, négative au sud (en degrés et millionièmes de degré)
+LON          : longitude, négative à l’ouest de GREENWICH (en degrés et millionièmes de degré)
+ALTI         : altitude du pied de l'abri ou du pluviomètre si pas d'abri (en m)
+AAAAMMJJHHMN : date de la mesure (année mois jour heure minute)
+RR           : quantité de précipitation tombée en 6 minutes (en mm et 1/10)
+QRR          : code qualité de RR
+
+Les valeurs du code qualité sont les suivantes :
+ 9 : donnée filtrée (la donnée a passé les filtres/contrôles de premiers niveaux)
+ 0 : donnée protégée (la donnée a été validée définitivement par le climatologue)
+ 1 : donnée validée (la donnée a été validée par contrôle automatique ou par le climatologue)
+ 2 : donnée douteuse en cours de vérification (la donnée a été mise en doute par contrôle automatique)
+ 

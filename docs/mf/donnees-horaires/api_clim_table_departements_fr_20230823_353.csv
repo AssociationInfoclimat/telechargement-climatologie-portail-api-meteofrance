@@ -1,0 +1,106 @@
+DEP,NCC,NCCENR,LIBELLE
+1,AIN,Ain,Ain
+2,AISNE,Aisne,Aisne
+3,ALLIER,Allier,Allier
+4,ALPES DE HAUTE PROVENCE,Alpes-de-Haute-Provence,Alpes-de-Haute-Provence
+5,HAUTES ALPES,Hautes-Alpes,Hautes-Alpes
+6,ALPES MARITIMES,Alpes-Maritimes,Alpes-Maritimes
+7,ARDECHE,Ardèche,Ardèche
+8,ARDENNES,Ardennes,Ardennes
+9,ARIEGE,Ariège,Ariège
+10,AUBE,Aube,Aube
+11,AUDE,Aude,Aude
+12,AVEYRON,Aveyron,Aveyron
+13,BOUCHES DU RHONE,Bouches-du-Rhône,Bouches-du-Rhône
+14,CALVADOS,Calvados,Calvados
+15,CANTAL,Cantal,Cantal
+16,CHARENTE,Charente,Charente
+17,CHARENTE MARITIME,Charente-Maritime,Charente-Maritime
+18,CHER,Cher,Cher
+19,CORREZE,Corrèze,Corrèze
+20,CORSE,Corse,Corse
+21,COTE D OR,Côte-d'Or,Côte-d'Or
+22,COTES D ARMOR,Côtes-d'Armor,Côtes-d'Armor
+23,CREUSE,Creuse,Creuse
+24,DORDOGNE,Dordogne,Dordogne
+25,DOUBS,Doubs,Doubs
+26,DROME,Drôme,Drôme
+27,EURE,Eure,Eure
+28,EURE ET LOIR,Eure-et-Loir,Eure-et-Loir
+29,FINISTERE,Finistère,Finistère
+30,GARD,Gard,Gard
+31,HAUTE GARONNE,Haute-Garonne,Haute-Garonne
+32,GERS,Gers,Gers
+33,GIRONDE,Gironde,Gironde
+34,HERAULT,Hérault,Hérault
+35,ILLE ET VILAINE,Ille-et-Vilaine,Ille-et-Vilaine
+36,INDRE,Indre,Indre
+37,INDRE ET LOIRE,Indre-et-Loire,Indre-et-Loire
+38,ISERE,Isère,Isère
+39,JURA,Jura,Jura
+40,LANDES,Landes,Landes
+41,LOIR ET CHER,Loir-et-Cher,Loir-et-Cher
+42,LOIRE,Loire,Loire
+43,HAUTE LOIRE,Haute-Loire,Haute-Loire
+44,LOIRE ATLANTIQUE,Loire-Atlantique,Loire-Atlantique
+45,LOIRET,Loiret,Loiret
+46,LOT,Lot,Lot
+47,LOT ET GARONNE,Lot-et-Garonne,Lot-et-Garonne
+48,LOZERE,Lozère,Lozère
+49,MAINE ET LOIRE,Maine-et-Loire,Maine-et-Loire
+50,MANCHE,Manche,Manche
+51,MARNE,Marne,Marne
+52,HAUTE MARNE,Haute-Marne,Haute-Marne
+53,MAYENNE,Mayenne,Mayenne
+54,MEURTHE ET MOSELLE,Meurthe-et-Moselle,Meurthe-et-Moselle
+55,MEUSE,Meuse,Meuse
+56,MORBIHAN,Morbihan,Morbihan
+57,MOSELLE,Moselle,Moselle
+58,NIEVRE,Nièvre,Nièvre
+59,NORD,Nord,Nord
+60,OISE,Oise,Oise
+61,ORNE,Orne,Orne
+62,PAS DE CALAIS,Pas-de-Calais,Pas-de-Calais
+63,PUY DE DOME,Puy-de-Dôme,Puy-de-Dôme
+64,PYRENEES ATLANTIQUES,Pyrénées-Atlantiques,Pyrénées-Atlantiques
+65,HAUTES PYRENEES,Hautes-Pyrénées,Hautes-Pyrénées
+66,PYRENEES ORIENTALES,Pyrénées-Orientales,Pyrénées-Orientales
+67,BAS RHIN,Bas-Rhin,Bas-Rhin
+68,HAUT RHIN,Haut-Rhin,Haut-Rhin
+69,RHONE,Rhône,Rhône
+70,HAUTE SAONE,Haute-Saône,Haute-Saône
+71,SAONE ET LOIRE,Saône-et-Loire,Saône-et-Loire
+72,SARTHE,Sarthe,Sarthe
+73,SAVOIE,Savoie,Savoie
+74,HAUTE SAVOIE,Haute-Savoie,Haute-Savoie
+75,PARIS,Paris,Paris
+76,SEINE MARITIME,Seine-Maritime,Seine-Maritime
+77,SEINE ET MARNE,Seine-et-Marne,Seine-et-Marne
+78,YVELINES,Yvelines,Yvelines
+79,DEUX SEVRES,Deux-Sèvres,Deux-Sèvres
+80,SOMME,Somme,Somme
+81,TARN,Tarn,Tarn
+82,TARN ET GARONNE,Tarn-et-Garonne,Tarn-et-Garonne
+83,VAR,Var,Var
+84,VAUCLUSE,Vaucluse,Vaucluse
+85,VENDEE,Vendée,Vendée
+86,VIENNE,Vienne,Vienne
+87,HAUTE VIENNE,Haute-Vienne,Haute-Vienne
+88,VOSGES,Vosges,Vosges
+89,YONNE,Yonne,Yonne
+90,TERRITOIRE DE BELFORT,Territoire de Belfort,Territoire de Belfort
+91,ESSONNE,Essonne,Essonne
+92,HAUTS DE SEINE,Hauts-de-Seine,Hauts-de-Seine
+93,SEINE SAINT DENIS,Seine-Saint-Denis,Seine-Saint-Denis
+94,VAL DE MARNE,Val-de-Marne,Val-de-Marne
+95,VAL D OISE,Val-d'Oise,Val-d'Oise
+971,GUADELOUPE,Guadeloupe,Guadeloupe
+972,MARTINIQUE,Martinique,Martinique
+973,GUYANE,Guyane,Guyane
+974,LA REUNION,La Réunion,La Réunion
+975,SAINT-PIERRE-ET-MIQUELON,Saint-Pierre-et-Miquelon,Saint-Pierre-et-Miquelon
+984,TAAF,Terres australes et antarctiques françaises,Terres australes et antarctiques françaises
+985,MAYOTTE,Mayotte,Mayotte
+986,WALLIS-ET-FUTUNA,Wallis-et-Futuna,Wallis-et-Futuna
+987,POLYNESIE FRANCAISE,Polynésie française,Polynésie française
+988,NOUVELLE-CALEDONIE,Nouvelle-Calédonie,Nouvelle-Calédonie
