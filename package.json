@@ -25,7 +25,9 @@
         "deploy:preprod": "dotenv -e .env.preprod -- prisma migrate deploy",
         "prepare": "husky",
         "start-docker": "docker compose --file db/compose.yaml up -d",
-        "download-listes-stations": "pnpm run deploy:preprod && dotenv -e .env.preprod -- tsx ./src/apps/downloadListesStations.ts"
+        "download-listes-stations": "pnpm run deploy:preprod && dotenv -e .env.preprod -- tsx ./src/apps/downloadListesStations.ts",
+        "download-all-informations-stations": "pnpm run deploy:preprod && dotenv -e .env.preprod -- tsx ./src/apps/downloadAllInformationsStations.ts",
+        "download-missing-informations-stations": "pnpm run deploy:preprod && dotenv -e .env.preprod -- tsx ./src/apps/downloadMissingInformationsStations.ts"
     },
     "lint-staged": {
         "*.html": "prettier --write --ignore-unknown",
