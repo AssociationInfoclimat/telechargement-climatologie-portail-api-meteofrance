@@ -33,4 +33,8 @@ export class IdStation {
     value(): string {
         return this.id;
     }
+
+    toString(): string {
+        return this.value().toString();
+    }
 }
