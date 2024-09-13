@@ -1,10 +1,19 @@
-import { TooManyRetriesError, UnexpectedResponseError } from '@/api/APIResponse.js';
+import { APIResponse, TooManyRetriesError, UnexpectedResponseError } from '@/api/APIResponse.js';
 import { IdStation } from '@/id-station/IdStation.js';
 import { wait } from '@/lib/wait.js';
 import { fetchInformationStation } from '@/stations/information-station/api/adapters/meteofrance/fetchInformationStation.js';
 import { InformationStationAPIFetcher } from '@/stations/information-station/api/InformationStationAPIFetcher.js';
 import { InformationStationData } from '@/stations/information-station/api/InformationStationData.js';
 import { z } from 'zod';
+
+export class MissingInformationsError extends Error {
+    readonly response: APIResponse;
+
+    constructor({ stationId, response }: { stationId: IdStation; response: APIResponse }) {
+        super(`Station '${stationId}' does not have any informations`);
+        this.response = response;
+    }
+}
 
 export class InformationStationFetcher {
     private readonly callInformationStationAPI: InformationStationAPIFetcher;
@@ -38,6 +47,9 @@ export class InformationStationFetcher {
                 waitingTimeInMs: this.waitingTimeInMs,
             });
             return await fetcher.fetchInformationStation(idStation);
+        }
+        if (response.code === 404) {
+            throw new MissingInformationsError({ stationId: idStation, response });
         }
         if (response.code !== 200) {
             throw new UnexpectedResponseError(response);

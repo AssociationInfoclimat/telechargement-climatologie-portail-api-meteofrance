@@ -5,7 +5,10 @@ import {
     createServerErrorAPIResponse,
     createSuccessfulAPIResponse,
 } from '@/stations/information-station/api/adapters/in-memory/fetchInformationStation.js';
-import { InformationStationFetcher } from '@/stations/information-station/api/InformationStationFetcher.js';
+import {
+    InformationStationFetcher,
+    MissingInformationsError,
+} from '@/stations/information-station/api/InformationStationFetcher.js';
 import { describe, expect, it } from 'vitest';
 
 describe('InformationStationFetcher', () => {
@@ -22,10 +25,22 @@ describe('InformationStationFetcher', () => {
             );
         });
     });
-    describe('when unknown code', () => {
-        it('should throw unexpected resposne error', async () => {
+    describe('when missing informations', () => {
+        it('should throw missing informations error', async () => {
             const fetcher = new InformationStationFetcher({
                 informationStationAPIFetcher: createInMemoryInformationStationAPIFetcher(),
+            });
+            await expect(() => fetcher.fetchInformationStation(IdStation.of('05077403'))).rejects.toThrow(
+                MissingInformationsError
+            );
+        });
+    });
+    describe('when unknown code', () => {
+        it('should throw unexpected response error', async () => {
+            const fetcher = new InformationStationFetcher({
+                informationStationAPIFetcher: createInMemoryInformationStationAPIFetcher({
+                    '76116001': { code: 429, message: '', data: null },
+                }),
             });
             await expect(() => fetcher.fetchInformationStation(IdStation.of('76116001'))).rejects.toThrow(
                 UnexpectedResponseError
