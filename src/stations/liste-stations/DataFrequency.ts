@@ -1,20 +1,24 @@
 const DATA_FREQUENCY_TYPES: string[] = ['infrahoraire-6m', 'horaire', 'quotidienne'];
 
 export class DataFrequency {
-    private readonly type: string;
+    private readonly frequence: string;
 
     private constructor(type: string) {
-        this.type = type;
+        this.frequence = type;
     }
 
-    static of(type: string): DataFrequency {
-        if (!DATA_FREQUENCY_TYPES.includes(type)) {
-            throw new Error(`Invalid data frequency: ${type}`);
+    static of(frequence: string): DataFrequency {
+        if (!DATA_FREQUENCY_TYPES.includes(frequence)) {
+            throw new Error(`Invalid data frequency: ${frequence}`);
         }
-        return new DataFrequency(type);
+        return new DataFrequency(frequence);
     }
 
     value(): string {
-        return this.type;
+        return this.frequence;
+    }
+
+    toString(): string {
+        return this.value().toString();
     }
 }
