@@ -2,7 +2,7 @@ import { APIResponse } from '@/api/APIResponse.js';
 import { getUsingAxios, postUsingAxios } from '@/api/Axios.js';
 import { LoggerSingleton } from '@/lib/logger/LoggerSingleton.js';
 
-export async function get(
+export async function get<T>(
     {
         url,
         params,
@@ -13,7 +13,7 @@ export async function get(
         headers?: { Authorization?: string };
     },
     { retries = 3 }: { retries?: number } = {}
-): Promise<APIResponse> {
+): Promise<APIResponse<T>> {
     try {
         return await getUsingAxios({ url, params, headers });
     } catch (error) {
@@ -25,7 +25,7 @@ export async function get(
     }
 }
 
-export async function post(
+export async function post<T>(
     {
         url,
         body,
@@ -36,7 +36,7 @@ export async function post(
         headers?: { Authorization?: string };
     },
     { retries = 3 }: { retries?: number } = {}
-): Promise<APIResponse> {
+): Promise<APIResponse<T>> {
     try {
         return await postUsingAxios({ url, body, headers });
     } catch (error) {
