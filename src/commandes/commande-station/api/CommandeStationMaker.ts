@@ -43,7 +43,7 @@ export class CommandeStationMaker {
             await wait(this.waitingTimeInMs);
             const maker = new CommandeStationMaker({
                 commandeStationApiMaker: this.callCommandeStationAPI,
-                retries: this.retries - 1,
+                retries: response.code === 502 ? this.retries : this.retries - 1,
                 waitingTimeInMs: this.waitingTimeInMs,
             });
             return await maker.makeCommandeStation({ idStation, periodeCommande });

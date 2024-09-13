@@ -34,7 +34,7 @@ export class InformationStationFetcher {
             await wait(this.waitingTimeInMs);
             const fetcher = new InformationStationFetcher({
                 informationStationAPIFetcher: this.callInformationStationAPI,
-                retries: this.retries - 1,
+                retries: response.code === 502 ? this.retries : this.retries - 1,
                 waitingTimeInMs: this.waitingTimeInMs,
             });
             return await fetcher.fetchInformationStation(idStation);

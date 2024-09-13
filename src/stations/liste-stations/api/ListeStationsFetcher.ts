@@ -40,7 +40,7 @@ export class ListeStationsFetcher {
             await wait(this.waitingTimeInMs);
             const fetcher = new ListeStationsFetcher({
                 listeStationsAPIFetcher: this.callListeStationsAPI,
-                retries: this.retries - 1,
+                retries: response.code === 502 ? this.retries : this.retries - 1,
                 waitingTimeInMs: this.waitingTimeInMs,
             });
             return await fetcher.fetchListeStations({ frequency, departement });
