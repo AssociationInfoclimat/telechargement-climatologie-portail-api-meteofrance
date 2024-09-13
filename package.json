@@ -11,6 +11,7 @@
     "author": "Jean LECORDIER",
     "license": "UNLICENSED",
     "scripts": {
+        "check": "tsc --noEmit",
         "lint": "eslint .",
         "lint:fix": "eslint --fix .",
         "format": "prettier --write .",
