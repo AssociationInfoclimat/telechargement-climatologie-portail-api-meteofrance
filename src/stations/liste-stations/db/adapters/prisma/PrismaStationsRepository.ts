@@ -50,6 +50,7 @@ export class PrismaStationsRepository implements StationsRepository {
                      LEFT JOIN "InformationStation" as i
                                ON s.id = i.id
             WHERE i.id IS NULL
+            ORDER BY s.id ASC
         `);
         return records.map(record => IdStation.of(record.id));
     }
