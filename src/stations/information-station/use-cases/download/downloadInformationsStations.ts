@@ -9,6 +9,7 @@ import {
 } from '@/stations/information-station/api/InformationStationFetcher.js';
 import { InformationsStationsRepository } from '@/stations/information-station/db/InformationsStationsRepository.js';
 import { InformationsStations } from '@/stations/information-station/InformationStation.js';
+import { ZodError } from 'zod';
 
 export async function downloadInformationsStation({
     fetcher,
@@ -48,10 +49,13 @@ export async function downloadSomeInformationsStations({
                 stationId,
             });
         } catch (e) {
-            if (!(e instanceof MissingInformationsError)) {
+            if (e instanceof MissingInformationsError) {
+                LoggerSingleton.getSingleton().warn({ message: e.message, data: e.response });
+            } else if (e instanceof ZodError) {
+                LoggerSingleton.getSingleton().warn({ message: e.message, data: e });
+            } else {
                 throw e;
             }
-            LoggerSingleton.getSingleton().warn({ message: e.message, data: e.response });
         }
         await wait(throttleInMs);
     }
