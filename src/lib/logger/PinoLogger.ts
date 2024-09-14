@@ -17,45 +17,25 @@ export class PinoLogger implements Logger {
     }
 
     debug({ message, data }: { message?: string; data?: unknown }): void {
-        if (message !== undefined) {
-            this.logger.debug(message, data);
-        } else {
-            this.logger.debug(data);
-        }
+        this.logger.debug(data, message);
     }
 
     info({ message, data }: { message?: string; data?: unknown }): void {
-        if (message !== undefined) {
-            this.logger.info(message, data);
-        } else {
-            this.logger.info(data);
-        }
+        this.logger.info(data, message);
     }
 
     warn({ message, data }: { message?: string; data?: unknown }): void {
-        if (message !== undefined) {
-            this.logger.warn(message, data);
-        } else {
-            this.logger.warn(data);
-        }
+        this.logger.warn(data, message);
     }
 
     error({ message, data }: { message?: string; data?: unknown }): void {
-        if (message !== undefined) {
-            this.logger.error(message, data);
-        } else {
-            this.logger.error(data);
-        }
+        this.logger.error(data, message);
     }
 
     trace({ message, data }: { message?: string; data?: unknown }): void {
         const previousLevel = this.logger.level;
         this.logger.level = 'trace';
-        if (message !== undefined) {
-            this.logger.trace(message, data);
-        } else {
-            this.logger.trace(data);
-        }
+        this.logger.trace(data, message);
         this.logger.level = previousLevel;
     }
 }
