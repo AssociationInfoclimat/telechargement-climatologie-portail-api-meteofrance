@@ -1,4 +1,5 @@
 import { IdStation } from '@/id-station/IdStation.js';
+import { DataFrequency } from '@/stations/liste-stations/DataFrequency.js';
 import { StationsRepository } from '@/stations/liste-stations/db/StationsRepository.js';
 import { Stations } from '@/stations/liste-stations/Station.js';
 import { Prisma, PrismaClient } from '@prisma/client';
@@ -53,5 +54,27 @@ export class PrismaStationsRepository implements StationsRepository {
             ORDER BY s.id ASC
         `);
         return records.map(record => IdStation.of(record.id));
+    }
+
+    async selectIdsForFrequency(frequence: DataFrequency): Promise<IdStation[]> {
+        const records = await this.prisma.station.findMany({
+            select: { id: true },
+            distinct: ['id'],
+            where: { frequence: frequence.value() },
+            orderBy: { id: 'asc' },
+        });
+        return records.map(record => IdStation.of(record.id));
+    }
+
+    async selectHoraireIds(): Promise<IdStation[]> {
+        return this.selectIdsForFrequency(DataFrequency.of('horaire'));
+    }
+
+    async selectInfrahoraire6mIds(): Promise<IdStation[]> {
+        return this.selectIdsForFrequency(DataFrequency.of('infrahoraire-6m'));
+    }
+
+    async selectQuotidienneIds(): Promise<IdStation[]> {
+        return this.selectIdsForFrequency(DataFrequency.of('quotidienne'));
     }
 }

@@ -1,6 +1,7 @@
 import { IdStation } from '@/id-station/IdStation.js';
 import { InMemoryInformationsStationsRepository } from '@/stations/information-station/db/adapters/in-memory/InMemoryInformationsStationsRepository.js';
 import { InformationStationDTO } from '@/stations/information-station/InformationStation.js';
+import { DataFrequency } from '@/stations/liste-stations/DataFrequency.js';
 import { StationsRepository } from '@/stations/liste-stations/db/StationsRepository.js';
 import { StationDTO, Stations } from '@/stations/liste-stations/Station.js';
 
@@ -66,7 +67,7 @@ export class InMemoryStationsRepository implements StationsRepository {
 
     async selectAllIds(): Promise<IdStation[]> {
         const stations = await this.selectAll();
-        return stations.get().map(station => station.id);
+        return new Array(...new Set(stations.get().map(station => station.id.value()))).map(id => IdStation.of(id));
     }
 
     async selectIdsWithNoInformations(): Promise<IdStation[]> {
@@ -74,5 +75,25 @@ export class InMemoryStationsRepository implements StationsRepository {
         const informations = await this.informationsStationsRepository.selectAll();
         const informationsIds = informations.toDTOs().map(information => information.id);
         return ids.filter(id => !informationsIds.includes(id.value()));
+    }
+
+    selectIdsForFrequency(frequence: DataFrequency): Promise<IdStation[]> {
+        const ids = this.stations
+            .get()
+            .filter(station => station.frequence.value() === frequence.value())
+            .map(station => station.id);
+        return Promise.resolve(ids);
+    }
+
+    selectHoraireIds(): Promise<IdStation[]> {
+        return this.selectIdsForFrequency(DataFrequency.of('horaire'));
+    }
+
+    selectInfrahoraire6mIds(): Promise<IdStation[]> {
+        return this.selectIdsForFrequency(DataFrequency.of('infrahoraire-6m'));
+    }
+
+    selectQuotidienneIds(): Promise<IdStation[]> {
+        return this.selectIdsForFrequency(DataFrequency.of('quotidienne'));
     }
 }

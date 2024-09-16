@@ -2,7 +2,7 @@ import { IdStation } from '@/id-station/IdStation.js';
 import { InformationStationDTO } from '@/stations/information-station/InformationStation.js';
 import { InMemoryStationsRepository } from '@/stations/liste-stations/db/adapters/in-memory/InMemoryStationsRepository.js';
 import { StationDTO, Stations } from '@/stations/liste-stations/Station.js';
-import { describe, expect, it } from 'vitest';
+import { assert, describe, expect, it } from 'vitest';
 
 describe('InMemoryStationsRepository', () => {
     describe('upsertMany', () => {
@@ -44,12 +44,37 @@ describe('InMemoryStationsRepository', () => {
                     alt: 232,
                     postePublic: true,
                 },
+                {
+                    id: '76024001',
+                    nom: 'ARDOUVAL',
+                    departement: 76,
+                    frequence: 'quotidienne',
+                    posteOuvert: false,
+                    typePoste: 4,
+                    lon: 1.273833,
+                    lat: 49.748667,
+                    alt: 180,
+                    postePublic: true,
+                },
             ]);
             const repository = InMemoryStationsRepository.of([]);
             await repository.upsertMany(stationsToInsert);
             await repository.upsertMany(stationsToInsert);
+
             const insertedStations = await repository.selectAll();
             expect(insertedStations).toEqual(stationsToInsert);
+
+            const ids = await repository.selectAllIds();
+            assert.sameDeepMembers(ids, [IdStation.of('76116001'), IdStation.of('76130001'), IdStation.of('76024001')]);
+
+            const horaires = await repository.selectHoraireIds();
+            assert.sameDeepMembers(horaires, [IdStation.of('76116001')]);
+
+            const infrahoraires = await repository.selectInfrahoraire6mIds();
+            assert.sameDeepMembers(infrahoraires, [IdStation.of('76116001'), IdStation.of('76130001')]);
+
+            const quotidiennes = await repository.selectQuotidienneIds();
+            assert.sameDeepMembers(quotidiennes, [IdStation.of('76024001')]);
         });
     });
     describe('selectIdsWithNoInformations', () => {
