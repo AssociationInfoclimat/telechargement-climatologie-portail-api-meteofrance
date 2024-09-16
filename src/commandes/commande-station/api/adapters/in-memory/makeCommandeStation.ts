@@ -1,7 +1,9 @@
 import { APIResponse } from '@/api/APIResponse.js';
 import { CommandeStationAPIMaker } from '@/commandes/commande-station/api/CommandeStationAPIMaker.js';
+import { CommandeStationData } from '@/commandes/commande-station/api/CommandeStationData.js';
 import { PeriodeCommande } from '@/commandes/commande-station/periode-commande/PeriodeCommande.js';
 import { IdStation } from '@/id-station/IdStation.js';
+import { IdCommande } from '@/IdCommande.js';
 import { DataFrequency } from '@/stations/liste-stations/DataFrequency.js';
 
 export function createInMemoryCommandeStationAPIMaker(
@@ -33,6 +35,14 @@ export function createSuccessfulAPIResponse<T>(data: T): APIResponse<T> {
         message: 'OK',
         data,
     };
+}
+
+export function createCorrectSuccessfulAPIResponse(idCommande: IdCommande): APIResponse<CommandeStationData> {
+    return createSuccessfulAPIResponse({
+        elaboreProduitAvecDemandeResponse: {
+            return: idCommande,
+        },
+    });
 }
 
 export function createNotFoundErrorAPIResponse({
