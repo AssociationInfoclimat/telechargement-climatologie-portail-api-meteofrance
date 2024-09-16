@@ -1,9 +1,8 @@
+import { ConsoleLogger } from '@/lib/logger/ConsoleLogger.js';
 import { Logger } from '@/lib/logger/Logger.js';
-import { PinoLogger } from '@/lib/logger/PinoLogger.js';
-import { pino } from 'pino';
 
 export class LoggerSingleton {
-    private static singleton: Logger = PinoLogger.of({ logger: pino({ level: 'error' }) });
+    private static singleton: Logger = new ConsoleLogger({ logLevel: 'error' });
 
     static getSingleton(): Logger {
         return LoggerSingleton.singleton;
