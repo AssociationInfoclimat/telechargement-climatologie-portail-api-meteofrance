@@ -1,0 +1,27 @@
+NUM_POSTE  : numéro Météo-France du poste sur 8 chiffres
+NOM_USUEL  : nom usuel du poste
+LAT        : latitude, négative au sud (en degrés et millionièmes de degré)
+LON        : longitude, négative à l’ouest de GREENWICH (en degrés et millionièmes de degré)
+ALTI       : altitude du pied de l'abri ou du pluviomètre si pas d'abri (en m)
+AAAAMM     : date (année mois)
+NUM_DECADE : numéro de la décade
+RR         : cumul décadaire des hauteurs de précipitation (en mm et 1/10)
+CRR        : code calcul de RR pour la décade
+TN         : moyenne décadaire de la température minimale (en °C et 1/10)
+CTN        : code calcul de TN pour la décade
+TX         : moyenne décadaire de la température maximale (en °C et 1/10)
+CTX        : code calcul de TX pour la décade
+FFM        : moyenne décadaire de la force du vent moyenné sur 10 mn, à 10 m (en m/s et 1/10)
+CFFM       : code calcul de FFM pour la décade
+TSVM       : moyenne décadaire de la tension de vapeur (en hPa et 1/10)
+CTSVM      : code calcul de TSVM pour la décade
+INST       : durée totale d’insolation sur la décade (en mn)
+CINST      : code calcul de l’insolation pour la décade
+GLOT       : cumul de rayonnement global (en J/cm2)
+CGLOT      : code calcul de rayonnement pour la décade
+ETP        : ETP Penman décadaire (en mm et 1/10)
+
+Les codes calcul ont la signification suivante pour tous les paramètres :
+0 : le calcul sur la décade est effectué sans donnée manquante
+1 : le calcul sur la décade a utilisé au moins une donnée manquante estimée; dans ce cas, les données manquantes de la décade sont estimées 
+2 : ce code est utilisé uniquement dans les champs CINST et CGLO et indique que l’estimation de INST ou GLOT sur la décade a été faite à partir de la formule d’Angström.
