@@ -41,7 +41,11 @@ export class ConsoleLogger implements Logger {
 
     private log({ level, message, data }: { level: LogLevel; message?: string; data?: unknown }): void {
         if (LEVEL_TO_INDEX_MAP[this.logLevel] <= LEVEL_TO_INDEX_MAP[level]) {
-            console.log(`[${level.toUpperCase()}] ${message}\n${JSON.stringify(data)}`);
+            let log = `[${level.toUpperCase()}] ${message}`;
+            if (data) {
+                log += `\n${JSON.stringify(data)}`;
+            }
+            console.log(log);
         }
     }
 }
