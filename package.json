@@ -1,7 +1,7 @@
 {
-    "name": "telechargement-meteofrance",
+    "name": "telechargement-climatologie-portail-api-meteofrance",
     "version": "1.0.0",
-    "description": "Téléchargement des données Météo-France",
+    "description": "Téléchargement des données de climatologie du portail des APIs Météo-France",
     "type": "module",
     "main": "index.js",
     "keywords": [
