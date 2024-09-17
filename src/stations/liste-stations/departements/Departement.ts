@@ -21,4 +21,8 @@ export class Departement {
     value(): number {
         return this.numero;
     }
+
+    toString(): string {
+        return this.numero.toString();
+    }
 }
