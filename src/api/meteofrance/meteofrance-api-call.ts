@@ -1,6 +1,7 @@
 import { get } from '@/api/api-call.js';
 import { APIResponse } from '@/api/APIResponse.js';
 import { TokenStorage } from '@/api/meteofrance/token/TokenStorage.js';
+import { wait } from '@/lib/wait.js';
 
 export async function getMF<T>(
     {
@@ -24,6 +25,10 @@ export async function getMF<T>(
     if (response.code === 401 && retries > 0) {
         await tokenStorage.updateToken();
         return getMF({ url, params }, { retries: retries - 1 });
+    }
+    if (response.code === 429) {
+        await wait(10 * 1000);
+        return getMF({ url, params }, { retries });
     }
     return response;
 }
