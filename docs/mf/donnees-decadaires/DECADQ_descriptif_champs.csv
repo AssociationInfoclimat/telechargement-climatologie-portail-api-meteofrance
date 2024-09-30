@@ -3,12 +3,12 @@ NOM_USUEL       : nom usuel du poste
 LAT             : latitude, négative au sud (en degrés et millionièmes de degré)
 LON             : longitude, négative à l’ouest de GREENWICH (en degrés et millionièmes de degré)
 ALTI            : altitude du pied de l'abri ou du pluviomètre si pas d'abri (en m)
-DAT             : date (année mois)
+AAAAMM          : date (année mois)
 NUM_DECADE      : numéro de la décade
-RR              : cumul décadaire des hauteurs de précipitation, paramètre lié au NBRR
+RR              : cumul décadaire des hauteurs de précipitation, paramètre lié au NBRR (en mm et 1/10)
 QRR             : code qualité du RR
 NBRR            : nombre de valeurs présentes de hauteur de précipitation quotidienne
-RRAB            : précipitation maximale tombée en 24 heures au cours de la décade
+RRAB            : précipitation maximale tombée en 24 heures au cours de la décade (en mm et 1/10)
 QRRAB           : code qualité du RRAB
 RRABDAT         : jour du RRAB
 NBJRR1          : nombre de jours avec RR ≥ 1.0 mm

@@ -29,10 +29,10 @@ HXI2        : heure de FXI2 (hhmm)
 FXI3S       : maximum quotidien de la force maximale horaire du vent moyenné sur 3 s, à 10 m (en m/s et 1/10)
 DXI3S       : direction de FXI3S (en rose de 360)
 HXI3S       : heure de FXI3S (hhmm)
+DRR         : durée des précipitations (en mn)
 
 A chaque donnée est associé un code qualité (ex: T;QT) :
  9 : donnée filtrée (la donnée a passé les filtres/contrôles de premiers niveaux)
  0 : donnée protégée (la donnée a été validée définitivement par le climatologue)
  1 : donnée validée (la donnée a été validée par contrôle automatique ou par le climatologue)
  2 : donnée douteuse en cours de vérification (la donnée a été mise en doute par contrôle automatique)
- 

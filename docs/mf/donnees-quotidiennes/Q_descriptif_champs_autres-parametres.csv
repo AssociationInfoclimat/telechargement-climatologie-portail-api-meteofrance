@@ -13,7 +13,7 @@ DIFT        : rayonnement diffus quotidien (en J/cm2)
 DIRT        : rayonnement direct quotidien (en J/cm2)
 INFRART     : somme des rayonnements infra-rouge horaires (en J/cm2)
 UV          : cumul quotidien de rayonnement ultra-violet (en J/cm2)
-UV_INDICEX  : maximum des indices UV horaires (en J/cm2)
+UV_INDICEX  : maximum des indices UV horaires
 SIGMA       : fraction d’insolation par rapport à la durée du jour (en %)
 UN          : minimum quotidien des humidités relatives minimales horaires (en %)
 HUN         : heure de UN (hhmm)
@@ -51,4 +51,3 @@ A chaque donnée est associé un code qualité (ex: T;QT) :
  0 : donnée protégée (la donnée a été validée définitivement par le climatologue)
  1 : validée (la donnée a été validée par contrôle automatique ou par le climatologue)
  2 : douteuse en cours de vérification (la donnée a été mise en doute par contrôle automatique)
- 

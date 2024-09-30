@@ -5,73 +5,140 @@ LON         : longitude, négative à l’ouest de GREENWICH (en degrés et mill
 ALTI        : altitude du pied de l'abri ou du pluviomètre si pas d'abri (en m)
 AAAAMMJJHH  : date de la mesure (année mois jour heure)
 RR1         : quantité de précipitation tombée en 1 heure (en mm et 1/10 mm)
+QRR1        : quantité de précipitation tombée en 1 heure (en mm et 1/10 mm)
 DRR1        : durée des précipitations (en mn)
+QDRR1       : durée des précipitations (en mn)
 FF          : force du vent moyenné sur 10 mn, mesurée à 10 m (en m/s et 1/10)
+QFF         : force du vent moyenné sur 10 mn, mesurée à 10 m (en m/s et 1/10)
 DD          : direction de FF (en rose de 360)
+QDD         : direction de FF (en rose de 360)
 FXY         : valeur maximale de FF dans l’heure (en m/s et 1/10)
+QFXY        : valeur maximale de FF dans l’heure (en m/s et 1/10)
 DXY         : direction de FXY (rose de 360)
+QDXY        : direction de FXY (rose de 360)
 HXY         : heure de FXY (hhmm)
+QHXY        : heure de FXY (hhmm)
 FXI         : force maximale du vent instantané dans l’heure, mesurée à 10 m (en m/s et 1/10)
+QFXI        : force maximale du vent instantané dans l’heure, mesurée à 10 m (en m/s et 1/10)
 DXI         : direction de FXI (en rose de 360)
+QDXI        : direction de FXI (en rose de 360)
 HXI         : heure de FXI (hhmm)
+QHXI        : heure de FXI (hhmm)
 FF2         : force du vent moyenné sur 10 mn, mesurée à 2 m (en m/s et 1/10)
+QFF2        : force du vent moyenné sur 10 mn, mesurée à 2 m (en m/s et 1/10)
 DD2         : direction de FF2 (en rose de 360)
+QDD2        : direction de FF2 (en rose de 360)
 FXI2        : force maximale du vent instantané dans l’heure, mesurée à 2 m (en m/s et 1/10)
+QFXI2       : force maximale du vent instantané dans l’heure, mesurée à 2 m (en m/s et 1/10)
 DXI2        : direction de FXI2 (en rose de 360)
+QDXI2       : direction de FXI2 (en rose de 360)
 HXI2        : heure de FXI2 (hhmm)
+QHXI2       : heure de FXI2 (hhmm)
 FXI3S       : force maximale du vent moyenné sur 3 secondes dans l’heure (en m/s et 1/10)
+QFXI3S      : force maximale du vent moyenné sur 3 secondes dans l’heure (en m/s et 1/10)
 DXI3S       : direction de FXI3S (en rose de 360)
-HXI3S       : heure de FXI3S (hhmm)
+QDXI3S      : direction de FXI3S (en rose de 360)
+HFXI3S      : heure de FXI3S (hhmm)
+QHFXI3S     : heure de FXI3S (hhmm)
 T           : température sous abri instantanée (en °C et 1/10)
+QT          : température sous abri instantanée (en °C et 1/10)
 TD          : température du point de rosée (en °C et 1/10)
+QTD         : température du point de rosée (en °C et 1/10)
 TN          : température minimale sous abri dans l’heure (en °C et 1/10)
+QTN         : température minimale sous abri dans l’heure (en °C et 1/10)
 HTN         : heure de TN (hhmm)
+QHTN        : heure de TN (hhmm)
 TX          : température maximale sous abri dans l’heure (en °C et 1/10)
+QTX         : température maximale sous abri dans l’heure (en °C et 1/10)
 HTX         : heure de TX (hhmm)
+QHTX        : heure de TX (hhmm)
 DG          : durée de gel sous abri (T ≤ 0°C) (en mn)
+QDG         : durée de gel sous abri (T ≤ 0°C) (en mn)
 T10         : température à 10 cm au-dessous du sol (en °C et 1/10), n’existe pas pour les sémaphores
+QT10        : température à 10 cm au-dessous du sol (en °C et 1/10), n’existe pas pour les sémaphores
 T20         : température à 20 cm au-dessous du sol (en °C et 1/10), n’existe pas pour les sémaphores
+QT20        : température à 20 cm au-dessous du sol (en °C et 1/10), n’existe pas pour les sémaphores
 T50         : température à 50 cm au-dessous du sol (en °C et 1/10), n’existe pas pour les sémaphores
+QT50        : température à 50 cm au-dessous du sol (en °C et 1/10), n’existe pas pour les sémaphores
 T100        : température à 1 m au-dessous du sol (en °C et 1/10), n’existe pas pour les sémaphores
+QT100       : température à 1 m au-dessous du sol (en °C et 1/10), n’existe pas pour les sémaphores
 TNSOL       : température minimale à 10 cm au-dessus du sol (en °C et 1/10)
+QTNSOL      : température minimale à 10 cm au-dessus du sol (en °C et 1/10)
 TN50        : température minimale à 50 cm au-dessus du sol (en °C et 1/10)
+QTN50       : température minimale à 50 cm au-dessus du sol (en °C et 1/10)
 TCHAUSSEE   : température de surface mesurée sur herbe ou sur bitume (en °C et 1/10)
+QTCHAUSSEE  : température de surface mesurée sur herbe ou sur bitume (en °C et 1/10)
 DHUMEC      : durée d’humectation (en mn)
+QDHUMEC     : durée d’humectation (en mn)
 U           : humidité relative (en %)
+QU          : humidité relative (en %)
 UN          : humidité relative minimale dans l’heure (en %)
+QUN         : humidité relative minimale dans l’heure (en %)
 HUN         : heure de UN (hhmm)
+QHUN        : heure de UN (hhmm)
 UX          : humidité relative maximale dans l’heure (en %)
+QUX         : humidité relative maximale dans l’heure (en %)
 HUX         : heure de UX (hhmm)
+QHUX        : heure de UX (hhmm)
 DHUMI40     : durée avec humidité ≤ 40% (en mn)
+QDHUMI40    : durée avec humidité ≤ 40% (en mn)
 DHUMI80     : durée avec humidité ≥ 80% (en mn)
+QDHUMI80    : durée avec humidité ≥ 80% (en mn)
 TSV         : tension de vapeur (en hPa et 1/10)
+QTSV        : tension de vapeur (en hPa et 1/10)
 PMER        : pression mer, seulement pour les postes dont l’altitude est inférieure ou égale à 750 m (en hPa et 1/10)
+QPMER       : pression mer, seulement pour les postes dont l’altitude est inférieure ou égale à 750 m (en hPa et 1/10)
 PSTAT       : pression station (en hPa et 1/10)
+QPSTAT      : pression station (en hPa et 1/10)
 PMERMIN     : minimum horaire de la pression mer (en hPa et 1/10)
+QPERMIN     : minimum horaire de la pression mer (en hPa et 1/10)
 GEOP        : géopotentiel, seulement pour les stations dont l’altitude est supérieure à 750 m (en mgp)
+QGEOP       : géopotentiel, seulement pour les stations dont l’altitude est supérieure à 750 m (en mgp)
 N           : nébulosité totale (en octa), 9=ciel invisible par brouillard et/ou autre phénomène météorologique
+QN          : nébulosité totale (en octa), 9=ciel invisible par brouillard et/ou autre phénomène météorologique
 NBAS        : nébulosité de la couche nuageuse principale la plus basse (en octa)
-CL          : code SYNOP nuages bas (v. Atlas international des nuages (OMM-N°407), Volume I, Classification des nuages)
-CM          : code SYNOP nuages moyens (v. Atlas international des nuages (OMM-N°407), Volume I, Classification des nuages)
-CH          : code SYNOP nuages élevés (v. Atlas international des nuages (OMM-N°407), Volume I, Classification des nuages)
+QNBAS       : nébulosité de la couche nuageuse principale la plus basse (en octa)
+CL          : code SYNOP nuages bas (v. Atlas international des nuages (OMM-N°407), Volume I, Classification des nuages) [https://cloudatlas.wmo.int/fr/code-specifications-and-coding-procedures.html]
+QCL         : code SYNOP nuages bas (v. Atlas international des nuages (OMM-N°407), Volume I, Classification des nuages) [https://cloudatlas.wmo.int/fr/code-specifications-and-coding-procedures.html]
+CM          : code SYNOP nuages moyens (v. Atlas international des nuages (OMM-N°407), Volume I, Classification des nuages) [https://cloudatlas.wmo.int/fr/code-specifications-and-coding-procedures.html]
+QCM         : code SYNOP nuages moyens (v. Atlas international des nuages (OMM-N°407), Volume I, Classification des nuages) [https://cloudatlas.wmo.int/fr/code-specifications-and-coding-procedures.html]
+CH          : code SYNOP nuages élevés (v. Atlas international des nuages (OMM-N°407), Volume I, Classification des nuages) [https://cloudatlas.wmo.int/fr/code-specifications-and-coding-procedures.html]
+QCH         : code SYNOP nuages élevés (v. Atlas international des nuages (OMM-N°407), Volume I, Classification des nuages) [https://cloudatlas.wmo.int/fr/code-specifications-and-coding-procedures.html]
 N1          : nébulosité de la 1ère couche nuageuse (en octa)
-C1          : genre de la 1ère couche nuageuse
+QN1         : nébulosité de la 1ère couche nuageuse (en octa)
+C1          : genre (code SYNOP) de la 1ère couche nuageuse [https://cloudatlas.wmo.int/fr/code-specifications-and-coding-procedures.html]
+QC1         : genre (code SYNOP) de la 1ère couche nuageuse [https://cloudatlas.wmo.int/fr/code-specifications-and-coding-procedures.html]
 B1          : base de la 1ère couche nuageuse (en m)
+QB1         : base de la 1ère couche nuageuse (en m)
 N2          : nébulosité de la 2ème couche nuageuse (en octa)
-C2          : genre de la 2ème couche nuageuse
+QN2         : nébulosité de la 2ème couche nuageuse (en octa)
+C2          : genre (code SYNOP) de la 2ème couche nuageuse [https://cloudatlas.wmo.int/fr/code-specifications-and-coding-procedures.html]
+QC2         : genre (code SYNOP) de la 2ème couche nuageuse [https://cloudatlas.wmo.int/fr/code-specifications-and-coding-procedures.html]
 B2          : base de la 2ème couche nuageuse (en m)
+QCB2        : base de la 2ème couche nuageuse (en m)
 N3          : nébulosité de la 3ème couche nuageuse (en octa)
-C3          : genre de la 3ème couche nuageuse
+QN3         : nébulosité de la 3ème couche nuageuse (en octa)
+C3          : genre (code SYNOP) de la 3ème couche nuageuse [https://cloudatlas.wmo.int/fr/code-specifications-and-coding-procedures.html]
+QC3         : genre (code SYNOP) de la 3ème couche nuageuse [https://cloudatlas.wmo.int/fr/code-specifications-and-coding-procedures.html]
 B3          : base de la 3ème couche nuageuse (en m)
+QB3         : base de la 3ème couche nuageuse (en m)
 N4          : nébulosité de la 4ème couche nuageuse (en octa)
-C4          : genre de la 4ème couche nuageuse
+QN4         : nébulosité de la 4ème couche nuageuse (en octa)
+C4          : genre (code SYNOP) de la 4ème couche nuageuse [https://cloudatlas.wmo.int/fr/code-specifications-and-coding-procedures.html]
+QC4         : genre (code SYNOP) de la 4ème couche nuageuse [https://cloudatlas.wmo.int/fr/code-specifications-and-coding-procedures.html]
 B4          : base de la 4ème couche nuageuse (en m)
+QB4         : base de la 4ème couche nuageuse (en m)
 VV          : visibilité (en m)
-DVV200      : durée avec visibilité < 200 m (en mn)	
+QVV         : visibilité (en m)
+DVV200      : durée avec visibilité < 200 m (en mn)
+QDVV200     : durée avec visibilité < 200 m (en mn)
 WW          : code descriptif du temps présent (WMO Manuel des codes, Volume I.1, Section C-b, table 4677)
+QWW         : code descriptif du temps présent (WMO Manuel des codes, Volume I.1, Section C-b, table 4677)
 W1          : code descriptif du temps passé 1 (WMO Manuel des codes, Volume I.1, Section C-b, table 4687)
+QW1         : code descriptif du temps passé 1 (WMO Manuel des codes, Volume I.1, Section C-b, table 4687)
 W2          : code descriptif du temps passé 2 (WMO Manuel des codes, Volume I.1, Section C-b, table 4687)
-SOL         : état du sol sans neige : 
+QW2         : code descriptif du temps passé 2 (WMO Manuel des codes, Volume I.1, Section C-b, table 4687)
+SOL         : état du sol sans neige :
    0 | surface du sol sèche (sans fissure et sans poussière ni sable meuble en quantité appréciable)
    1 | surface du sol humide
    2 | surface du sol mouillée (eau stagnante en mares, petites ou grandes, à la surface)
@@ -82,7 +149,7 @@ SOL         : état du sol sans neige :
    7 | couche fine de poussière ou de sable meuble couvrant complètement le sol
    8 | couche épaisse ou d'épaisseur moyenne de poussière ou de sable meuble couvrant complètement le sol
    9 | très sec avec fissures
-SOLNG       : état du sol avec neige : 
+SOLNG       : état du sol avec neige :
    0 | sol en grande partie couvert de glace
    1 | neige compacte ou mouillée (avec ou sans glace) couvrant moins de la moitié du sol
    2 | neige compacte ou mouillée (avec ou sans glace) couvrant au moins la moitié du sol, mais ne le couvrant pas complètement
@@ -94,6 +161,7 @@ SOLNG       : état du sol avec neige :
    8 | couche non uniforme de neige sèche poudreuse couvrant complètement le sol
    9 | neige couvrant complètement le sol; congères élevées
 TMER        : température de la mer (en °C et 1/10)
+QTMER       : température de la mer (en °C et 1/10)
 VVMER       : visibilité vers la mer, codée de 0 à 9 :
    0 | moins de 50 m
    1 | 50 à 200 m exclu
@@ -105,7 +173,7 @@ VVMER       : visibilité vers la mer, codée de 0 à 9 :
    7 | 10 à 20 km exclu
    8 | 20 à 50 km exclu
    9 | 50 km ou plus
-ETATMER     : état de la mer pour les sémaphores :		
+ETATMER     : état de la mer pour les sémaphores :
    0 | calme (sans ride); 0 m
    1 | calme (ridée); 0 à 0.1 m
    2 | belle (vaguelettes); 0.1 à 0.5 m
@@ -117,14 +185,23 @@ ETATMER     : état de la mer pour les sémaphores :
    8 | très grosse; 9 à 14 m
    9 | énorme; dépassant 14 m
 DIRHOULE    : direction de la houle pour les sémaphores et égale à 999 si la direction est variable (rose de 360)
+QDIRHOULE   : direction de la houle pour les sémaphores et égale à 999 si la direction est variable (rose de 360)
 HVAGUE      : hauteur des vagues, en particulier les bouées fixes (en m et 1/10)
+QHVAGUE     : hauteur des vagues, en particulier les bouées fixes (en m et 1/10)
 PVAGUE      : période des vagues (en s et 1/10)
+QPVAGUE     : période des vagues (en s et 1/10)
 HNEIGEF     : hauteur de neige fraîche tombée en 6h, toujours renseignée aux heures synoptiques principales (en cm)
+QHNEIGEF    : hauteur de neige fraîche tombée en 6h, toujours renseignée aux heures synoptiques principales (en cm)
 NEIGETOT    : hauteur de neige totale au sol (en cm)
+QNEIGETOT   : hauteur de neige totale au sol (en cm)
 TSNEIGE     : température de surface de la neige (en °C et 1/10)
+QTSNEIGE    : température de surface de la neige (en °C et 1/10)
 TUBENEIGE   : enfoncement du tube de neige (en cm)
+QTUBENEIGE  : enfoncement du tube de neige (en cm)
 HNEIGEFI3   : hauteur de neige fraîche tombée en 3h, facultatif aux heures synoptiques intermédiaires (en cm)
+QHNEIGEFI3  : hauteur de neige fraîche tombée en 3h, facultatif aux heures synoptiques intermédiaires (en cm)
 HNEIGEFI1   : hauteur de neige fraîche tombée en 1h, facultatif aux heures non synoptiques (en cm)
+QHNEIGEFI1  : hauteur de neige fraîche tombée en 1h, facultatif aux heures non synoptiques (en cm)
 ESNEIGE     : code descriptif de l’état de la neige pour les postes nivométéorologiques :
    0 | neige fraîche (ou récente) sèche
    1 | givre de surface
@@ -137,22 +214,39 @@ ESNEIGE     : code descriptif de l’état de la neige pour les postes nivomét�
    8 | croûte de regel portante
    9 | surface lisse et glacée
 CHARGENEIGE : charge de la neige (en kg/m2)
+QCHARGENEIGE: charge de la neige (en kg/m2)
 GLO         : rayonnement global horaire en heure UTC (en J/cm2)
+QGLO        : rayonnement global horaire en heure UTC (en J/cm2)
 GLO2        : rayonnement global horaire en heure TSV (en J/cm2)
+QGLO2       : rayonnement global horaire en heure TSV (en J/cm2)
 DIR         : rayonnement direct horaire en heure UTC (en J/cm2)
+QDIR        : rayonnement direct horaire en heure UTC (en J/cm2)
 DIR2        : rayonnement direct horaire en heure TSV (en J/cm2)
+QDIR2       : rayonnement direct horaire en heure TSV (en J/cm2)
 DIF         : rayonnement diffus horaire en heure UTC (en J/cm2)
+QDIF        : rayonnement diffus horaire en heure UTC (en J/cm2)
 DIF2        : rayonnement diffus horaire en heure TSV (en J/cm2)
+QDIF2       : rayonnement diffus horaire en heure TSV (en J/cm2)
 UV          : rayonnement ultra-violet horaire en heure UTC (en J/cm2)
+QUV         : rayonnement ultra-violet horaire en heure UTC (en J/cm2)
 UV2         : rayonnement ultra-violet horaire en heure TSV (en J/cm2)
+QUV2        : rayonnement ultra-violet horaire en heure TSV (en J/cm2)
 UV_INDICE   : indice UV (compris entre 0 et 12)
+QUV_INDICE  : indice UV (compris entre 0 et 12)
 INFRAR      : rayonnement infra-rouge horaire en heure UTC (en J/cm2)
+QINFRAR     : rayonnement infra-rouge horaire en heure UTC (en J/cm2)
 INFRAR2     : rayonnement infra-rouge horaire en heure TSV (en J/cm2)
+QINFRAR2    : rayonnement infra-rouge horaire en heure TSV (en J/cm2)
 INS         : insolation horaire en heure UTC (en mn)
+QINS        : insolation horaire en heure UTC (en mn)
 INS2        : insolation horaire en heure TSV (en mn)
+QINS2       : insolation horaire en heure TSV (en mn)
 TLAGON      : température du lagon (en °C et 1/10)
+QTLAGON     : température du lagon (en °C et 1/10)
 TVEGETAUX   : température des végétaux (en °C et 1/10)
+QTVEGETAUX  : température des végétaux (en °C et 1/10)
 ECOULEMENT  : niveau d’écoulement
+QECOULEMENT : niveau d’écoulement
 
 A chaque donnée est associé un code qualité (ex: T;QT) :
  9 : donnée filtrée (la donnée a passé les filtres/contrôles de premiers niveaux)

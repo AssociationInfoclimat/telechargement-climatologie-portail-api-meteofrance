@@ -74,7 +74,7 @@ NBJTMS24        : nombre de jours avec TM quotidienne ≥ 24°C
 TMMIN           : minimum mensuel des moyennes (TN+TX)/2 quotidiennes (en °C et 1/10)
 QTMMIN          : code qualité de TMMIN
 TMMINDAT        : jour du TMMIN
-TMMAX           : maximum mensuel des moyennes (TN+TX)/2 quotidiennes (en °C et 1/10) 
+TMMAX           : maximum mensuel des moyennes (TN+TX)/2 quotidiennes (en °C et 1/10)
 QTMMAX          : code qualité du TMMAX
 TMMAXDAT        : jour du TMMAX
 UNAB            : minimum absolu mensuel des humidités relatives minimales (UN) quotidiennes (en %)
@@ -115,7 +115,7 @@ FXYAB           : maximum absolu mensuel de la force maximale quotidienne du ven
 QFXYAB          : code qualité du FXYAB
 DXYAB           : direction associée à FXYAB (en rose de 360)
 QDXYAB          : code qualité de DXYAB
-FXYABDAT        : jour du FXYAB 
+FXYABDAT        : jour du FXYAB
 NBJFXY8         : nombre de jours avec FXY ≥ 8 m/s
 NBJFXY10        : nombre de jours avec FXY ≥ 10 m/s
 NBJFXY15        : nombre de jours avec FXY ≥ 15 m/s
@@ -142,7 +142,7 @@ HNEIGEFTOT      : cumul mensuel de la hauteur de neige fraîche tombée en 24h (
 QHNEIGEFTOT     : code qualité du HNEIGEFTOT
 HNEIGEFAB       : maximum absolu mensuel de HNEIGEF (en cm)
 QHNEIGEFAB      : code qualité du HNEIGEFAB
-HNEIGEFDAT      : jour du HNEIGEFAB 
+HNEIGEFDAT      : jour du HNEIGEFAB
 NBHNEIGEF       : nombre de valeurs présentes de HNEIGEF quotidienne
 NBJNEIG         : nombre de jours avec précipitation de neige
 NBJHNEIGEF1     : nombre de jours avec chutes de neige en 24h supérieures à 1 cm (à partir de HNEIGEF quotidienne)
