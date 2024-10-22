@@ -12,7 +12,7 @@ describe('ListeStationsInfrahoraire6mFetcher', () => {
             departement: Departement.of(76),
         });
         expect(Array.isArray(list)).toBeTruthy();
-        expect(list.length).toBeGreaterThan(0);
+        expect(list).not.toHaveLength(0);
         const station = list[0];
         expect(station).toEqual({
             id: expect.any(String),
