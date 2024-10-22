@@ -8,7 +8,7 @@ describe('InformationStationFetcher', () => {
         const fetcher = new InformationStationFetcher();
         const list = await fetcher.fetchInformationStation(IdStation.of('76116001'));
         expect(Array.isArray(list)).toBeTruthy();
-        expect(list.length).toBeGreaterThan(0);
+        expect(list).not.toHaveLength(0);
         const station = list[0];
         expect(station).toEqual({
             id: expect.any(Number),
