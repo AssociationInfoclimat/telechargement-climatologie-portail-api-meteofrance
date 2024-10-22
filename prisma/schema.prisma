@@ -36,7 +36,7 @@ model InformationStation {
     updatedAt   DateTime     @updatedAt
     id          String       @id @db.Char(8)
     nom         String
-    lieuDit String?
+    lieuDit     String?
     bassin      String
     dateDebut   DateTime
     dateFin     DateTime?
@@ -94,4 +94,838 @@ model CommandeStation {
     idStation      String   @db.Char(8)
     frequence      String   @db.VarChar(15)
     station        Station  @relation(fields: [idStation, frequence], references: [id, frequence], onDelete: Cascade)
+}
+
+model InfrahoraireTempsReel {
+    geo_id_insee   String   @db.Char(8)
+    lat            Float
+    lon            Float
+    reference_time DateTime
+    insert_time    DateTime
+    validity_time  DateTime
+    t              Float?
+    td             Float?
+    u              Int?
+    dd             Int?
+    ff             Float?
+    dxi10          Int?
+    fxi10          Float?
+    rr_per         Float?
+    t_10           Float?
+    t_20           Float?
+    t_50           Float?
+    t_100          Float?
+    vv             Int?
+    etat_sol       Int?
+    sss            Float?
+    n              Int?
+    insolh         Float?
+    ray_glo01      Float?
+    pres           Float?
+    pmer           Float?
+
+    @@id([geo_id_insee, validity_time])
+}
+
+model HoraireTempsReel {
+    geo_id_insee   String   @db.Char(8)
+    lat            Float
+    lon            Float
+    reference_time DateTime
+    insert_time    DateTime
+    validity_time  DateTime
+    t              Float?
+    td             Float?
+    tx             Float?
+    tn             Float?
+    u              Int?
+    ux             Int?
+    un             Int?
+    dd             Int?
+    ff             Float?
+    dxy            Int?
+    fxy            Float?
+    dxi            Int?
+    fxi            Float?
+    rr1            Float?
+    t_10           Float?
+    t_20           Float?
+    t_50           Float?
+    t_100          Float?
+    vv             Int?
+    etat_sol       Int?
+    sss            Float?
+    n              Int?
+    insolh         Float?
+    ray_glo01      Float?
+    pres           Float?
+    pmer           Float?
+
+    @@id([geo_id_insee, validity_time])
+}
+
+model Mensuelle {
+    NUM_POSTE     String   @db.Char(8)
+    NOM_USUEL     String   @db.VarChar(255)
+    LAT           Float
+    LON           Float
+    ALTI          Float
+    AAAAMM        DateTime
+    RR            Float?
+    QRR           Int?
+    NBRR          Int?
+    RR_ME         Float?
+    RRAB          Float?
+    QRRAB         Int?
+    RRABDAT       Int?
+    NBJRR1        Int?
+    NBJRR5        Int?
+    NBJRR10       Int?
+    NBJRR30       Int?
+    NBJRR50       Int?
+    NBJRR100      Int?
+    PMERM         Float?
+    QPMERM        Int?
+    NBPMERM       Int?
+    PMERMINAB     Float?
+    QPMERMINAB    Int?
+    PMERMINABDAT  Int?
+    TX            Float?
+    QTX           Int?
+    NBTX          Int?
+    TX_ME         Float?
+    TXAB          Float?
+    QTXAB         Int?
+    TXDAT         Int?
+    TXMIN         Float?
+    QTXMIN        Int?
+    TXMINDAT      Int?
+    NBJTX0        Int?
+    NBJTX25       Int?
+    NBJTX30       Int?
+    NBJTX35       Int?
+    NBJTXI20      Int?
+    NBJTXI27      Int?
+    NBJTXS32      Int?
+    TN            Float?
+    QTN           Int?
+    NBTN          Int?
+    TN_ME         Float?
+    TNAB          Float?
+    QTNAB         Int?
+    TNDAT         Int?
+    TNMAX         Float?
+    QTNMAX        Int?
+    TNMAXDAT      Int?
+    NBJTN5        Int?
+    NBJTN10       Int?
+    NBJTNI10      Int?
+    NBJTNI15      Int?
+    NBJTNI20      Int?
+    NBJTNS20      Int?
+    NBJTNS25      Int?
+    NBJGELEE      Int?
+    TAMPLIM       Float?
+    QTAMPLIM      Int?
+    TAMPLIAB      Float?
+    QTAMPLIAB     Int?
+    TAMPLIABDAT   Int?
+    NBTAMPLI      Int?
+    TM            Float?
+    QTM           Int?
+    NBTM          Int?
+    TMM           Float?
+    QTMM          Int?
+    NBTMM         Int?
+    NBJTMS24      Int?
+    TMMIN         Float?
+    QTMMIN        Int?
+    TMMINDAT      Int?
+    TMMAX         Float?
+    QTMMAX        Int?
+    TMMAXDAT      Int?
+    UNAB          Int?
+    QUNAB         Int?
+    UNABDAT       Int?
+    NBUN          Int?
+    UXAB          Int?
+    QUXAB         Int?
+    UXABDAT       Int?
+    NBUX          Int?
+    UMM           Int?
+    QUMM          Int?
+    NBUM          Int?
+    TSVM          Float?
+    QTSVM         Int?
+    NBTSVM        Int?
+    ETP           Float?
+    QETP          Int?
+    FXIAB         Float?
+    QFXIAB        Int?
+    DXIAB         Int?
+    QDXIAB        Int?
+    FXIDAT        Int?
+    NBJFF10       Int?
+    NBJFF16       Int?
+    NBJFF28       Int?
+    NBFXI         Int?
+    FXI3SAB       Float?
+    QFXI3SAB      Int?
+    DXI3SAB       Int?
+    QDXI3SAB      Int?
+    FXI3SDAT      Int?
+    NBJFXI3S10    Int?
+    NBJFXI3S16    Int?
+    NBJFXI3S28    Int?
+    NBFXI3S       Int?
+    FXYAB         Float?
+    QFXYAB        Int?
+    DXYAB         Int?
+    QDXYAB        Int?
+    FXYABDAT      Int?
+    NBJFXY8       Int?
+    NBJFXY10      Int?
+    NBJFXY15      Int?
+    NBFXY         Int?
+    FFM           Float?
+    QFFM          Int?
+    NBFFM         Int?
+    INST          Int?
+    QINST         Int?
+    NBINST        Int?
+    NBSIGMA0      Int?
+    NBSIGMA20     Int?
+    NBSIGMA80     Int?
+    GLOT          Int?
+    QGLOT         Int?
+    NBGLOT        Int?
+    DIFT          Int?
+    QDIFT         Int?
+    NBDIFT        Int?
+    DIRT          Int?
+    QDIRT         Int?
+    NBDIRT        Int?
+    HNEIGEFTOT    Int?
+    QHNEIGEFTOT   Int?
+    HNEIGEFAB     Int?
+    QHNEIGEFAB    Int?
+    HNEIGEFDAT    Int?
+    NBHNEIGEF     Int?
+    NBJNEIG       Int?
+    NBJHNEIGEF1   Int?
+    NBJHNEIGEF5   Int?
+    NBJHNEIGEF10  Int?
+    NBJSOLNG      Int?
+    NEIGETOTM     Int?
+    QNEIGETOTM    Int?
+    NEIGETOTAB    Int?
+    QNEIGETOTAB   Int?
+    NEIGETOTABDAT Int?
+    NBJNEIGETOT1  Int?
+    NBJNEIGETOT10 Int?
+    NBJNEIGETOT30 Int?
+    NBJGREL       Int?
+    NBJORAG       Int?
+    NBJBROU       Int?
+
+    @@id([NUM_POSTE, AAAAMM])
+}
+
+model Decadaire {
+    NUM_POSTE     String   @db.Char(8)
+    NOM_USUEL     String   @db.VarChar(255)
+    LAT           Float
+    LON           Float
+    ALTI          Float
+    AAAAMM        DateTime
+    NUM_DECADE    Int
+    RR            Float?
+    QRR           Int?
+    NBRR          Int?
+    RRAB          Float?
+    QRRAB         Int?
+    RRABDAT       Int?
+    NBJRR1        Int?
+    NBJRR5        Int?
+    NBJRR10       Int?
+    NBJRR30       Int?
+    NBJRR50       Int?
+    NBJRR100      Int?
+    PMERM         Float?
+    QPMERM        Int?
+    NBPMERM       Int?
+    PMERMINAB     Float?
+    QPMERMINAB    Int?
+    PMERMINABDAT  Int?
+    TX            Float?
+    QTX           Int?
+    NBTX          Int?
+    TXAB          Float?
+    QTXAB         Int?
+    TXDAT         Int?
+    TXMIN         Float?
+    QTXMIN        Int?
+    TXMINDAT      Int?
+    NBJTX0        Int?
+    NBJTX25       Int?
+    NBJTX30       Int?
+    NBJTX35       Int?
+    NBJTXI20      Int?
+    NBJTXI27      Int?
+    NBJTXS32      Int?
+    TN            Float?
+    QTN           Int?
+    NBTN          Int?
+    TNAB          Float?
+    QTNAB         Int?
+    TNDAT         Int?
+    TNMAX         Float?
+    QTNMAX        Int?
+    TNMAXDAT      Int?
+    NBJTN5        Int?
+    NBJTN10       Int?
+    NBJTNI10      Int?
+    NBJTNI15      Int?
+    NBJTNI20      Int?
+    NBJTNS20      Int?
+    NBJTNS25      Int?
+    NBJGELEE      Int?
+    TAMPLIM       Float?
+    QTAMPLIM      Int?
+    TAMPLIAB      Float?
+    QTAMPLIAB     Int?
+    TAMPLIABDAT   Int?
+    NBTAMPLI      Int?
+    TM            Float?
+    QTM           Int?
+    NBTM          Int?
+    TMM           Float?
+    QTMM          Int?
+    NBTMM         Int?
+    NBJTMS24      Int?
+    TMMIN         Float?
+    QTMMIN        Int?
+    TMMINDAT      Int?
+    TMMAX         Float?
+    QTMMAX        Int?
+    TMMAXDAT      Int?
+    UNAB          Int?
+    QUNAB         Int?
+    UNABDAT       Int?
+    NBUN          Int?
+    UXAB          Int?
+    QUXAB         Int?
+    UXABDAT       Int?
+    NBUX          Int?
+    UMM           Int?
+    QUMM          Int?
+    NBUM          Int?
+    TSVM          Float?
+    QTSVM         Int?
+    NBTSVM        Int?
+    FXIAB         Float?
+    QFXIAB        Int?
+    DXIAB         Int?
+    QDXIAB        Int?
+    FXIDAT        Int?
+    NBJFF10       Int?
+    NBJFF16       Int?
+    NBJFF28       Int?
+    NBFXI         Int?
+    FXI3SAB       Float?
+    QFXI3SAB      Int?
+    DXI3SAB       Int?
+    QDXI3SAB      Int?
+    FXI3SDAT      Int?
+    NBJFXI3S10    Int?
+    NBJFXI3S16    Int?
+    NBJFXI3S28    Int?
+    NBFXI3S       Int?
+    FXYAB         Float?
+    QFXYAB        Int?
+    DXYAB         Int?
+    QDXYAB        Int?
+    FXYABDAT      Int?
+    NBJFXY8       Int?
+    NBJFXY10      Int?
+    NBJFXY15      Int?
+    NBFXY         Int?
+    FFM           Float?
+    QFFM          Int?
+    NBFFM         Int?
+    INST          Int?
+    QINST         Int?
+    NBINST        Int?
+    NBSIGMA0      Int?
+    NBSIGMA20     Int?
+    NBSIGMA80     Int?
+    GLOT          Int?
+    QGLOT         Int?
+    NBGLOT        Int?
+    DIFT          Int?
+    QDIFT         Int?
+    NBDIFT        Int?
+    DIRT          Int?
+    QDIRT         Int?
+    NBDIRT        Int?
+    HNEIGEFTOT    Int?
+    QHNEIGEFTOT   Int?
+    HNEIGEFAB     Int?
+    QHNEIGEFAB    Int?
+    HNEIGEFDAT    Int?
+    NBHNEIGEF     Int?
+    NBJNEIG       Int?
+    NBJHNEIGEF1   Int?
+    NBJHNEIGEF5   Int?
+    NBJHNEIGEF10  Int?
+    NBJSOLNG      Int?
+    NEIGETOTM     Int?
+    QNEIGETOTM    Int?
+    NEIGETOTAB    Int?
+    QNEIGETOTAB   Int?
+    NEIGETOTABDAT Int?
+    NBJNEIGETOT1  Int?
+    NBJNEIGETOT10 Int?
+    NBJNEIGETOT30 Int?
+    NBJGREL       Int?
+    NBJORAG       Int?
+    NBJBROU       Int?
+
+    @@id([NUM_POSTE, AAAAMM, NUM_DECADE])
+}
+
+model DecadaireAgro {
+    NUM_POSTE  String   @db.Char(8)
+    NOM_USUEL  String   @db.VarChar(255)
+    LAT        Float
+    LON        Float
+    ALTI       Float
+    AAAAMM     DateTime
+    NUM_DECADE Int
+    RR         Float?
+    CRR        Int?
+    TN         Float?
+    CTN        Int?
+    TX         Float?
+    CTX        Int?
+    FFM        Float?
+    CFFM       Int?
+    TSVM       Float?
+    CTSVM      Int?
+    INST       Int?
+    CINST      Int?
+    GLOT       Int?
+    CGLOT      Int?
+    ETP        Float?
+
+    @@id([NUM_POSTE, AAAAMM, NUM_DECADE])
+}
+
+model Quotidienne {
+    NUM_POSTE String   @db.Char(8)
+    NOM_USUEL String   @db.VarChar(255)
+    LAT       Float
+    LON       Float
+    ALTI      Float
+    AAAAMMJJ  DateTime
+
+    RR  Float?
+    QRR Int?
+
+    TN  Float?
+    QTN Int?
+
+    HTN  String? @db.Char(4)
+    QHTN Int?
+
+    TX  Float?
+    QTX Int?
+
+    HTX  String? @db.Char(4)
+    QHTX Int?
+
+    TM  Float?
+    QTM Int?
+
+    TNTXM  Float?
+    QTNTXM Int?
+
+    TAMPLI  Float?
+    QTAMPLI Int?
+
+    TNSOL  Float?
+    QTNSOL Int?
+
+    TN50  Float?
+    QTN50 Int?
+
+    DG  Int?
+    QDG Int?
+
+    FFM  Float?
+    QFFM Int?
+
+    FF2M  Float?
+    QFF2M Int?
+
+    FXY  Float?
+    QFXY Int?
+
+    DXY  Int?
+    QDXY Int?
+
+    HXY  String? @db.Char(4)
+    QHXY Int?
+
+    FXI  Float?
+    QFXI Int?
+
+    DXI  Int?
+    QDXI Int?
+
+    HXI  String? @db.Char(4)
+    QHXI Int?
+
+    FXI2  Float?
+    QFXI2 Int?
+
+    DXI2  Int?
+    QDXI2 Int?
+
+    HXI2  String? @db.Char(4)
+    QHXI2 Int?
+
+    FXI3S  Float?
+    QFXI3S Int?
+
+    DXI3S  Int?
+    QDXI3S Int?
+
+    HXI3S  String? @db.Char(4)
+    QHXI3S Int?
+
+    DRR  Int?
+    QDRR Int?
+
+    @@id([NUM_POSTE, AAAAMMJJ])
+}
+
+model QuotidienneAutresParametres {
+    NUM_POSTE    String   @db.Char(8)
+    NOM_USUEL    String   @db.VarChar(255)
+    LAT          Float
+    LON          Float
+    ALTI         Float
+    AAAAMMJJ     DateTime
+    DHUMEC       Int?
+    QDHUMEC      Int?
+    PMERM        Float?
+    QPMERM       Int?
+    PMERMIN      Float?
+    QPMERMIN     Int?
+    INST         Int?
+    QINST        Int?
+    GLOT         Int?
+    QGLOT        Int?
+    DIFT         Int?
+    QDIFT        Int?
+    DIRT         Int?
+    QDIRT        Int?
+    INFRART      Int?
+    QINFRART     Int?
+    UV           Float?
+    QUV          Int?
+    UV_INDICEX   Int?
+    QUV_INDICEX  Int?
+    SIGMA        Int?
+    QSIGMA       Int?
+    UN           Int?
+    QUN          Int?
+    HUN          String?  @db.Char(4)
+    QHUN         Int?
+    UX           Int?
+    QUX          Int?
+    HUX          String?  @db.Char(4)
+    QHUX         Int?
+    UM           Int?
+    QUM          Int?
+    DHUMI40      Int?
+    QDHUMI40     Int?
+    DHUMI80      Int?
+    QDHUMI80     Int?
+    TSVM         Float?
+    QTSVM        Int?
+    ETPMON       Float?
+    QETPMON      Int?
+    ETPGRILLE    Float?
+    QETPGRILLE   Int?
+    ECOULEMENTM  Float?
+    QECOULEMENTM Int?
+    HNEIGEF      Int?
+    QHNEIGEF     Int?
+    NEIGETOTX    Int?
+    QNEIGETOTX   Int?
+    NEIGETOT06   Int?
+    QNEIGETOT06  Int?
+    NEIG         Boolean?
+    QNEIG        Int?
+    BROU         Boolean?
+    QBROU        Int?
+    ORAG         Boolean?
+    QORAG        Int?
+    GRESIL       Boolean?
+    QGRESIL      Int?
+    GRELE        Boolean?
+    QGRELE       Int?
+    ROSEE        Boolean?
+    QROSEE       Int?
+    VERGLAS      Boolean?
+    QVERGLAS     Int?
+    SOLNEIGE     Boolean?
+    QSOLNEIGE    Int?
+    GELEE        Boolean?
+    QGELEE       Int?
+    FUMEE        Boolean?
+    QFUMEE       Int?
+    BRUME        Boolean?
+    QBRUME       Int?
+    ECLAIR       Boolean?
+    QECLAIR      Int?
+    NB300        Int?
+    QNB300       Int?
+    BA300        Int?
+    QBA300       Int?
+    TMERMIN      Float?
+    QTMERMIN     Int?
+    TMERMAX      Float?
+    QTMERMAX     Int?
+
+    @@id([NUM_POSTE, AAAAMMJJ])
+}
+
+model Horaire {
+    NUM_POSTE    String   @db.Char(8)
+    NOM_USUEL    String   @db.VarChar(255)
+    LAT          Float
+    LON          Float
+    ALTI         Float
+    AAAAMMJJHH   DateTime
+    RR1          Float?
+    QRR1         Int?
+    DRR1         Int?
+    QDRR1        Int?
+    FF           Float?
+    QFF          Int?
+    DD           Int?
+    QDD          Int?
+    FXY          Float?
+    QFXY         Int?
+    DXY          Int?
+    QDXY         Int?
+    HXY          String?  @db.Char(4)
+    QHXY         Int?
+    FXI          Float?
+    QFXI         Int?
+    DXI          Int?
+    QDXI         Int?
+    HXI          String?  @db.Char(4)
+    QHXI         Int?
+    FF2          Float?
+    QFF2         Int?
+    DD2          Int?
+    QDD2         Int?
+    FXI2         Float?
+    QFXI2        Int?
+    DXI2         Int?
+    QDXI2        Int?
+    HXI2         String?  @db.Char(4)
+    QHXI2        Int?
+    FXI3S        Float?
+    QFXI3S       Int?
+    DXI3S        Int?
+    QDXI3S       Int?
+    HFXI3S       String?  @db.Char(4)
+    QHFXI3S      Int?
+    T            Float?
+    QT           Int?
+    TD           Float?
+    QTD          Int?
+    TN           Float?
+    QTN          Int?
+    HTN          String?  @db.Char(4)
+    QHTN         Int?
+    TX           Float?
+    QTX          Int?
+    HTX          String?  @db.Char(4)
+    QHTX         Int?
+    DG           Int?
+    QDG          Int?
+    T10          Float?
+    QT10         Int?
+    T20          Float?
+    QT20         Int?
+    T50          Float?
+    QT50         Int?
+    T100         Float?
+    QT100        Int?
+    TNSOL        Float?
+    QTNSOL       Int?
+    TN50         Float?
+    QTN50        Int?
+    TCHAUSSEE    Float?
+    QTCHAUSSEE   Int?
+    DHUMEC       Int?
+    QDHUMEC      Int?
+    U            Int?
+    QU           Int?
+    UN           Int?
+    QUN          Int?
+    HUN          String?  @db.Char(4)
+    QHUN         Int?
+    UX           Int?
+    QUX          Int?
+    HUX          String?  @db.Char(4)
+    QHUX         Int?
+    DHUMI40      Int?
+    QDHUMI40     Int?
+    DHUMI80      Int?
+    QDHUMI80     Int?
+    TSV          Float?
+    QTSV         Int?
+    PMER         Float?
+    QPMER        Int?
+    PSTAT        Float?
+    QPSTAT       Int?
+    PMERMIN      Float?
+    QPERMIN      Int?
+    GEOP         Int?
+    QGEOP        Int?
+    N            Int?
+    QN           Int?
+    NBAS         Int?
+    QNBAS        Int?
+    CL           String?
+    QCL          Int?
+    CM           String?
+    QCM          Int?
+    CH           String?
+    QCH          Int?
+    N1           Int?
+    QN1          Int?
+    C1           String?
+    QC1          Int?
+    B1           Int?
+    QB1          Int?
+    N2           Int?
+    QN2          Int?
+    C2           String?
+    QC2          Int?
+    B2           Int?
+    QCB2         Int?
+    N3           Int?
+    QN3          Int?
+    C3           String?
+    QC3          Int?
+    B3           Int?
+    QB3          Int?
+    N4           Int?
+    QN4          Int?
+    C4           String?
+    QC4          Int?
+    B4           Int?
+    QB4          Int?
+    VV           Int?
+    QVV          Int?
+    DVV200       Int?
+    QDVV200      Int?
+    WW           String?  @db.Char(2)
+    QWW          Int?
+    W1           String?  @db.Char(2)
+    QW1          Int?
+    W2           String?  @db.Char(2)
+    QW2          Int?
+    SOL          Int?
+    QSOL         Int?
+    SOLNG        Int?
+    QSOLNG       Int?
+    TMER         Float?
+    QTMER        Int?
+    VVMER        Int?
+    QVVMER       Int?
+    ETATMER      Int?
+    QETATMER     Int?
+    DIRHOULE     Int?
+    QDIRHOULE    Int?
+    HVAGUE       Float?
+    QHVAGUE      Int?
+    PVAGUE       Float?
+    QPVAGUE      Int?
+    HNEIGEF      Int?
+    QHNEIGEF     Int?
+    NEIGETOT     Int?
+    QNEIGETOT    Int?
+    TSNEIGE      Float?
+    QTSNEIGE     Int?
+    TUBENEIGE    Int?
+    QTUBENEIGE   Int?
+    HNEIGEFI3    Int?
+    QHNEIGEFI3   Int?
+    HNEIGEFI1    Int?
+    QHNEIGEFI1   Int?
+    ESNEIGE      Int?
+    QESNEIGE     Int?
+    CHARGENEIGE  Int?
+    QCHARGENEIGE Int?
+    GLO          Int?
+    QGLO         Int?
+    GLO2         Int?
+    QGLO2        Int?
+    DIR          Int?
+    QDIR         Int?
+    DIR2         Int?
+    QDIR2        Int?
+    DIF          Int?
+    QDIF         Int?
+    DIF2         Int?
+    QDIF2        Int?
+    UV           Float?
+    QUV          Int?
+    UV2          Float?
+    QUV2         Int?
+    UV_INDICE    Int?
+    QUV_INDICE   Int?
+    INFRAR       Int?
+    QINFRAR      Int?
+    INFRAR2      Int?
+    QINFRAR2     Int?
+    INS          Int?
+    QINS         Int?
+    INS2         Int?
+    QINS2        Int?
+    TLAGON       Float?
+    QTLAGON      Int?
+    TVEGETAUX    Float?
+    QTVEGETAUX   Int?
+    ECOULEMENT   Float?
+    QECOULEMENT  Int?
+
+    @@id([NUM_POSTE, AAAAMMJJHH])
+}
+
+model Infrahoraire {
+    NUM_POSTE    String   @db.Char(8)
+    NOM_USUEL    String   @db.VarChar(255)
+    LAT          Float
+    LON          Float
+    ALTI         Float
+    AAAAMMJJHHMN DateTime
+    RR           Float?
+    QRR          Int?
+
+    @@id([NUM_POSTE, AAAAMMJJHHMN])
+}
+
+model SaveProgress {
+    name      String   @id @db.VarChar(255)
+    updatedAt DateTime @updatedAt
 }
