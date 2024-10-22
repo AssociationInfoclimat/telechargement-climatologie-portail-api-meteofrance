@@ -26,7 +26,7 @@ describe('CommandeFichierFetcher', () => {
                     idStation: IdStation.of('76116001'),
                     periodeCommande: PeriodeCommande.of({
                         debut: '2024-06-15T12:00:00Z',
-                        fin: '2024-06-17T15:00:00Z',
+                        fin: '2024-06-17T17:00:00Z',
                     }),
                 });
                 const fetcher = new CommandeFichierFetcher({ commandeFichierAPIFetcher: fetchCommandeFichier });
@@ -65,7 +65,7 @@ describe('CommandeFichierFetcher', () => {
                     idStation: IdStation.of('76116001'),
                     periodeCommande: PeriodeCommande.of({
                         debut: '2024-06-15T12:00:00Z',
-                        fin: '2024-06-16T12:00:00Z',
+                        fin: '2024-06-16T14:00:00Z',
                     }),
                 });
                 const fetcher = new CommandeFichierFetcher({ commandeFichierAPIFetcher: fetchCommandeFichier });
