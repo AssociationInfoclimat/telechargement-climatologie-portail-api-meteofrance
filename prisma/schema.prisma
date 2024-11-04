@@ -96,6 +96,22 @@ model CommandeStation {
     station        Station  @relation(fields: [idStation, frequence], references: [id, frequence], onDelete: Cascade)
 }
 
+enum Pack {
+    RADOME
+    ETENDU
+}
+
+model StationTempsReel {
+    Id_station     String   @id @db.Char(8)
+    Id_omm         String?  @db.Char(5)
+    Nom_usuel      String   @db.VarChar(255)
+    Latitude       Float
+    Longitude      Float
+    Altitude       Int
+    Date_ouverture DateTime
+    Pack           Pack
+}
+
 model InfrahoraireTempsReel {
     geo_id_insee   String   @db.Char(8)
     lat            Float
