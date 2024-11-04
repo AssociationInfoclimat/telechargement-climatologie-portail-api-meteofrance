@@ -6,10 +6,10 @@ import { wait } from '@/lib/wait.js';
 export async function getMF<T>(
     {
         url,
-        params,
+        params = {},
     }: {
         url: string;
-        params: Record<string, string>;
+        params?: Record<string, string>;
     },
     { retries = 3 }: { retries?: number } = {}
 ): Promise<APIResponse<T>> {
