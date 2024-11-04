@@ -6,7 +6,7 @@ import { afterAll, assert, beforeEach, describe, it } from 'vitest';
 describe('PrismaInfrahoraireRepository', () => {
     const prisma = new PrismaClient();
     beforeEach(async () => {
-        await prisma.horaireTempsReel.deleteMany();
+        await prisma.infrahoraireTempsReel.deleteMany();
     });
     describe('upsertMany', () => {
         it('should upsert stations in the database', async () => {
