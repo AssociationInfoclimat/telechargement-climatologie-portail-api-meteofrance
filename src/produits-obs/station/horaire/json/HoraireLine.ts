@@ -270,4 +270,4 @@ export function buildHoraireLineSchema(onCatch: (ctx: { error: ZodError; input: 
 }
 
 export type HoraireLineSchema = ReturnType<typeof buildHoraireLineSchema>;
-export type HoraireLine = z.TypeOf<HoraireLineSchema>;
+export type HoraireLine = z.infer<HoraireLineSchema>;
