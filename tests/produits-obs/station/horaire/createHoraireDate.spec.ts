@@ -13,6 +13,12 @@ describe('createHoraireDate', () => {
     describe('getLastHoraireDate', () => {
         it('should return the last horaire date', () => {
             expect(getLastHoraireDate(new Date('2000-06-15T12:00:00Z'))).toEqual(
+                HoraireDate.of('2000-06-15T11:00:00Z')
+            );
+            expect(getLastHoraireDate(new Date('2000-06-15T12:10:00Z'))).toEqual(
+                HoraireDate.of('2000-06-15T11:00:00Z')
+            );
+            expect(getLastHoraireDate(new Date('2000-06-15T12:15:00Z'))).toEqual(
                 HoraireDate.of('2000-06-15T12:00:00Z')
             );
             expect(getLastHoraireDate(new Date('2000-06-15T12:30:45Z'))).toEqual(
