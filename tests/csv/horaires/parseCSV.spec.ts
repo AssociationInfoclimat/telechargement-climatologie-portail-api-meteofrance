@@ -1,4 +1,4 @@
-import { HoraireLine, parseCSV } from '@/csv/horaires/parseCSV.js';
+import { HoraireLine, parseHoraireCSV } from '@/csv/horaires/parseCSV.js';
 import { CodeSynop } from '@/csv/horaires/value-objects/CodeSynop.js';
 import { CodeTemps } from '@/csv/horaires/value-objects/CodeTemps.js';
 import { Etat } from '@/csv/horaires/value-objects/Etat.js';
@@ -22,7 +22,7 @@ describe('parseCSV', () => {
 76116001;2024061513;0,0;0;;0;15,2;10,2;14,2;1209;15,2;1300;0;14,6;14,6;14,5;14,1;14,2;14,0;13,7;12,5;987,9;1006,3;;1006,3;7,5;200;14,9;210;1204;8,7;210;1222;;;;;;13,6;;1210;72;68;1204;77;1237;9,3;0;0;;12,4;34,8;0;94;;;93,0;;;;8;3;;;;1;;720;3;;1080;7;1740;;;;;0;33235;0;;;;;;;;;;;;;;;;0;;;
 76116001;2024061514;3.3;4;4;4;-5.5;-5.5;-5.5;1230;-5.5;1230;4;-5.5;-5.5;-5.5;-5.5;-5.5;-5.5;-5.5;-5.5;3.3;3.3;4;3.3;3.3;360;3.3;360;1230;3.3;360;1230;3.3;360;3.3;360;1230;3.3;360;1230;100;100;1230;100;1230;4;4;4;4;3.3;4;4;4;4;4;4;4;4;12;8;8;/;/;/;8;/;4;8;/;4;8;4;/;8;/;4;00;4;4;00;00;7;7;3.3;4;7;4;4;-5.5;6;7;999;-5.5;4;4;4;4;4
 76116001;2024061515;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`;
-            const horaireLines = parseCSV(csvLines);
+            const horaireLines = parseHoraireCSV(csvLines);
             expect(horaireLines.ok).toEqual<HoraireLine[]>([
                 {
                     POSTE: IdStation.of('76116001'),

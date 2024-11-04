@@ -1,19 +1,21 @@
 import {
+    FloatOrNullSchema,
+    HumiditeRelativeSchema,
+    NumeroPosteSchema,
+    OctaSchema,
+    onCatch,
+    parseCSV,
     ParseError,
-    parseFloatOrNull,
-    parseHumiditeRelative,
-    parseNumeroPoste,
-    parseOcta,
-    parsePositiveFloat,
-    parsePositiveInteger,
-    parseRelativePercentage,
     ParseResult,
-    parseTime,
-    parseUVIndex,
-    parseWindDirection,
+    PositiveFloatSchema,
+    PositiveIntegerSchema,
+    RelativePercentageSchema,
+    TimeSchema,
+    UVIndexSchema,
+    WindDirectionSchema,
 } from '@/csv/parseCSVUtils.js';
-import { ValidationError } from '@/data/value-objects/ValidationError.js';
-import { z, ZodError } from 'zod';
+import { createTransform } from '@/lib/createTransform.js';
+import { z } from 'zod';
 
 export function parseDate(date: string): Date {
     const yyyy = date.slice(''.length, 'YYYY'.length);
@@ -21,6 +23,9 @@ export function parseDate(date: string): Date {
     const dd = date.slice('YYYYMM'.length, 'YYYYMMDD'.length);
     return new Date(`${yyyy}-${mm}-${dd}T00:00:00Z`);
 }
+
+export const toDate = createTransform(parseDate);
+export const DateSchema = z.string().transform(toDate);
 
 export function parseBooleanOrNull(value: string): boolean | null {
     switch (value) {
@@ -35,137 +40,88 @@ export function parseBooleanOrNull(value: string): boolean | null {
     }
 }
 
+export const toBooleanOrNull = createTransform(parseBooleanOrNull);
+export const BooleanOrNullSchema = z
+    .string()
+    .transform(toBooleanOrNull)
+    .catch(ctx => {
+        onCatch(ctx);
+        return null;
+    });
+
 const quotidienneLineSchema = z.object({
-    POSTE: z.string().transform(parseNumeroPoste),
-    DATE: z.string().transform(parseDate),
-    RR: z.string().transform(parsePositiveFloat), // 2.2
-    DRR: z.string().transform(parsePositiveInteger), // 1
-    TN: z.string().transform(parseFloatOrNull), // -3.3
-    HTN: z.string().transform(parseTime), // 1230
-    TX: z.string().transform(parseFloatOrNull), // -3.3
-    HTX: z.string().transform(parseTime), // 1230
-    TM: z.string().transform(parseFloatOrNull), // -3.3
-    TMNX: z.string().transform(parseFloatOrNull), // -3.3
-    TNSOL: z.string().transform(parseFloatOrNull), // -3.3
-    TN50: z.string().transform(parseFloatOrNull), // -3.3
-    DG: z.string().transform(parsePositiveInteger), // 1
-    TAMPLI: z.string().transform(parsePositiveFloat), // 1.1
-    TNTXM: z.string().transform(parseFloatOrNull), // -3.3
-    PMERM: z.string().transform(parsePositiveFloat), // 2.2
-    PMERMIN: z.string().transform(parsePositiveFloat), // 2.2
-    FFM: z.string().transform(parsePositiveFloat), // 1.1
-    FXI: z.string().transform(parsePositiveFloat), // 1.1
-    DXI: z.string().transform(parseWindDirection), // 360
-    HXI: z.string().transform(parseTime), // 1230
-    FXY: z.string().transform(parsePositiveFloat), // 1.1
-    DXY: z.string().transform(parseWindDirection), // 360
-    HXY: z.string().transform(parseTime), // 1230
-    FF2M: z.string().transform(parsePositiveFloat), // 1.1
-    FXI2: z.string().transform(parsePositiveFloat), // 1.1
-    DXI2: z.string().transform(parseWindDirection), // 360
-    HXI2: z.string().transform(parseTime), // 1230
-    FXI3S: z.string().transform(parsePositiveFloat), // 1.1
-    DXI3S: z.string().transform(parseWindDirection), // 360
-    HXI3S: z.string().transform(parseTime), // 1230
-    UN: z.string().transform(parseHumiditeRelative), // 100
-    HUN: z.string().transform(parseTime), // 1230
-    UX: z.string().transform(parseHumiditeRelative), // 100
-    HUX: z.string().transform(parseTime), // 1230
-    DHUMI40: z.string().transform(parsePositiveInteger), // 1
-    DHUMI80: z.string().transform(parsePositiveInteger), // 1
-    TSVM: z.string().transform(parsePositiveFloat), // 2.2
-    DHUMEC: z.string().transform(parsePositiveInteger), // 1
-    UM: z.string().transform(parseHumiditeRelative), // 100
-    INST: z.string().transform(parsePositiveInteger), // 1
-    GLOT: z.string().transform(parsePositiveInteger), // 1
-    DIFT: z.string().transform(parsePositiveInteger), // 1
-    DIRT: z.string().transform(parsePositiveInteger), // 1
-    SIGMA: z.string().transform(parseRelativePercentage), // 100
-    INFRART: z.string().transform(parsePositiveInteger), // 1
-    UV_INDICEX: z.string().transform(parseUVIndex), // 12
-    NB300: z.string().transform(parseOcta), // 8
-    BA300: z.string().transform(parsePositiveInteger), // 1
-    NEIG: z.string().transform(parseBooleanOrNull), // true
-    BROU: z.string().transform(parseBooleanOrNull), // true
-    ORAG: z.string().transform(parseBooleanOrNull), // true
-    GRESIL: z.string().transform(parseBooleanOrNull), // true
-    GRELE: z.string().transform(parseBooleanOrNull), // true
-    ROSEE: z.string().transform(parseBooleanOrNull), // true
-    VERGLAS: z.string().transform(parseBooleanOrNull), // true
-    SOLNEIGE: z.string().transform(parseBooleanOrNull), // true
-    GELEE: z.string().transform(parseBooleanOrNull), // true
-    FUMEE: z.string().transform(parseBooleanOrNull), // true
-    BRUME: z.string().transform(parseBooleanOrNull), // true
-    ECLAIR: z.string().transform(parseBooleanOrNull), // true
-    ETPMON: z.string().transform(parsePositiveFloat), // 2.2
-    ETPGRILLE: z.string().transform(parsePositiveFloat), // 2.2
-    UV: z.string().transform(parseUVIndex), // 12
-    TMERMAX: z.string().transform(parseFloatOrNull), // -3.3
-    TMERMIN: z.string().transform(parseFloatOrNull), // -3.3
-    HNEIGEF: z.string().transform(parsePositiveInteger), // 1
-    NEIGETOTX: z.string().transform(parsePositiveInteger), // 1
-    NEIGETOT06: z.string().transform(parsePositiveInteger), // 1
+    POSTE: NumeroPosteSchema,
+    DATE: DateSchema,
+    RR: PositiveFloatSchema, // 2.2
+    DRR: PositiveIntegerSchema, // 1
+    TN: FloatOrNullSchema, // -3.3
+    HTN: TimeSchema, // 1230
+    TX: FloatOrNullSchema, // -3.3
+    HTX: TimeSchema, // 1230
+    TM: FloatOrNullSchema, // -3.3
+    TMNX: FloatOrNullSchema, // -3.3
+    TNSOL: FloatOrNullSchema, // -3.3
+    TN50: FloatOrNullSchema, // -3.3
+    DG: PositiveIntegerSchema, // 1
+    TAMPLI: PositiveFloatSchema, // 1.1
+    TNTXM: FloatOrNullSchema, // -3.3
+    PMERM: PositiveFloatSchema, // 2.2
+    PMERMIN: PositiveFloatSchema, // 2.2
+    FFM: PositiveFloatSchema, // 1.1
+    FXI: PositiveFloatSchema, // 1.1
+    DXI: WindDirectionSchema, // 360
+    HXI: TimeSchema, // 1230
+    FXY: PositiveFloatSchema, // 1.1
+    DXY: WindDirectionSchema, // 360
+    HXY: TimeSchema, // 1230
+    FF2M: PositiveFloatSchema, // 1.1
+    FXI2: PositiveFloatSchema, // 1.1
+    DXI2: WindDirectionSchema, // 360
+    HXI2: TimeSchema, // 1230
+    FXI3S: PositiveFloatSchema, // 1.1
+    DXI3S: WindDirectionSchema, // 360
+    HXI3S: TimeSchema, // 1230
+    UN: HumiditeRelativeSchema, // 100
+    HUN: TimeSchema, // 1230
+    UX: HumiditeRelativeSchema, // 100
+    HUX: TimeSchema, // 1230
+    DHUMI40: PositiveIntegerSchema, // 1
+    DHUMI80: PositiveIntegerSchema, // 1
+    TSVM: PositiveFloatSchema, // 2.2
+    DHUMEC: PositiveIntegerSchema, // 1
+    UM: HumiditeRelativeSchema, // 100
+    INST: PositiveIntegerSchema, // 1
+    GLOT: PositiveIntegerSchema, // 1
+    DIFT: PositiveIntegerSchema, // 1
+    DIRT: PositiveIntegerSchema, // 1
+    SIGMA: RelativePercentageSchema, // 100
+    INFRART: PositiveIntegerSchema, // 1
+    UV_INDICEX: UVIndexSchema, // 12
+    NB300: OctaSchema, // 8
+    BA300: PositiveIntegerSchema, // 1
+    NEIG: BooleanOrNullSchema, // true
+    BROU: BooleanOrNullSchema, // true
+    ORAG: BooleanOrNullSchema, // true
+    GRESIL: BooleanOrNullSchema, // true
+    GRELE: BooleanOrNullSchema, // true
+    ROSEE: BooleanOrNullSchema, // true
+    VERGLAS: BooleanOrNullSchema, // true
+    SOLNEIGE: BooleanOrNullSchema, // true
+    GELEE: BooleanOrNullSchema, // true
+    FUMEE: BooleanOrNullSchema, // true
+    BRUME: BooleanOrNullSchema, // true
+    ECLAIR: BooleanOrNullSchema, // true
+    ETPMON: PositiveFloatSchema, // 2.2
+    ETPGRILLE: PositiveFloatSchema, // 2.2
+    UV: UVIndexSchema, // 12
+    TMERMAX: FloatOrNullSchema, // -3.3
+    TMERMIN: FloatOrNullSchema, // -3.3
+    HNEIGEF: PositiveIntegerSchema, // 1
+    NEIGETOTX: PositiveIntegerSchema, // 1
+    NEIGETOT06: PositiveIntegerSchema, // 1
 });
-export type QuotidienneLine = ReturnType<typeof quotidienneLineSchema.parse>;
+export type QuotidienneLine = z.infer<typeof quotidienneLineSchema>;
 
-const headersSchema = z.object(
-    Object.fromEntries(Object.keys(quotidienneLineSchema.shape).map(key => [key, z.number()]))
-);
-export type QuotidienneHeaders = z.infer<typeof headersSchema>;
-
-export function parseHeaders(line: string): QuotidienneHeaders {
-    const headers = line.split(';').map(header => header.trim());
-    const headersNameToIndex = Object.fromEntries(headers.map((header, index) => [header, index]));
-    return headersSchema.parse(headersNameToIndex);
-}
-
-export function parseLine(line: string, headersNameToIndex: QuotidienneHeaders): QuotidienneLine {
-    const values = line.split(';').map(value => value.trim());
-    return quotidienneLineSchema.parse(
-        Object.fromEntries(Object.entries(headersNameToIndex).map(([key, index]) => [key, values[index]]))
-    );
-}
-
-export function parseCSV(csv: string): ParseResult<QuotidienneLine, ParseError<unknown>> {
-    const lines = csv.split(/\r?\n|\r\n?/g);
-    const headers = lines.shift();
-    if (!headers) {
-        throw new Error(`${lines} is not a valid CSV`);
-    }
-    const headersNameToIndex = parseHeaders(headers);
-    const parsed: QuotidienneLine[] = [];
-    const errors: ParseError<unknown>[] = [];
-    for (const line of lines) {
-        if (!line.trim()) {
-            continue;
-        }
-        try {
-            parsed.push(parseLine(line, headersNameToIndex));
-        } catch (e) {
-            if (e instanceof ZodError) {
-                errors.push(
-                    new ParseError({
-                        headers: headers,
-                        line,
-                        error: e,
-                        data: e.issues,
-                    })
-                );
-            } else if (e instanceof ValidationError) {
-                errors.push(
-                    new ParseError({
-                        headers: headers,
-                        line,
-                        error: e,
-                    })
-                );
-            } else {
-                throw e;
-            }
-        }
-    }
-    return {
-        ok: parsed,
-        ko: errors,
-    };
+export function parseQuotidienneCSV(csv: string): ParseResult<QuotidienneLine, ParseError<unknown>> {
+    return parseCSV(csv, quotidienneLineSchema);
 }

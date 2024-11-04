@@ -1,4 +1,4 @@
-import { parseCSV, QuotidienneLine } from '@/csv/quotidiennes/parseCSV.js';
+import { parseQuotidienneCSV, QuotidienneLine } from '@/csv/quotidiennes/parseCSV.js';
 import { HumiditeRelative } from '@/data/value-objects/HumiditeRelative.js';
 import { Octa } from '@/data/value-objects/Octa.js';
 import { PositiveFloat } from '@/data/value-objects/PositiveFloat.js';
@@ -18,7 +18,7 @@ describe('parseCSV', () => {
 76116001;20240616;0,0;43;11,2;145;17,8;1739;14,4;14,50;10,3;10,5;0;6,6;14,5;1006,9;1005,4;3,4;9,4;220;1238;6,3;240;1025;;;;;8,9;;1238;65;1056;99;612;0;837;13,7;;85;141;1354;;;15;;;;;0;0;0;;;;;;;0;0;;2,4;2,6;;;;;0;0
 76116001;20240617;2,2;1;-3,3;1230;-3,3;1230;-3,3;-3,3;-3,3;-3,3;1;1,1;-3,3;2,2;2,2;1,1;1,1;360;1230;1,1;360;1230;1,1;1,1;360;1230;1,1;360;1230;100;1230;100;1230;1;1;2,2;1;100;1;1;1;1;100;1;12;8;1;1;1;1;1;1;1;1;1;1;1;1;1;2,2;2,2;12;-3,3;-3,3;1;1;1
 76116001;20240618;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`;
-            const infrahoraireLines = parseCSV(csvLines);
+            const infrahoraireLines = parseQuotidienneCSV(csvLines);
             expect(infrahoraireLines.ok).toEqual<QuotidienneLine[]>([
                 {
                     POSTE: IdStation.of('76116001'),

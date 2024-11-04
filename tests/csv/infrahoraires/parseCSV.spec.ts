@@ -1,4 +1,4 @@
-import { InfrahoraireLine, parseCSV } from '@/csv/infrahoraires/parseCSV.js';
+import { InfrahoraireLine, parseInfrahoraireCSV } from '@/csv/infrahoraires/parseCSV.js';
 import { PositiveFloat } from '@/data/value-objects/PositiveFloat.js';
 import { IdStation } from '@/id-station/IdStation.js';
 import { describe, expect, it } from 'vitest';
@@ -11,7 +11,7 @@ describe('parseCSV', () => {
 76116001;202406151206;1,1
 76116001;202406151212;
 `;
-            const infrahoraireLines = parseCSV(csvLines);
+            const infrahoraireLines = parseInfrahoraireCSV(csvLines);
             expect(infrahoraireLines.ok).toEqual<InfrahoraireLine[]>([
                 {
                     POSTE: IdStation.of('76116001'),
