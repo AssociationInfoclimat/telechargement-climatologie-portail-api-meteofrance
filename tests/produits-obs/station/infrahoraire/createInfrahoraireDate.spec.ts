@@ -16,10 +16,10 @@ describe('createInfrahoraireDate', () => {
     describe('getLastInfrahoraireDate', () => {
         it('should compute the previous infrahoraire date', () => {
             expect(getLastInfrahoraireDate(new Date('2000-06-15T12:30:00Z'))).toEqual(
-                InfrahoraireDate.of('2000-06-15T12:24:00Z')
+                InfrahoraireDate.of('2000-06-15T12:18:00Z')
             );
             expect(getLastInfrahoraireDate(new Date('2000-06-15T12:30:45Z'))).toEqual(
-                InfrahoraireDate.of('2000-06-15T12:24:00Z')
+                InfrahoraireDate.of('2000-06-15T12:18:00Z')
             );
             expect(getLastInfrahoraireDate(new Date('2000-06-15T12:35:45Z'))).toEqual(
                 InfrahoraireDate.of('2000-06-15T12:24:00Z')

@@ -23,20 +23,12 @@ export function getPreviousInfrahoraireMinute(minutes: number): InfrahoraireMinu
 }
 
 export function getLastInfrahoraireDate(now: Date): InfrahoraireDate {
-    const infrahoraireDate = createInfrahoraireDate({
-        year: now.getUTCFullYear(),
-        month: now.getUTCMonth() + 1,
-        day: now.getUTCDate(),
-        hour: now.getUTCHours(),
-        minute: getPreviousInfrahoraireMinute(now.getUTCMinutes()),
-    });
-    const infrahoraireNow = new Date(infrahoraireDate.value());
-    const previousInfrahoraireNow = new Date(infrahoraireNow.getTime() - 6 * 60 * 1000);
+    const previousInfrahoraireNow = new Date(now.getTime() - 7 * 60 * 1000);
     return createInfrahoraireDate({
         year: previousInfrahoraireNow.getUTCFullYear(),
         month: previousInfrahoraireNow.getUTCMonth() + 1,
         day: previousInfrahoraireNow.getUTCDate(),
         hour: previousInfrahoraireNow.getUTCHours(),
-        minute: previousInfrahoraireNow.getUTCMinutes() as InfrahoraireMinute,
+        minute: getPreviousInfrahoraireMinute(previousInfrahoraireNow.getUTCMinutes()),
     });
 }
