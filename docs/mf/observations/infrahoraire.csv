@@ -1,0 +1,26 @@
+Mnémotechnique,Descriptif,Type,Unité / Format
+geo_id_insee,ID of the point as defined by the INSEE number,TEXT,ddnnnpp with dd = department number, nnn = number of the municipality (ddnnn = Insee code), pp = accuracy on site
+lat,latitude in degrees,REAL,deg (plane angle)
+lon,longitude in degrees,REAL,deg (plane angle)
+reference_time,date and time of the production of the data in UTC,TEXT,iso8601/utc
+insert_time,date and time of data-base insertion of the data in UTC,TEXT,iso8601/utc
+validity_time,date and time of validity of the data in UTC,TEXT,iso8601/utc
+t,air temperature at 2 meters above the ground in Kelvin degrees,REAL,K
+u,hourly relative humidity at 2 meters,INTEGER,percent
+dd,mean wind direction at 10 meters above the ground in degrees,INTEGER,deg (direction)
+ff,mean wind speed at 10 meters above the ground in m/s,REAL,m/s
+dxi10,10 minutes mean wind gust direction at 10 meters above the ground in degrees,INTEGER,deg (direction)
+fxi10,10 minutes mean wind gust speed at 10 meters above the ground in m/s,REAL,m/s
+rr_per,all precipitation over the previous 6 minutes in mm,REAL,mm
+t_10,temperature at 10 centimeters below the ground in Kelvin degrees,REAL,K
+t_20,temperature at 20 centimeters below the ground in Kelvin degrees,REAL,K
+t_50,temperature at 50 centimeters below the ground in Kelvin degrees,REAL,K
+t_100,temperature at 1 meter below the ground in Kelvin degrees,REAL,K
+vv,horizontal visibility in meters,INTEGER,m
+etat_sol,ground state code,INTEGER,
+sss,total depth of snow cover in meters,REAL,m
+n,total nebulosity in octas,INTEGER,percent
+insolh,sunshine duration over the previous 1H,REAL,mn
+ray_glo01,global radiation over the previous 6 minutes in J/m2,REAL,J/m2
+pres,station pressure in Pa,REAL,Pa
+pmer,sea level pressure in Pa,REAL,Pa
