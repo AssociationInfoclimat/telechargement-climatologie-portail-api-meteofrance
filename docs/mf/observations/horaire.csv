@@ -1,33 +1,33 @@
-Mnémotechnique,Descriptif,Type,Unité / Format
-geo_id_insee,ID of the point as defined by the INSEE number,TEXT,ddnnnpp (dd = department number, nnn = number of the municipality (ddnnn = Insee code), pp = accuracy on site)
-lat,latitude in degrees,REAL,deg (plane angle)
-lon,longitude in degrees,REAL,deg (plane angle)
-reference_time,date and time of the production of the data in UTC,TEXT,iso8601/utc
-insert_time,date and time of data-base insertion of the data in UTC,TEXT,iso8601/utc
-validity_time,date and time of validity of the data in UTC,TEXT,iso8601/utc
-t,air temperature at 2 meters above the ground in Kelvin degrees,REAL,K
-td,air temperature of dew point at 2 meters above the ground in Kelvin degrees,REAL,K
-tx,hourly maximum of air temperature at 2 meters above the ground in Kelvin degrees,REAL,K
-tn,hourly minimum of air temperature at 2 meters above the ground in Kelvin degrees,REAL,K
-u,hourly relative humidity at 2 meters,INTEGER,percent
-ux,hourly maximum relative humidity at 2 meters,INTEGER,percent
-un,hourly minimum relative humidity at 2 meters,INTEGER,percent
-dd,mean wind direction at 10 meters above the ground in degrees,INTEGER,deg (direction)
-ff,mean wind speed at 10 meters above the ground in m/s,REAL,m/s
-dxy,hourly mean wind gust direction at 10 meters above the ground in degrees,INTEGER,deg (direction)
-fxy,hourly mean wind gust speed at 10 meters above the ground over the previous 1H in m/s,REAL,m/s
-dxi,hourly instant wind gust direction at 10 meters above the ground in degrees,INTEGER,deg (direction)
-fxi,hourly instant wind gust speed at 10 meters above the ground over the previous 1H in m/s,REAL,m/s
-rr1,all precipitation over the previous 1H in mm,REAL,mm
-t_10,temperature at 10 centimeters below the ground in Kelvin degrees,REAL,K
-t_20,temperature at 20 centimeters below the ground in Kelvin degrees,REAL,K
-t_50,temperature at 50 centimeters below the ground in Kelvin degrees,REAL,K
-t_100,temperature at 1 meter below the ground in Kelvin degrees,REAL,K
-vv,horizontal visibility in meters,INTEGER,m
-etat_sol,ground state code,INTEGER,
-sss,total depth of snow cover in meters,REAL,m
-n,total nebulosity in octas,INTEGER,percent
-insolh,sunshine duration over the previous 1H,REAL,mn
-ray_glo01,hourly global radiation in J/m2,REAL,J/m2
-pres,station pressure in Pa,REAL,Pa
-pmer,sea level pressure in Pa,REAL,Pa
+Mnémonique,Descriptif,Type,Unité / Format
+geo_id_insee,ID du point défini par le numéro Insee,TEXT,"ddnnnpp avec dd = numéro du département, nnn = numéro de la commune (ddnnn = code Insee), pp = précision sur le site"
+lat,latitude du poste en degrés,REAL,degré d'angle (angle plan)
+lon,longitude du poste en degrés,REAL,degré d'angle (angle plan)
+reference_time,date et heure de la production des données,TEXT,ISO 8601/UTC
+insert_time,date et heure d'insertion des données dans la base de données,TEXT,ISO 8601/UTC
+validity_time,date et heure de validité des données,TEXT,ISO 8601/UTC
+t,température sous abri en degrés kelvins,REAL,K
+td,point de rosée à 2 mètres au-dessus du sol en degrés kelvins,REAL,K
+tx,température maximale de l'air à 2 mètres au-dessus du sol en degrés kelvins,REAL,K
+tn,température minimale de l'air à 2 mètres au-dessus du sol en degrés kelvins,REAL,K
+u,humidité relative horaire en %,INTEGER,pourcentage
+ux,humidité relative maximale dans l'heure en %,INTEGER,pourcentage
+un,humidité relative minimale dans l'heure en %,INTEGER,pourcentage
+dd,direction de ff en degrés,INTEGER,degré d'angle (en rose de 360)
+ff,force du vent moyen sur 10 minutes à 10 mètres au-dessus du sol en m/s,REAL,m/s
+dxy,direction de fxy en degrés,INTEGER,degré d'angle (en rose de 360)
+fxy,force maximale de FF dans l'heure à 10 mètres au-dessus du sol en m/s,REAL,m/s
+dxi,direction de fxi en degrés,INTEGER,degré d'angle (en rose de 360)
+fxi,force maximale du vent instantané dans l'heure à 10 mètres au-dessus du sol en m/s,REAL,m/s
+rr1,hauteur de précipitations dans l'heure en mm,REAL,mm
+t_10,température à 10 centimètres de profondeur sous le sol en degrés kelvins,REAL,K
+t_20,température à 20 centimètres de profondeur sous le sol en degrés kelvins,REAL,K
+t_50,température à 50 centimètres de profondeur sous le sol en degrés kelvins,REAL,K
+t_100,température à 100 centimètres de profondeur (1 m) sous le sol en degrés kelvins,REAL,K
+vv,visibilité horizontale en mètres,INTEGER,m
+etat_sol,code de l'état du sol,INTEGER,liste de codes de référence
+sss,hauteur totale de la couverture neigeuse en mètres,REAL,m
+n,nébulosité totale en octas,INTEGER,octas
+insolh,durée insolation au cours de la période en minutes,REAL,min
+ray_glo01,rayonnement global sur l'heure en J/m2,REAL,J/m2
+pres,pression au niveau de la station en pascals,REAL,Pa
+pmer,pression au niveau de la mer en pascals,REAL,Pa
