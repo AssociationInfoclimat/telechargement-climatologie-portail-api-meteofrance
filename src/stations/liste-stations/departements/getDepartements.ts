@@ -5,6 +5,7 @@ export function getDepartements(): Departement[] {
     for (let i = 1; i <= 95; i++) {
         ids.push(Departement.of(i));
     }
+    ids.push(Departement.of(99));
     for (let i = 971; i <= 975; i++) {
         ids.push(Departement.of(i));
     }
