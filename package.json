@@ -50,28 +50,28 @@
         ]
     },
     "dependencies": {
-        "@prisma/client": "6.4.1",
-        "axios": "^1.8.1",
-        "dotenv": "^16.4.7",
-        "pino": "^9.6.0",
-        "typescript": "^5.8.2",
-        "zod": "^3.24.2"
+        "@prisma/client": "6.8.2",
+        "axios": "^1.9.0",
+        "dotenv": "^16.5.0",
+        "pino": "^9.7.0",
+        "typescript": "^5.8.3",
+        "zod": "^3.25.49"
     },
     "devDependencies": {
-        "@eslint/js": "^9.21.0",
+        "@eslint/js": "^9.28.0",
         "@types/eslint-config-prettier": "^6.11.3",
-        "@types/node": "^22.13.9",
+        "@types/node": "^22.15.29",
         "dotenv-cli": "^8.0.0",
-        "eslint": "^9.21.0",
-        "eslint-config-prettier": "^10.0.2",
-        "globals": "^16.0.0",
+        "eslint": "^9.28.0",
+        "eslint-config-prettier": "^10.1.5",
+        "globals": "^16.2.0",
         "husky": "^9.1.7",
-        "lint-staged": "^15.4.3",
+        "lint-staged": "^16.1.0",
         "prettier": "^3.5.3",
-        "prisma": "^6.4.1",
-        "testcontainers": "^10.18.0",
-        "tsx": "^4.19.3",
-        "typescript-eslint": "^8.26.0",
-        "vitest": "^3.0.7"
+        "prisma": "^6.8.2",
+        "testcontainers": "^11.0.0",
+        "tsx": "^4.19.4",
+        "typescript-eslint": "^8.33.1",
+        "vitest": "^3.2.0"
     }
 }
