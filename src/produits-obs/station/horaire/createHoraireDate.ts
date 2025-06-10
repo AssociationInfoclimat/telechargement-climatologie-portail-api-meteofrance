@@ -16,7 +16,7 @@ export function createHoraireDate(hourCommande: HourDate): HoraireDate {
 }
 
 export function getLastHoraireDate(now: Date): HoraireDate {
-    const offset = new Date(now.getTime() - 11 * 60 * 1000);
+    const offset = new Date(now.getTime() - 12 * 60 * 1000);
     return createHoraireDate({
         year: offset.getUTCFullYear(),
         month: offset.getUTCMonth() + 1,
