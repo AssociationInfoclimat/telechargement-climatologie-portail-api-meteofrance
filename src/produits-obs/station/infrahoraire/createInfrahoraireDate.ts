@@ -23,7 +23,7 @@ export function getPreviousInfrahoraireMinute(minutes: number): InfrahoraireMinu
 }
 
 export function getLastInfrahoraireDate(now: Date): InfrahoraireDate {
-    const previousInfrahoraireNow = new Date(now.getTime() - 7 * 60 * 1000);
+    const previousInfrahoraireNow = new Date(now.getTime() - 8 * 60 * 1000);
     return createInfrahoraireDate({
         year: previousInfrahoraireNow.getUTCFullYear(),
         month: previousInfrahoraireNow.getUTCMonth() + 1,
