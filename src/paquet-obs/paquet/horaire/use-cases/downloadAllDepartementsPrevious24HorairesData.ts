@@ -23,7 +23,7 @@ export async function downloadAllDepartementsPrevious24HorairesData({
         retries,
         waitingTimeInMs,
     });
-    const departements = getDepartements();
+    const departements = getDepartements(false);
     for (const departement of departements) {
         LoggerSingleton.getSingleton().info({
             message: `Downloading previous 24 horaires data of departement '${departement}'`,
