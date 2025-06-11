@@ -1,3 +1,122 @@
+CREATE EXTENSION IF NOT EXISTS timescaledb;
+
+-- CreateEnum
+CREATE TYPE "Pack" AS ENUM ('RADOME', 'ETENDU');
+
+-- CreateTable
+CREATE TABLE "Station"
+(
+    "createdAt"   TIMESTAMP(3)     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt"   TIMESTAMP(3)     NOT NULL,
+    "id"          CHAR(8)          NOT NULL,
+    "nom"         TEXT             NOT NULL,
+    "departement" INTEGER          NOT NULL,
+    "frequence"   VARCHAR(15)      NOT NULL,
+    "posteOuvert" BOOLEAN          NOT NULL,
+    "typePoste"   INTEGER          NOT NULL,
+    "lon"         DOUBLE PRECISION NOT NULL,
+    "lat"         DOUBLE PRECISION NOT NULL,
+    "alt"         DOUBLE PRECISION NOT NULL,
+    "postePublic" BOOLEAN          NOT NULL,
+
+    CONSTRAINT "Station_pkey" PRIMARY KEY ("id", "frequence")
+);
+
+-- CreateTable
+CREATE TABLE "InformationStation"
+(
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "id"        CHAR(8)      NOT NULL,
+    "nom"       TEXT         NOT NULL,
+    "lieuDit"   TEXT,
+    "bassin"    TEXT         NOT NULL,
+    "dateDebut" TIMESTAMP(3) NOT NULL,
+    "dateFin"   TIMESTAMP(3),
+
+    CONSTRAINT "InformationStation_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "TypePoste"
+(
+    "id"        SERIAL       NOT NULL,
+    "type"      INTEGER      NOT NULL,
+    "dateDebut" TIMESTAMP(3) NOT NULL,
+    "dateFin"   TIMESTAMP(3),
+    "stationId" CHAR(8)      NOT NULL,
+
+    CONSTRAINT "TypePoste_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Parametre"
+(
+    "id"        SERIAL       NOT NULL,
+    "nom"       TEXT         NOT NULL,
+    "dateDebut" TIMESTAMP(3) NOT NULL,
+    "dateFin"   TIMESTAMP(3),
+    "stationId" CHAR(8)      NOT NULL,
+
+    CONSTRAINT "Parametre_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Producteur"
+(
+    "id"        SERIAL       NOT NULL,
+    "nom"       TEXT         NOT NULL,
+    "dateDebut" TIMESTAMP(3) NOT NULL,
+    "dateFin"   TIMESTAMP(3),
+    "stationId" CHAR(8)      NOT NULL,
+
+    CONSTRAINT "Producteur_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Position"
+(
+    "id"        SERIAL           NOT NULL,
+    "altitude"  DOUBLE PRECISION NOT NULL,
+    "latitude"  DOUBLE PRECISION NOT NULL,
+    "longitude" DOUBLE PRECISION NOT NULL,
+    "dateDebut" TIMESTAMP(3)     NOT NULL,
+    "dateFin"   TIMESTAMP(3),
+    "stationId" CHAR(8)          NOT NULL,
+
+    CONSTRAINT "Position_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "CommandeStation"
+(
+    "createdAt"      TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt"      TIMESTAMP(3) NOT NULL,
+    "id"             TEXT         NOT NULL,
+    "status"         TEXT         NOT NULL DEFAULT 'pending',
+    "dateDebPeriode" TIMESTAMP(3) NOT NULL,
+    "dateFinPeriode" TIMESTAMP(3) NOT NULL,
+    "idStation"      CHAR(8)      NOT NULL,
+    "frequence"      VARCHAR(15)  NOT NULL,
+
+    CONSTRAINT "CommandeStation_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "StationTempsReel"
+(
+    "Id_station"     CHAR(8)          NOT NULL,
+    "Id_omm"         CHAR(5),
+    "Nom_usuel"      VARCHAR(255)     NOT NULL,
+    "Latitude"       DOUBLE PRECISION NOT NULL,
+    "Longitude"      DOUBLE PRECISION NOT NULL,
+    "Altitude"       INTEGER          NOT NULL,
+    "Date_ouverture" TIMESTAMP(3)     NOT NULL,
+    "Pack"           "Pack"           NOT NULL,
+
+    CONSTRAINT "StationTempsReel_pkey" PRIMARY KEY ("Id_station")
+);
+
 -- CreateTable
 CREATE TABLE "InfrahoraireTempsReel"
 (
@@ -29,6 +148,13 @@ CREATE TABLE "InfrahoraireTempsReel"
     "pmer"           DOUBLE PRECISION,
 
     CONSTRAINT "InfrahoraireTempsReel_pkey" PRIMARY KEY ("geo_id_insee", "validity_time")
+) WITH (
+      tsdb.hypertable = true,
+      tsdb.partition_column = 'validity_time',
+      tsdb.chunk_interval = '31 days',
+      tsdb.create_default_indexes = false,
+      tsdb.orderby = 'validity_time DESC',
+      tsdb.segmentby = 'geo_id_insee'
 );
 
 -- CreateTable
@@ -68,6 +194,13 @@ CREATE TABLE "HoraireTempsReel"
     "pmer"           DOUBLE PRECISION,
 
     CONSTRAINT "HoraireTempsReel_pkey" PRIMARY KEY ("geo_id_insee", "validity_time")
+) WITH (
+      tsdb.hypertable = true,
+      tsdb.partition_column = 'validity_time',
+      tsdb.chunk_interval = '31 days',
+      tsdb.create_default_indexes = false,
+      tsdb.orderby = 'validity_time DESC',
+      tsdb.segmentby = 'geo_id_insee'
 );
 
 -- CreateTable
@@ -689,7 +822,7 @@ CREATE TABLE "Horaire"
     "PSTAT"        DOUBLE PRECISION,
     "QPSTAT"       INTEGER,
     "PMERMIN"      DOUBLE PRECISION,
-    "QPERMIN"      INTEGER,
+    "QPMERMIN" INTEGER,
     "GEOP"         INTEGER,
     "QGEOP"        INTEGER,
     "N"            INTEGER,
@@ -713,7 +846,7 @@ CREATE TABLE "Horaire"
     "C2"           TEXT,
     "QC2"          INTEGER,
     "B2"           INTEGER,
-    "QCB2"         INTEGER,
+    "QB2"      INTEGER,
     "N3"           INTEGER,
     "QN3"          INTEGER,
     "C3"           TEXT,
@@ -802,6 +935,13 @@ CREATE TABLE "Horaire"
     "QECOULEMENT"  INTEGER,
 
     CONSTRAINT "Horaire_pkey" PRIMARY KEY ("NUM_POSTE", "AAAAMMJJHH")
+) WITH (
+      tsdb.hypertable = true,
+      tsdb.partition_column = 'AAAAMMJJHH',
+      tsdb.chunk_interval = '31 days',
+      tsdb.create_default_indexes = false,
+      tsdb.orderby = '"AAAAMMJJHH" DESC',
+      tsdb.segmentby = '"NUM_POSTE"'
 );
 
 -- CreateTable
@@ -817,6 +957,13 @@ CREATE TABLE "Infrahoraire"
     "QRR"          INTEGER,
 
     CONSTRAINT "Infrahoraire_pkey" PRIMARY KEY ("NUM_POSTE", "AAAAMMJJHHMN")
+) WITH (
+      tsdb.hypertable = true,
+      tsdb.partition_column = 'AAAAMMJJHHMN',
+      tsdb.chunk_interval = '31 days',
+      tsdb.create_default_indexes = false,
+      tsdb.orderby = '"AAAAMMJJHHMN" DESC',
+      tsdb.segmentby = '"NUM_POSTE"'
 );
 
 -- CreateTable
@@ -827,3 +974,78 @@ CREATE TABLE "SaveProgress"
 
     CONSTRAINT "SaveProgress_pkey" PRIMARY KEY ("name")
 );
+
+-- CreateTable
+CREATE TABLE "ommid"
+(
+    "mfid" CHAR(8) NOT NULL,
+    "stid" VARCHAR NOT NULL,
+
+    CONSTRAINT "ommid_pkey" PRIMARY KEY ("mfid")
+);
+
+-- CreateIndex
+CREATE INDEX "Station_lat_idx" ON "Station" ("lat");
+
+-- CreateIndex
+CREATE INDEX "Station_lon_idx" ON "Station" ("lon");
+
+-- CreateIndex
+CREATE INDEX "StationTempsReel_Latitude_idx" ON "StationTempsReel" ("Latitude");
+
+-- CreateIndex
+CREATE INDEX "StationTempsReel_Longitude_idx" ON "StationTempsReel" ("Longitude");
+
+-- CreateIndex
+CREATE INDEX "InfrahoraireTempsReel_validity_time_idx" ON "InfrahoraireTempsReel" ("validity_time");
+
+-- CreateIndex
+CREATE INDEX "HoraireTempsReel_validity_time_idx" ON "HoraireTempsReel" ("validity_time");
+
+-- CreateIndex
+CREATE INDEX "Mensuelle_AAAAMM_idx" ON "Mensuelle" ("AAAAMM");
+
+-- CreateIndex
+CREATE INDEX "Decadaire_AAAAMM_idx" ON "Decadaire" ("AAAAMM");
+
+-- CreateIndex
+CREATE INDEX "Decadaire_NUM_DECADE_idx" ON "Decadaire" ("NUM_DECADE");
+
+-- CreateIndex
+CREATE INDEX "DecadaireAgro_AAAAMM_idx" ON "DecadaireAgro" ("AAAAMM");
+
+-- CreateIndex
+CREATE INDEX "DecadaireAgro_NUM_DECADE_idx" ON "DecadaireAgro" ("NUM_DECADE");
+
+-- CreateIndex
+CREATE INDEX "Quotidienne_AAAAMMJJ_idx" ON "Quotidienne" ("AAAAMMJJ");
+
+-- CreateIndex
+CREATE INDEX "QuotidienneAutresParametres_AAAAMMJJ_idx" ON "QuotidienneAutresParametres" ("AAAAMMJJ");
+
+-- CreateIndex
+CREATE INDEX "Horaire_AAAAMMJJHH_idx" ON "Horaire" ("AAAAMMJJHH");
+
+-- CreateIndex
+CREATE INDEX "Infrahoraire_AAAAMMJJHHMN_idx" ON "Infrahoraire" ("AAAAMMJJHHMN");
+
+-- AddForeignKey
+ALTER TABLE "TypePoste"
+    ADD CONSTRAINT "TypePoste_stationId_fkey" FOREIGN KEY ("stationId") REFERENCES "InformationStation" ("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Parametre"
+    ADD CONSTRAINT "Parametre_stationId_fkey" FOREIGN KEY ("stationId") REFERENCES "InformationStation" ("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Producteur"
+    ADD CONSTRAINT "Producteur_stationId_fkey" FOREIGN KEY ("stationId") REFERENCES "InformationStation" ("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Position"
+    ADD CONSTRAINT "Position_stationId_fkey" FOREIGN KEY ("stationId") REFERENCES "InformationStation" ("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "CommandeStation"
+    ADD CONSTRAINT "CommandeStation_idStation_frequence_fkey" FOREIGN KEY ("idStation", "frequence") REFERENCES "Station" ("id", "frequence") ON DELETE CASCADE ON UPDATE CASCADE;
+
