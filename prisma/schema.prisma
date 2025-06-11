@@ -29,6 +29,8 @@ model Station {
     commandes   CommandeStation[]
 
     @@id([id, frequence])
+    @@index([lat])
+    @@index([lon])
 }
 
 model InformationStation {
@@ -110,6 +112,9 @@ model StationTempsReel {
     Altitude       Int
     Date_ouverture DateTime
     Pack           Pack
+
+    @@index([Latitude])
+    @@index([Longitude])
 }
 
 model InfrahoraireTempsReel {
@@ -141,6 +146,7 @@ model InfrahoraireTempsReel {
     pmer           Float?
 
     @@id([geo_id_insee, validity_time])
+    @@index([validity_time])
 }
 
 model HoraireTempsReel {
@@ -178,6 +184,7 @@ model HoraireTempsReel {
     pmer           Float?
 
     @@id([geo_id_insee, validity_time])
+    @@index([validity_time])
 }
 
 model Mensuelle {
@@ -345,6 +352,7 @@ model Mensuelle {
     NBJBROU       Int?
 
     @@id([NUM_POSTE, AAAAMM])
+    @@index([AAAAMM])
 }
 
 model Decadaire {
@@ -508,6 +516,8 @@ model Decadaire {
     NBJBROU       Int?
 
     @@id([NUM_POSTE, AAAAMM, NUM_DECADE])
+    @@index([AAAAMM])
+    @@index([NUM_DECADE])
 }
 
 model DecadaireAgro {
@@ -535,6 +545,8 @@ model DecadaireAgro {
     ETP        Float?
 
     @@id([NUM_POSTE, AAAAMM, NUM_DECADE])
+    @@index([AAAAMM])
+    @@index([NUM_DECADE])
 }
 
 model Quotidienne {
@@ -624,6 +636,7 @@ model Quotidienne {
     QDRR Int?
 
     @@id([NUM_POSTE, AAAAMMJJ])
+    @@index([AAAAMMJJ])
 }
 
 model QuotidienneAutresParametres {
@@ -717,6 +730,7 @@ model QuotidienneAutresParametres {
     QTMERMAX     Int?
 
     @@id([NUM_POSTE, AAAAMMJJ])
+    @@index([AAAAMMJJ])
 }
 
 model Horaire {
@@ -926,6 +940,7 @@ model Horaire {
     QECOULEMENT  Int?
 
     @@id([NUM_POSTE, AAAAMMJJHH])
+    @@index([AAAAMMJJHH])
 }
 
 model Infrahoraire {
@@ -939,9 +954,15 @@ model Infrahoraire {
     QRR          Int?
 
     @@id([NUM_POSTE, AAAAMMJJHHMN])
+    @@index([AAAAMMJJHHMN])
 }
 
 model SaveProgress {
     name      String   @id @db.VarChar(255)
     updatedAt DateTime @updatedAt
+}
+
+model ommid {
+    mfid String @id @db.Char(8)
+    stid String @db.VarChar
 }
