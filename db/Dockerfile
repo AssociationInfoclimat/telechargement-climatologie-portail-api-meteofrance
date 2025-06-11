@@ -1,2 +1,2 @@
-FROM timescale/timescaledb:latest-pg16
+FROM timescale/timescaledb:latest-pg17
 EXPOSE 5432
