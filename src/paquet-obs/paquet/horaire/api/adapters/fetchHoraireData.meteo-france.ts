@@ -4,7 +4,7 @@ import { Departement } from '@/stations/liste-stations/departements/Departement.
 
 export function fetchHoraireData(departement: Departement): Promise<APIResponse> {
     return getMF({
-        url: 'https://public-api.meteofrance.fr/public/DPPaquetObs/v1/paquet/horaire',
+        url: 'https://public-api.meteofrance.fr/public/DPPaquetObs/v2/paquet/horaire',
         params: {
             'id-departement': departement.value().toString(),
             format: 'json',

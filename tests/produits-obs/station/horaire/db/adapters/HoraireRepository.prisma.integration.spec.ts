@@ -31,6 +31,8 @@ describe('PrismaHoraireRepository', () => {
                     fxy: 7.4,
                     dxi: 160,
                     fxi: 11.1,
+                    ddraf: 160,
+                    raf: 11.1,
                     rr1: 0.0,
                     t_10: 13.8,
                     t_20: 13.8,

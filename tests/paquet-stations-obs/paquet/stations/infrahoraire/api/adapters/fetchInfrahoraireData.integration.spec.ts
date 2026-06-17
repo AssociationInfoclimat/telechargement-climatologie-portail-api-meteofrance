@@ -40,6 +40,8 @@ describe('fetchInfrahoraireData', () => {
             ff: expect.nullOrAny(PositiveFloat),
             dxi10: expect.nullOrAny(WindDirection),
             fxi10: expect.nullOrAny(PositiveFloat),
+            ddraf10: expect.nullOrAny(WindDirection),
+            raf10: expect.nullOrAny(PositiveFloat),
             rr_per: expect.nullOrAny(PositiveFloat),
             t_10: expect.nullOrAny(Number),
             t_20: expect.nullOrAny(Number),

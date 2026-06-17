@@ -20,6 +20,8 @@ describe('InMemoryInfrahoraireRepository', () => {
                     ff: 7.5,
                     dxi10: 160,
                     fxi10: 11.1,
+                    ddraf10: 160,
+                    raf10: 11.1,
                     rr_per: 0.0,
                     t_10: 13.8,
                     t_20: 13.8,

@@ -22,6 +22,8 @@ export function toDTO(line: HoraireLine): HoraireLineDTO {
         fxy: line.fxy.value(),
         dxi: line.dxi.value(),
         fxi: line.fxi.value(),
+        ddraf: line.ddraf.value(),
+        raf: line.raf.value(),
         rr1: line.rr1.value(),
         t_10: line.t_10,
         t_20: line.t_20,

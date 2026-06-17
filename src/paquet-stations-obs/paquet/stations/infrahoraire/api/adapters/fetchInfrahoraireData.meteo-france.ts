@@ -4,7 +4,7 @@ import { InfrahoraireDate } from '@/produits-obs/station/infrahoraire/Infrahorai
 
 export function fetchInfrahoraireData(infrahoraireDate: InfrahoraireDate): Promise<APIResponse> {
     return getMF({
-        url: 'https://public-api.meteofrance.fr/public/DPPaquetObs/v1/paquet/stations/infrahoraire-6m',
+        url: 'https://public-api.meteofrance.fr/public/DPPaquetObs/v2/paquet/stations/infrahoraire-6m',
         params: {
             date: infrahoraireDate.value(),
             format: 'json',

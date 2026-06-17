@@ -12,10 +12,16 @@ import { describe, expect, it } from 'vitest';
 
 describe('fetchHoraireData', () => {
     it('should fetch horaire data', async () => {
+        const today = new Date();
         const fetcher = new HoraireDataFetcher({ fetchHoraireDataAPI: fetchHoraireData });
         const horaireData = await fetcher.fetchHoraireData({
             idStation: IdStation.of('76116001'),
-            horaireDate: createHoraireDate({ year: 2000, month: 6, day: 15, hour: 12 }),
+            horaireDate: createHoraireDate({
+                year: today.getUTCFullYear(),
+                month: today.getUTCMonth() + 1,
+                day: today.getUTCDate(),
+                hour: 4,
+            }),
         });
         expect(horaireData).toEqual({
             geo_id_insee: expect.any(IdStation),
@@ -37,6 +43,8 @@ describe('fetchHoraireData', () => {
             fxy: expect.nullOrAny(PositiveFloat),
             dxi: expect.nullOrAny(WindDirection),
             fxi: expect.nullOrAny(PositiveFloat),
+            ddraf: expect.nullOrAny(WindDirection),
+            raf: expect.nullOrAny(PositiveFloat),
             rr1: expect.nullOrAny(PositiveFloat),
             t_10: expect.nullOrAny(Number),
             t_20: expect.nullOrAny(Number),

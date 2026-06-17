@@ -11,7 +11,7 @@ export function fetchHoraireData({
     horaireDate: HoraireDate;
 }): Promise<APIResponse> {
     return getMF({
-        url: 'https://public-api.meteofrance.fr/public/DPObs/v1/station/horaire',
+        url: 'https://public-api.meteofrance.fr/public/DPObs/v2/station/horaire',
         params: {
             id_station: idStation.value(),
             date: horaireDate.value(),

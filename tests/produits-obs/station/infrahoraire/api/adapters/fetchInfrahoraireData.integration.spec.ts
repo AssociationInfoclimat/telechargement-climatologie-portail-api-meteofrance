@@ -12,10 +12,17 @@ import { describe, expect, it } from 'vitest';
 
 describe('fetchInfrahoraireData', () => {
     it('should fetch horaire data', async () => {
+        const today = new Date();
         const fetcher = new InfrahoraireDataFetcher({ fetchInfrahoraireDataAPI: fetchInfrahoraireData });
         const infrahoraireData = await fetcher.fetchInfrahoraireData({
             idStation: IdStation.of('76116001'),
-            infrahoraireDate: createInfrahoraireDate({ year: 2000, month: 6, day: 15, hour: 12, minute: 6 }),
+            infrahoraireDate: createInfrahoraireDate({
+                year: today.getUTCFullYear(),
+                month: today.getUTCMonth() + 1,
+                day: today.getUTCDate(),
+                hour: 4,
+                minute: 36,
+            }),
         });
         expect(infrahoraireData).toEqual({
             geo_id_insee: expect.any(IdStation),
@@ -31,6 +38,8 @@ describe('fetchInfrahoraireData', () => {
             ff: expect.nullOrAny(PositiveFloat),
             dxi10: expect.nullOrAny(WindDirection),
             fxi10: expect.nullOrAny(PositiveFloat),
+            ddraf10: expect.nullOrAny(WindDirection),
+            raf10: expect.nullOrAny(PositiveFloat),
             rr_per: expect.nullOrAny(PositiveFloat),
             t_10: expect.nullOrAny(Number),
             t_20: expect.nullOrAny(Number),

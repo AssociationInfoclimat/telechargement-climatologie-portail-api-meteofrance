@@ -95,6 +95,24 @@ export function buildInfrahoraireLineSchema(onCatch: (ctx: { error: ZodError; in
                 onCatch(ctx);
                 return PositiveFloat.of(null);
             }),
+        // ddraf10,10 minutes mean wind gust direction at 10 meters above the ground in degrees (mean over 3s !!!),INTEGER,deg (direction)
+        ddraf10: z
+            .number()
+            .nullish()
+            .transform(toWindDirection)
+            .catch(ctx => {
+                onCatch(ctx);
+                return WindDirection.of(PositiveInteger.of(null));
+            }),
+        // raf10,10 minutes mean wind gust speed at 10 meters above the ground in m/s (mean over 3s !!!),REAL,m/s
+        raf10: z
+            .number()
+            .nullish()
+            .transform(toPositiveFloat)
+            .catch(ctx => {
+                onCatch(ctx);
+                return PositiveFloat.of(null);
+            }),
         // rr_per,all precipitation over the previous 6 minutes in mm,REAL,mm
         rr_per: z
             .number()

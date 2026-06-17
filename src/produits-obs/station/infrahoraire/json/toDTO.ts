@@ -16,6 +16,8 @@ export function toDTO(line: InfrahoraireLine): InfrahoraireLineDTO {
         ff: line.ff.value(),
         dxi10: line.dxi10.value(),
         fxi10: line.fxi10.value(),
+        ddraf10: line.ddraf10.value(),
+        raf10: line.raf10.value(),
         rr_per: line.rr_per.value(),
         t_10: line.t_10,
         t_20: line.t_20,

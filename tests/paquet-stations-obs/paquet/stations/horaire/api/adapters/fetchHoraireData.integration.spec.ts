@@ -45,6 +45,8 @@ describe('fetchHoraireData', () => {
             fxy: expect.nullOrAny(PositiveFloat),
             dxi: expect.nullOrAny(WindDirection),
             fxi: expect.nullOrAny(PositiveFloat),
+            ddraf: expect.nullOrAny(WindDirection),
+            raf: expect.nullOrAny(PositiveFloat),
             rr1: expect.nullOrAny(PositiveFloat),
             t_10: expect.nullOrAny(Number),
             t_20: expect.nullOrAny(Number),

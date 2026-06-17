@@ -149,6 +149,24 @@ export function buildHoraireLineSchema(onCatch: (ctx: { error: ZodError; input: 
                 onCatch(ctx);
                 return PositiveFloat.of(null);
             }),
+        // ddraf,hourly instant wind gust direction at 10 meters above the ground in degrees (mean over 3s !!!),INTEGER,deg (direction)
+        ddraf: z
+            .number()
+            .nullish()
+            .transform(toWindDirection)
+            .catch(ctx => {
+                onCatch(ctx);
+                return WindDirection.of(PositiveInteger.of(null));
+            }),
+        // raf,hourly instant wind gust speed at 10 meters above the ground over the previous 1H in m/s (mean over 3s !!!),REAL,m/s
+        raf: z
+            .number()
+            .nullish()
+            .transform(toPositiveFloat)
+            .catch(ctx => {
+                onCatch(ctx);
+                return PositiveFloat.of(null);
+            }),
         // rr1,all precipitation over the previous 1H in mm,REAL,mm
         rr1: z
             .number()

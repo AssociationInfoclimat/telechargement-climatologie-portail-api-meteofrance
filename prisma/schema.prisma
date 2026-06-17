@@ -131,6 +131,8 @@ model InfrahoraireTempsReel {
     ff             Float?
     dxi10          Int?
     fxi10          Float?
+    ddraf10 Int?
+    raf10   Float?
     rr_per         Float?
     t_10           Float?
     t_20           Float?
@@ -169,6 +171,8 @@ model HoraireTempsReel {
     fxy            Float?
     dxi            Int?
     fxi            Float?
+    ddraf Int?
+    raf   Float?
     rr1            Float?
     t_10           Float?
     t_20           Float?

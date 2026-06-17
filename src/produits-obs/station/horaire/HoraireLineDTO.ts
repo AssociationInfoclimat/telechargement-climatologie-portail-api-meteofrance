@@ -38,6 +38,10 @@ export interface HoraireLineDTO {
     dxi: number | null;
     // fxi,hourly instant wind gust speed at 10 meters above the ground over the previous 1H in m/s,REAL,m/s
     fxi: number | null;
+    // ddraf,hourly instant wind gust direction at 10 meters above the ground in degrees (mean over 3s !!!),INTEGER,deg (direction)
+    ddraf: number | null;
+    // raf,hourly instant wind gust speed at 10 meters above the ground over the previous 1H in m/s (mean over 3s !!!),REAL,m/s
+    raf: number | null;
     // rr1,all precipitation over the previous 1H in mm,REAL,mm
     rr1: number | null;
     // t_10,temperature at 10 centimeters below the ground in Kelvin degrees,REAL,K

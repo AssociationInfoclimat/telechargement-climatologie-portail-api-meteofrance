@@ -12,10 +12,17 @@ describe('downloadStationInfrahoraireDataAt', () => {
         await prisma.infrahoraireTempsReel.deleteMany();
     });
     it('should download the infrahoraire data from the station at the infrahoraire date', async () => {
+        const today = new Date();
         const repository = new PrismaInfrahoraireRepository(prisma);
         await downloadStationInfrahoraireDataAt({
             idStation: IdStation.of('76116001'),
-            infrahoraireDate: createInfrahoraireDate({ year: 2000, month: 6, day: 15, hour: 12, minute: 36 }),
+            infrahoraireDate: createInfrahoraireDate({
+                year: today.getUTCFullYear(),
+                month: today.getUTCMonth() + 1,
+                day: today.getUTCDate(),
+                hour: 4,
+                minute: 36,
+            }),
             apiFetcher: fetchInfrahoraireData,
             repository,
         });
@@ -36,6 +43,8 @@ describe('downloadStationInfrahoraireDataAt', () => {
             ff: expect.nullOrAny(Number),
             dxi10: expect.nullOrAny(Number),
             fxi10: expect.nullOrAny(Number),
+            ddraf10: expect.nullOrAny(Number),
+            raf10: expect.nullOrAny(Number),
             rr_per: expect.nullOrAny(Number),
             t_10: expect.nullOrAny(Number),
             t_20: expect.nullOrAny(Number),

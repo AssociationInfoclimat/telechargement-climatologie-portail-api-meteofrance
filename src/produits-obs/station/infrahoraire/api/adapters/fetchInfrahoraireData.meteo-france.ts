@@ -11,7 +11,7 @@ export function fetchInfrahoraireData({
     infrahoraireDate: InfrahoraireDate;
 }): Promise<APIResponse> {
     return getMF({
-        url: 'https://public-api.meteofrance.fr/public/DPObs/v1/station/infrahoraire-6m',
+        url: 'https://public-api.meteofrance.fr/public/DPObs/v2/station/infrahoraire-6m',
         params: {
             id_station: idStation.value(),
             date: infrahoraireDate.value(),
